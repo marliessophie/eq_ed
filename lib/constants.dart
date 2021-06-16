@@ -3,13 +3,27 @@ import 'package:flutter/material.dart';
 // TODO: change the colors
 
 const kBottomContainerHeight = 80.0;
-const kActiveCardColour = Color(0xFF1D1E33);
-const kInactiveCardColour = Color(0xFF111328);
-const kBottomContainerColour = Color(0xFFEB1555);
+const kAppBarColor = Color(0xFF1D1E33);
+const kPrimaryColor = Color(0xFF00796B);
+const kSecondaryColor = Color(0xFFCDDC39);
+const kLightColor = Color(0xFFB2DFDB);
+const kAccentColor = Color(0xFFE91E63);
+const kAccentTransparent = Color(0x29E91E63);
+const kSecondaryAccentColor = Color(0xFF7B1FA2);
 
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
+);
+
+const kNormalTextStyle = TextStyle(
+  fontSize: 18.0,
+  color: kAppBarColor,
+);
+
+const kPlaceholderTextStyle = TextStyle(
+  fontSize: 16.0,
+  color: Color(0xFF757575),
 );
 
 const kNumberTextStyle = TextStyle(

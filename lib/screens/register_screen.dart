@@ -67,6 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextField(
                         decoration: const InputDecoration(
                           hintText: "Enter password",
+                          // TODO: firebase auth link and error messages for user
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: kAccentColor),
                           ),

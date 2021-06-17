@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "485599328173",
+    "project_id": "eqed-ea4c0",
+    "storage_bucket": "eqed-ea4c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485599328173:android:a4a871ac108bc600779324",
+        "android_client_info": {
+          "package_name": "co.MarliesMayerhofer.eq_ed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485599328173-u3nt8ad5dh6okla3ccssh0cpuq4mosdg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCayX5aUKQfEnRarCW3MWCnUMxDpwIeT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485599328173-u3nt8ad5dh6okla3ccssh0cpuq4mosdg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

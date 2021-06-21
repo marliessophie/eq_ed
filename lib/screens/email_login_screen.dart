@@ -6,6 +6,7 @@ import 'package:eq_ed/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class EmailLoginScreen extends StatefulWidget {
   static var id = 'email_login_screen';
@@ -16,6 +17,7 @@ class EmailLoginScreen extends StatefulWidget {
 
 class _EmailLoginScreenState extends State<EmailLoginScreen> {
   final _auth = FirebaseAuth.instance;
+  bool showSpinner = false;
   late String email;
   late String password;
 
@@ -26,131 +28,141 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
         backgroundColor: kAppBarColor,
         title: Text('EQ\'ed | Login'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Please Sign In below!',
-                    style: kNormalTextStyle.copyWith(
-                      fontSize: 30.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ReusableCard(
-              cardChild: Padding(
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) {
-                          email = value;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Enter email",
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: kAccentColor),
-                          ),
-                        ),
-                        style: kPlaceholderTextStyle.copyWith(
-                            fontStyle: FontStyle.italic),
+                    Text(
+                      'Please Sign In below!',
+                      style: kNormalTextStyle.copyWith(
+                        fontSize: 30.0,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        obscureText: true,
-                        onChanged: (value) {
-                          password = value;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Enter password",
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: kAccentColor),
-                          ),
-                        ),
-                        style: kPlaceholderTextStyle.copyWith(
-                            fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: ReusableCard(
-                        colour: kPrimaryColor,
-                        cardChild: Center(
-                          child: Text(
-                            'Login',
-                            style: kLabelTextStyle.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        onPress: () async {
-                          try {
-                            final user = await _auth.signInWithEmailAndPassword(
-                                email: email, password: password);
-                            if (user != null) {
-                              Navigator.pushNamed(context, HomeScreen.id);
-                            }
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
                     ),
                   ],
                 ),
               ),
-              onPress: () {},
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Who is EQ\'ed?',
-                  style: kNormalTextStyle.copyWith(
-                    fontSize: 18.0,
+            Expanded(
+              child: ReusableCard(
+                cardChild: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (value) {
+                            email = value;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "Enter email",
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: kAccentColor),
+                            ),
+                          ),
+                          style: kPlaceholderTextStyle.copyWith(
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          obscureText: true,
+                          onChanged: (value) {
+                            password = value;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "Enter password",
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: kAccentColor),
+                            ),
+                          ),
+                          style: kPlaceholderTextStyle.copyWith(
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Expanded(
+                        child: ReusableCard(
+                          colour: kPrimaryColor,
+                          cardChild: Center(
+                            child: Text(
+                              'Login',
+                              style: kLabelTextStyle.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          onPress: () async {
+                            setState(() {
+                              showSpinner = true;
+                            });
+                            try {
+                              final user =
+                                  await _auth.signInWithEmailAndPassword(
+                                      email: email, password: password);
+                              if (user != null) {
+                                Navigator.pushNamed(context, HomeScreen.id);
+                              }
+                              setState(() {
+                                showSpinner = false;
+                              });
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                    ],
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, InfoScreen.id);
-                  },
-                  child: Text(
-                    'Find out more about me!',
+                onPress: () {},
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Who is EQ\'ed?',
                     style: kNormalTextStyle.copyWith(
-                      color: kSecondaryAccentColor,
+                      fontSize: 18.0,
                     ),
                   ),
-                )
-              ],
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, InfoScreen.id);
+                    },
+                    child: Text(
+                      'Find out more about me!',
+                      style: kNormalTextStyle.copyWith(
+                        color: kSecondaryAccentColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

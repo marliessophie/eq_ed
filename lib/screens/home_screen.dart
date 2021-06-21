@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
+import 'package:eq_ed/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,7 +16,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
   late User loggedInUser;
+  late dynamic userName;
 
   @override
   void initState() {
@@ -27,6 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
       final user = await _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
+        print('get here');
+        print(loggedInUser.uid);
+        _firestore
+            .collection('user_data')
+            .doc(loggedInUser.uid)
+            .get()
+            .then((DocumentSnapshot value) {
+          if (value.exists) {
+            userName = value['user_name'];
+          }
+        });
       }
     } catch (e) {
       print(e);
@@ -40,6 +55,17 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: kAppBarColor,
         title: Text('EQ\'ed | Home'),
         automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.logout_rounded),
+            onPressed: () {
+              _auth.signOut();
+              Navigator.of(context).popUntil((route) {
+                return route.settings.name == WelcomeScreen.id;
+              });
+            },
+          )
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Welcome back, Sarah!',
+                    'Welcome back!',
                     style: kNormalTextStyle.copyWith(
                       fontSize: 30.0,
                     ),

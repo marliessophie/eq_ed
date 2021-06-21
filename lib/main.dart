@@ -6,8 +6,11 @@ import 'package:eq_ed/screens/login_screen.dart';
 import 'package:eq_ed/screens/register_screen.dart';
 import 'package:eq_ed/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const EQed());
 }
 

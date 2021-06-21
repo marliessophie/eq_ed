@@ -3,7 +3,10 @@ import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/home_screen.dart';
 import 'package:eq_ed/screens/info_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+// TODO: include the name of the user in the cloud database
 
 class RegisterScreen extends StatefulWidget {
   static var id = 'register_screen';
@@ -13,6 +16,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +62,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          email = value;
+                        },
                         decoration: const InputDecoration(
                           hintText: "Enter email",
                           focusedBorder: UnderlineInputBorder(
@@ -65,6 +81,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     Expanded(
                       child: TextField(
+                        obscureText: true,
+                        onChanged: (value) {
+                          password = value;
+                        },
                         decoration: const InputDecoration(
                           hintText: "Enter password",
                           // TODO: firebase auth link and error messages for user
@@ -90,10 +110,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
-                        onPress: () {
+                        onPress: () async {
                           // TODO: insert checks for password & email
                           // TODO: connect to firebase and add new user
-                          Navigator.pushNamed(context, HomeScreen.id);
+                          try {
+                            final newUser =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: email, password: password);
+                            if (newUser != null) {
+                              // TODO: adjust this to more recent syntax
+                              Navigator.pushNamed(context, HomeScreen.id);
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
                         },
                       ),
                     ),

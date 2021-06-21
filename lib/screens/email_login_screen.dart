@@ -5,6 +5,7 @@ import 'package:eq_ed/screens/info_screen.dart';
 import 'package:eq_ed/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EmailLoginScreen extends StatefulWidget {
   static var id = 'email_login_screen';
@@ -14,6 +15,10 @@ class EmailLoginScreen extends StatefulWidget {
 }
 
 class _EmailLoginScreenState extends State<EmailLoginScreen> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +56,10 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          email = value;
+                        },
                         decoration: const InputDecoration(
                           hintText: "Enter email",
                           focusedBorder: UnderlineInputBorder(
@@ -66,6 +75,10 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                     ),
                     Expanded(
                       child: TextField(
+                        obscureText: true,
+                        onChanged: (value) {
+                          password = value;
+                        },
                         decoration: const InputDecoration(
                           hintText: "Enter password",
                           focusedBorder: UnderlineInputBorder(
@@ -90,9 +103,16 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                             ),
                           ),
                         ),
-                        onPress: () {
-                          // TODO: check if valid auth credentials
-                          Navigator.pushNamed(context, HomeScreen.id);
+                        onPress: () async {
+                          try {
+                            final user = await _auth.signInWithEmailAndPassword(
+                                email: email, password: password);
+                            if (user != null) {
+                              Navigator.pushNamed(context, HomeScreen.id);
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
                         },
                       ),
                     ),

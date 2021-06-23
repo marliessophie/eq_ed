@@ -1,9 +1,5 @@
+import 'package:eq_ed/components/navigate.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/email_login_screen.dart';
-import 'package:eq_ed/screens/home_screen.dart';
-import 'package:eq_ed/screens/info_screen.dart';
-import 'package:eq_ed/screens/login_screen.dart';
-import 'package:eq_ed/screens/register_screen.dart';
 import 'package:eq_ed/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,19 +24,10 @@ class EQed extends StatelessWidget {
           selectionColor: kAccentTransparent,
           selectionHandleColor: kAccentTransparent,
         ),
-        // primaryColor: kAccentColor,
         colorScheme: ColorScheme.fromSwatch().copyWith(),
-        // backgroundColor: Colors.orange,
       ),
       initialRoute: WelcomeScreen.id,
-      routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        // LoginScreen.id: (context) => LoginScreen(),
-        RegisterScreen.id: (context) => RegisterScreen(),
-        EmailLoginScreen.id: (context) => EmailLoginScreen(),
-        InfoScreen.id: (context) => InfoScreen(),
-      },
+      routes: Navigate.routes,
     );
   }
 }

@@ -1,8 +1,11 @@
+import 'package:eq_ed/components/firebase_service.dart';
 import 'package:eq_ed/components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/email_login_screen.dart';
+import 'package:eq_ed/screens/info_screen.dart';
 import 'package:eq_ed/screens/login_screen.dart';
 import 'package:eq_ed/screens/register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
@@ -43,6 +46,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       fontSize: 18.0,
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Who is EQ\'ed?',
+                        style: kNormalTextStyle.copyWith(
+                          fontSize: 15.0,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, InfoScreen.id);
+                        },
+                        child: Text(
+                          'Find out more about me!',
+                          style: kNormalTextStyle.copyWith(
+                            color: kSecondaryAccentColor,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -62,7 +88,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          FirebaseService service = new FirebaseService();
+                          try {
+                            await service.signInwithGoogle();
+                            // TODO: include navigator and check playstore connection
+                            // Navigator.pushNamedAndRemoveUntil(context, Constants.homeNavigate, (route) => false);
+                          } catch (e) {
+                            if (e is FirebaseAuthException) {
+                              showMessage(e.message!);
+                            }
+                          }
+                        },
                       ),
                     ),
                     SizedBox(
@@ -143,5 +180,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ],
       ),
     );
+  }
+
+  void showMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

@@ -163,6 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     .doc(loggedInUser.uid)
                                     .set({
                                   'user_name': userName,
+                                  'score': 0,
                                 });
                                 Navigator.pushNamed(context, HomeScreen.id);
                               }

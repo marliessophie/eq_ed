@@ -1,10 +1,9 @@
-import 'package:eq_ed/components/firebase_service.dart';
-import 'package:eq_ed/components/reusable_card.dart';
+import 'package:eq_ed/components/game_navigation_components/firebase_service.dart';
+import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/email_login_screen.dart';
-import 'package:eq_ed/screens/info_screen.dart';
-import 'package:eq_ed/screens/login_screen.dart';
-import 'package:eq_ed/screens/register_screen.dart';
+import 'package:eq_ed/screens/login_flow/email_login_screen.dart';
+import 'package:eq_ed/screens/home_flow/info_screen.dart';
+import 'package:eq_ed/screens/login_flow/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';

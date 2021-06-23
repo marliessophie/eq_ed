@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eq_ed/components/reusable_card.dart';
-import 'package:eq_ed/components/scorer.dart';
+import 'package:eq_ed/components/design_components/reusable_card.dart';
+import 'package:eq_ed/components/game_navigation_components/scorer.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/welcome_screen.dart';
+import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
+import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-// TODO: include the users name dynamic from firebase instance
 
 class HomeScreen extends StatefulWidget {
   static var id = 'home_screen';
@@ -127,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         onPress: () {
-                          // TODO: change this to game screen
+                          Navigator.pushNamed(context, ScenarioScreen.id);
                         },
                       ),
                     ),

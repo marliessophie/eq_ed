@@ -1,4 +1,4 @@
-import 'package:eq_ed/components/reusable_card.dart';
+import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';

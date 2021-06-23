@@ -1,7 +1,7 @@
-import 'package:eq_ed/components/reusable_card.dart';
+import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/home_screen.dart';
-import 'package:eq_ed/screens/info_screen.dart';
+import 'package:eq_ed/screens/home_flow/home_screen.dart';
+import 'package:eq_ed/screens/home_flow/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';

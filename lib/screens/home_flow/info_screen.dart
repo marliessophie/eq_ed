@@ -1,6 +1,6 @@
-import 'package:eq_ed/components/reusable_card.dart';
+import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/register_screen.dart';
+import 'package:eq_ed/screens/login_flow/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class InfoScreen extends StatefulWidget {

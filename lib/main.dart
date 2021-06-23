@@ -1,6 +1,6 @@
-import 'package:eq_ed/components/navigate.dart';
+import 'package:eq_ed/components/game_navigation_components/navigate.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/welcome_screen.dart';
+import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 

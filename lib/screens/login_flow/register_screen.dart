@@ -21,8 +21,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _firestore = FirebaseFirestore.instance;
   bool showSpinner = false;
   late String userName;
-  late String email;
-  late String password;
+  String email = '';
+  String password = '';
   late User loggedInUser;
 
   @override
@@ -146,32 +146,102 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           onPress: () async {
-                            // TODO: insert checks for password & email
-                            setState(() {
-                              showSpinner = true;
-                            });
-                            try {
-                              final newUser =
-                                  await _auth.createUserWithEmailAndPassword(
-                                      email: email, password: password);
-                              // TODO: adjust this to more recent syntax
-                              if (newUser != null) {
-                                loggedInUser = newUser.user!;
-                                // Add userName to the FirebaseFirestore
-                                _firestore
-                                    .collection('user_data')
-                                    .doc(loggedInUser.uid)
-                                    .set({
-                                  'user_name': userName,
-                                  'score': 0,
-                                });
-                                Navigator.pushNamed(context, HomeScreen.id);
-                              }
+                            if (email != '' && password != '') {
+                              // TODO: insert checks for password & email
                               setState(() {
-                                showSpinner = false;
+                                showSpinner = true;
                               });
-                            } catch (e) {
-                              print(e);
+                              try {
+                                final newUser =
+                                    await _auth.createUserWithEmailAndPassword(
+                                        email: email, password: password);
+                                // TODO: adjust this to more recent syntax
+                                if (newUser != null) {
+                                  loggedInUser = newUser.user!;
+                                  // Add userName to the FirebaseFirestore
+                                  _firestore
+                                      .collection('user_data')
+                                      .doc(loggedInUser.uid)
+                                      .set({
+                                    'user_name': userName,
+                                    'score': 0,
+                                  });
+                                  // show altert to user with privacy conditions.
+                                  // TODO: adjust this per iOS or android OS
+                                  showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title: const Text(
+                                                'Terms & Conditions'),
+                                            content:
+                                                const SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              // TODO: add actual privacy terms and conditions.
+                                              child: Text(
+                                                "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds " +
+                                                    "2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d " +
+                                                    "3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs" +
+                                                    "4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad" +
+                                                    "5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds " +
+                                                    "6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf" +
+                                                    "7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd" +
+                                                    "8 Description that is too long in text format(Here Data is coming from API)" +
+                                                    "9 Description that is too long in text format(Here Data is coming from API)" +
+                                                    "10 Description that is too long in text format(Here Data is coming from API)" +
+                                                    "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds " +
+                                                    "2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d " +
+                                                    "3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs" +
+                                                    "4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad" +
+                                                    "5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds " +
+                                                    "6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf" +
+                                                    "7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd" +
+                                                    "8 Description that is too long in text format(Here Data is coming from API)" +
+                                                    "9 Description that is too long in text format(Here Data is coming from API)" +
+                                                    "10 Description that is too long in text format(Here Data is coming from API)",
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: kAppBarColor,
+                                                ),
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(
+                                                      context, 'I AGREE.');
+                                                  Navigator.pushNamed(
+                                                      context, HomeScreen.id);
+                                                },
+                                                child: const Text('I AGREE.'),
+                                              ),
+                                            ],
+                                            elevation: 24.0,
+                                          ));
+                                }
+                                setState(() {
+                                  showSpinner = false;
+                                });
+                              } catch (e) {
+                                print(e);
+                              }
+                            } else {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Logout'),
+                                  content: const Text(
+                                      'Please enter a valid username, password and email'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                  elevation: 24.0,
+                                ),
+                              );
                             }
                           },
                         ),

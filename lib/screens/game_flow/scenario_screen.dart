@@ -10,7 +10,25 @@ class ScenarioScreen extends StatefulWidget {
   _ScenarioScreenState createState() => _ScenarioScreenState();
 }
 
-class _ScenarioScreenState extends State<ScenarioScreen> {
+class _ScenarioScreenState extends State<ScenarioScreen>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      value: 1 / 3,
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +46,21 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 15.0,
+                      left: 15.0,
+                    ),
+                    child: LinearProgressIndicator(
+                      value: controller.value,
+                      semanticsLabel: 'Linear progress indicator',
+                      color: kSecondaryColor,
+                      backgroundColor: kActiveCardColour,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
                   Text(
                     'Ready, set, go! \nHere is your scenario!',
                     style: kNormalTextStyle.copyWith(
@@ -35,7 +68,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 70.0,
+                    height: 200.0,
                   ),
                   // try the rest here
                   Text(

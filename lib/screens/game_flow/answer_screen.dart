@@ -17,8 +17,25 @@ class AnswerScreen extends StatefulWidget {
   _AnswerScreenState createState() => _AnswerScreenState();
 }
 
-class _AnswerScreenState extends State<AnswerScreen> {
+class _AnswerScreenState extends State<AnswerScreen>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
   late Answer selectedAnswer = Answer.none;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      value: 2 / 3,
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +55,21 @@ class _AnswerScreenState extends State<AnswerScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 15.0,
+                      left: 15.0,
+                    ),
+                    child: LinearProgressIndicator(
+                      value: controller.value,
+                      semanticsLabel: 'Linear progress indicator',
+                      color: kSecondaryColor,
+                      backgroundColor: kActiveCardColour,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
                   Text(
                     'How would you respond?',
                     style: kNormalTextStyle.copyWith(
@@ -147,7 +179,22 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     if (selectedAnswer != Answer.none) {
                       Navigator.pushNamed(context, FeedbackScreen.id);
                     } else {
-                      // TODO: show message to user
+                      // TODO: adjust this per iOS or android OS
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('No Answer selected'),
+                          content: const Text(
+                              'Please select one of the provided answers by clicking on it.'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                          elevation: 24.0,
+                        ),
+                      );
                     }
                   },
                 ),

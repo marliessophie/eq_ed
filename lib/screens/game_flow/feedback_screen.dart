@@ -11,7 +11,25 @@ class FeedbackScreen extends StatefulWidget {
   _FeedbackScreenState createState() => _FeedbackScreenState();
 }
 
-class _FeedbackScreenState extends State<FeedbackScreen> {
+class _FeedbackScreenState extends State<FeedbackScreen>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      value: 3 / 3,
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +37,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: kAppBarColor,
         title: Text('EQ\'ed | Feedback'),
-      ),g
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -30,6 +48,21 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 15.0,
+                      left: 15.0,
+                    ),
+                    child: LinearProgressIndicator(
+                      value: controller.value,
+                      semanticsLabel: 'Linear progress indicator',
+                      color: kSecondaryColor,
+                      backgroundColor: kActiveCardColour,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
                   Text(
                     'Thanks for playing!',
                     style: kNormalTextStyle.copyWith(

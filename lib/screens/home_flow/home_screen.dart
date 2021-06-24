@@ -64,10 +64,31 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: Icon(Icons.logout_rounded),
             onPressed: () {
-              _auth.signOut();
-              Navigator.of(context).popUntil((route) {
-                return route.settings.name == WelcomeScreen.id;
-              });
+              // TODO: adjust this per iOS or android OS
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Logout'),
+                  content: const Text('Are you sure you want to logout?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('NO'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, 'OK');
+                        _auth.signOut();
+                        Navigator.of(context).popUntil((route) {
+                          return route.settings.name == WelcomeScreen.id;
+                        });
+                      },
+                      child: const Text('YES'),
+                    ),
+                  ],
+                  elevation: 24.0,
+                ),
+              );
             },
           )
         ],

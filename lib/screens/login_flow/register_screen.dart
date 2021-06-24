@@ -1,4 +1,5 @@
 import 'package:eq_ed/components/design_components/reusable_card.dart';
+import 'package:eq_ed/components/privacy_terms.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
@@ -174,31 +175,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           AlertDialog(
                                             title: const Text(
                                                 'Terms & Conditions'),
-                                            content:
-                                                const SingleChildScrollView(
+                                            content: SingleChildScrollView(
                                               scrollDirection: Axis.vertical,
                                               // TODO: add actual privacy terms and conditions.
                                               child: Text(
-                                                "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds " +
-                                                    "2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d " +
-                                                    "3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs" +
-                                                    "4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad" +
-                                                    "5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds " +
-                                                    "6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf" +
-                                                    "7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd" +
-                                                    "8 Description that is too long in text format(Here Data is coming from API)" +
-                                                    "9 Description that is too long in text format(Here Data is coming from API)" +
-                                                    "10 Description that is too long in text format(Here Data is coming from API)" +
-                                                    "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds " +
-                                                    "2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d " +
-                                                    "3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs" +
-                                                    "4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad" +
-                                                    "5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds " +
-                                                    "6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf" +
-                                                    "7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd" +
-                                                    "8 Description that is too long in text format(Here Data is coming from API)" +
-                                                    "9 Description that is too long in text format(Here Data is coming from API)" +
-                                                    "10 Description that is too long in text format(Here Data is coming from API)",
+                                                Privacy.policy,
                                                 style: TextStyle(
                                                   fontSize: 16.0,
                                                   color: kAppBarColor,

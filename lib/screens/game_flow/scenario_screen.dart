@@ -23,58 +23,45 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Ready, set, go! Here is your scenario!',
+                    'Ready, set, go! \nHere is your scenario!',
                     style: kNormalTextStyle.copyWith(
                       fontSize: 30.0,
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ReusableCard(
-              cardChild: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
+                  SizedBox(
+                    height: 70.0,
+                  ),
+                  // try the rest here
+                  Text(
+                    '[Video placeholder]',
+                    style: kLabelTextStyle.copyWith(
+                        backgroundColor: kAppBarColor, color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 200.0,
+                  ),
+                  ReusableCard(
+                    colour: kSecondaryColor,
+                    onPress: () {
+                      Navigator.pushNamed(context, AnswerScreen.id);
+                    },
+                    cardChild: Center(
                       child: Text(
-                        '[Video placeholder]',
+                        'Record response!',
                         style: kLabelTextStyle.copyWith(
-                            backgroundColor: kAppBarColor, color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                        child: ReusableCard(
-                      colour: kSecondaryColor,
-                      onPress: () {
-                        Navigator.pushNamed(context, AnswerScreen.id);
-                      },
-                      cardChild: Center(
-                        child: Text(
-                          'Record response!',
-                          style: kLabelTextStyle.copyWith(
-                            color: Colors.white,
-                          ),
+                          color: Colors.white,
                         ),
                       ),
-                    )),
-                  ],
-                ),
+                    ),
+                  ),
+                ],
               ),
-              onPress: () {},
             ),
           ),
         ],

@@ -19,7 +19,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: kAppBarColor,
         title: Text('EQ\'ed | Feedback'),
-      ),
+      ),g
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -35,6 +35,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     style: kNormalTextStyle.copyWith(
                       fontSize: 30.0,
                     ),
+                  ),
+                  SizedBox(
+                    height: 5.0,
                   ),
                   Text(
                     'Please see your feedback below.',
@@ -55,46 +58,25 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Expanded(
-                      child: ReusableCard(
-                        cardChild: Text('[Total score: XX/YY]'),
-                        onPress: () {
-                          return;
-                        },
-                      ),
+                      child: Text('[Total score: XX/YY]'),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Expanded(
-                      child: ReusableCard(
-                        cardChild: Text('[Communication: XX]'),
-                        onPress: () {
-                          return;
-                        },
-                      ),
+                      child: Text('[Communication: XX]'),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Expanded(
-                      child: ReusableCard(
-                        cardChild: Text('[Empathy: XX]'),
-                        onPress: () {
-                          return;
-                        },
-                      ),
+                      child: Text('[Empathy: XX]'),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Expanded(
-                      child: ReusableCard(
-                        cardChild:
-                            Text('[Placeholder - more detailed feedback]'),
-                        onPress: () {
-                          return;
-                        },
-                      ),
+                      child: Text('[Placeholder - more detailed feedback]'),
                     ),
                     SizedBox(
                       height: 10.0,

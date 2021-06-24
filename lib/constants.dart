@@ -10,7 +10,7 @@ const kLightColor = Color(0xFFB2DFDB);
 const kAccentColor = Color(0xFFE91E63);
 const kAccentTransparent = Color(0x29E91E63);
 const kSecondaryAccentColor = Color(0xFF7B1FA2);
-const kActiveCardColour = Color(0x331D1E33);
+const kActiveCardColour = Color(0x1A1D1E33);
 const kInactiveCardColour = Colors.white;
 
 const kLabelTextStyle = TextStyle(

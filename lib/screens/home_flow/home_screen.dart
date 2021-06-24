@@ -93,50 +93,53 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Expanded(
-            child: ReusableCard(
-              cardChild: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text('Your score: $score ice cubes',
-                          style: kNormalTextStyle),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child:
-                          Text('Your level: $level', style: kNormalTextStyle),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: ReusableCard(
-                        colour: kPrimaryColor,
-                        cardChild: Center(
-                          child: Text(
-                            'Start a new game!',
-                            style: kLabelTextStyle.copyWith(
-                              color: Colors.white,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 15.0),
+              child: ReusableCard(
+                cardChild: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text('Your score: $score ice cubes',
+                            style: kNormalTextStyle),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Expanded(
+                        child:
+                            Text('Your level: $level', style: kNormalTextStyle),
+                      ),
+                      SizedBox(
+                        height: 70.0,
+                      ),
+                      Expanded(
+                        child: ReusableCard(
+                          colour: kPrimaryColor,
+                          cardChild: Center(
+                            child: Text(
+                              'Start a new game!',
+                              style: kLabelTextStyle.copyWith(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
+                          onPress: () {
+                            Navigator.pushNamed(context, ScenarioScreen.id);
+                          },
                         ),
-                        onPress: () {
-                          Navigator.pushNamed(context, ScenarioScreen.id);
-                        },
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                  ],
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                    ],
+                  ),
                 ),
+                onPress: () {},
               ),
-              onPress: () {},
             ),
           ),
         ],

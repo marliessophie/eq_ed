@@ -21,6 +21,6 @@ class Navigate {
     FeedbackScreen.id: (context) => FeedbackScreen(),
     ScenarioScreen.id: (context) => ScenarioScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),
-    ExampleAnswerScreen.id: (context) => ExampleAnswerScreen(),
+    // ExampleAnswerScreen.id: (context) => ExampleAnswerScreen(),
   };
 }

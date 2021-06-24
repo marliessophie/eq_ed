@@ -144,7 +144,11 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     ),
                   ),
                   onPress: () {
-                    Navigator.pushNamed(context, FeedbackScreen.id);
+                    if (selectedAnswer != Answer.none) {
+                      Navigator.pushNamed(context, FeedbackScreen.id);
+                    } else {
+                      // TODO: show message to user
+                    }
                   },
                 ),
                 ReusableCard(

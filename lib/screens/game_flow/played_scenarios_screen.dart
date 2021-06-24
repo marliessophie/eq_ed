@@ -1,15 +1,11 @@
 import 'package:eq_ed/components/design_components/reusable_card.dart';
+import 'package:eq_ed/components/game_navigation_components/scenario_mapper.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/game_flow/example_answer_screen.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:flutter/material.dart';
 
-enum ScenarioNumber {
-  one,
-  two,
-  three,
-  none,
-}
+// TODO: implement a model to retrieve the played scenarios in this round
 
 class PlayedScenariosScreen extends StatefulWidget {
   static var id = 'played_scenarios_screen';
@@ -40,7 +36,7 @@ class _PlayedScenariosScreenState extends State<PlayedScenariosScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Which example answer would you like to see?',
+                    'Which example answer \n would you like to see?',
                     style: kNormalTextStyle.copyWith(
                       fontSize: 30.0,
                     ),
@@ -145,8 +141,33 @@ class _PlayedScenariosScreenState extends State<PlayedScenariosScreen> {
                     ),
                   ),
                   onPress: () {
-                    // TODO: pass the scenario number to the example screen
-                    Navigator.pushNamed(context, ExampleAnswerScreen.id);
+                    if (selectedScenario != ScenarioNumber.none) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExampleAnswerScreen(
+                            scenario: selectedScenario,
+                          ),
+                        ),
+                      );
+                    } else {
+                      // TODO: adjust this per iOS or android OS
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('No Scenario selected'),
+                          content: const Text(
+                              'Please select one of the shown scenarios by clicking on the respective name.'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                          elevation: 24.0,
+                        ),
+                      );
+                    }
                   },
                 ),
                 ReusableCard(

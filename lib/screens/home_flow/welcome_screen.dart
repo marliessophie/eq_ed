@@ -74,7 +74,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
           Expanded(
-            child: AnimatedImage(),
+            child: Center(child: AnimatedImage()),
           ),
           Expanded(
             child: ReusableCard(

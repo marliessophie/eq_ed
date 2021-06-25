@@ -1,3 +1,4 @@
+import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/game_navigation_components/firebase_service.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
@@ -71,6 +72,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
             ),
+          ),
+          Expanded(
+            child: AnimatedImage(),
           ),
           Expanded(
             child: ReusableCard(
@@ -181,6 +185,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
+  // TODO: refactor alters to single class throughtout app
   void showMessage(String message) {
     showDialog(
         context: context,

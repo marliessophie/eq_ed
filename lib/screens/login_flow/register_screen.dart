@@ -1,3 +1,4 @@
+import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/privacy_terms.dart';
 import 'package:eq_ed/constants.dart';
@@ -68,6 +69,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fontSize: 30.0,
                       ),
                     ),
+                    Container(
+                      child: AnimatedImage(),
+                      height: 200.0,
+                    ),
                   ],
                 ),
               ),
@@ -95,6 +100,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: kPlaceholderTextStyle.copyWith(
                               fontStyle: FontStyle.italic),
                         ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       Expanded(
                         child: TextField(
@@ -210,7 +218,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Logout'),
+                                  title:
+                                      const Text('Invalid Sign Up Credentials'),
                                   content: const Text(
                                       'Please enter a valid username, password and email'),
                                   actions: <Widget>[

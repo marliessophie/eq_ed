@@ -1,3 +1,4 @@
+import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
@@ -45,6 +46,10 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                       style: kNormalTextStyle.copyWith(
                         fontSize: 30.0,
                       ),
+                    ),
+                    Container(
+                      child: AnimatedImage(),
+                      height: 250.0,
                     ),
                   ],
                 ),

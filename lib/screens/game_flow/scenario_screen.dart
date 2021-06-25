@@ -1,3 +1,4 @@
+import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/game_flow/answer_screen.dart';
@@ -57,6 +58,10 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                       color: kSecondaryColor,
                       backgroundColor: kActiveCardColour,
                     ),
+                    // Container(
+                    //   child: AnimatedImage(),
+                    //   height: 50.0,
+                    // ),
                   ),
                   SizedBox(
                     height: 50.0,

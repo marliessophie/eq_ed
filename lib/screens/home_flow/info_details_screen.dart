@@ -56,15 +56,21 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
                   child: Hero(
-                      tag: "name-EQ'ed",
-                      child: Material(
-                          color: Colors.transparent,
-                          child: Container(
-                              child: Text('EQ\'ed',
-                                  style: kLabelTextStyle.copyWith(
-                                    fontSize: 25.0,
-                                    color: Colors.white,
-                                  ))))),
+                    tag: "name-EQ'ed",
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        child: Text(
+                          'EQ\'ed',
+                          style: kLabelTextStyle.copyWith(
+                            fontSize: 25.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(32, 0, 8, 32),
@@ -75,8 +81,9 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
                         "We will focus on your shown soft skills. Click below to get started or " +
                         "find out more about how I developed these scenarios. \n",
                     style: kLabelTextStyle.copyWith(
-                      fontSize: 18.0,
+                      fontSize: 20.0,
                       color: Colors.white,
+                      height: 1.5,
                     ),
                   ),
                 ),

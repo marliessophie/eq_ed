@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/game_navigation_components/scorer.dart';
 import 'package:eq_ed/constants.dart';
@@ -108,6 +109,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: kNormalTextStyle.copyWith(
                       fontSize: 30.0,
                     ),
+                  ),
+                  Container(
+                    child: AnimatedImage(),
+                    height: 250.0,
                   ),
                 ],
               ),

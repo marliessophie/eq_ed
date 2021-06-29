@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // TODO: change the colors
 
+// colors
 const kBottomContainerHeight = 80.0;
 const kAppBarColor = Color(0xFF1D1E33);
 const kPrimaryColor = Color(0xFF00796B);
@@ -14,6 +15,7 @@ const kActiveCardColour = Color(0x1A1D1E33);
 const kInactiveCardColour = Colors.white;
 final List<Color> kGradientColors = [kLightColor, kAppBarColor];
 
+// text styles
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
@@ -58,3 +60,6 @@ const kBMITextStyle = TextStyle(
 const kBodyTextStyle = TextStyle(
   fontSize: 22.0,
 );
+
+// variables
+final Function onPressed = () {};

@@ -4,6 +4,7 @@ import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/game_flow/example_answer_screen.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:eq_ed/components/design_components/alert.dart';
 
 // TODO: implement a model to retrieve the played scenarios in this round
 
@@ -152,21 +153,12 @@ class _PlayedScenariosScreenState extends State<PlayedScenariosScreen> {
                       );
                     } else {
                       // TODO: adjust this per iOS or android OS
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('No Scenario selected'),
-                          content: const Text(
-                              'Please select one of the shown scenarios by clicking on the respective name.'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                          elevation: 24.0,
-                        ),
-                      );
+                      UserAlert.showMessageOneButton(
+                          context,
+                          'No Scenario selected',
+                          'Please select one of the shown scenarios by clicking on the respective name.',
+                          'OK',
+                          onPressed);
                     }
                   },
                 ),

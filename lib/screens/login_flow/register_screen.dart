@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-// TODO: include the name of the user in the cloud database
+import 'package:eq_ed/components/design_components/alert.dart';
 
 class RegisterScreen extends StatefulWidget {
   static var id = 'register_screen';
@@ -215,23 +214,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 print(e);
                               }
                             } else {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title:
-                                      const Text('Invalid Sign Up Credentials'),
-                                  content: const Text(
-                                      'Please enter a valid username, password and email'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                  elevation: 24.0,
-                                ),
-                              );
+                              UserAlert.showMessageOneButton(
+                                  context,
+                                  'Invalid Sign Up Credentials',
+                                  'Please enter a valid username, password and email.',
+                                  'OK',
+                                  onPressed);
                             }
                           },
                         ),

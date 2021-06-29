@@ -2,6 +2,7 @@ import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:eq_ed/components/design_components/alert.dart';
 
 enum Answer {
   one,
@@ -180,21 +181,12 @@ class _AnswerScreenState extends State<AnswerScreen>
                       Navigator.pushNamed(context, FeedbackScreen.id);
                     } else {
                       // TODO: adjust this per iOS or android OS
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('No Answer selected'),
-                          content: const Text(
-                              'Please select one of the provided answers by clicking on it.'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                          elevation: 24.0,
-                        ),
-                      );
+                      UserAlert.showMessageOneButton(
+                          context,
+                          'No Answer selected',
+                          'Please select one of the provided answers by clicking on it.',
+                          'OK',
+                          onPressed);
                     }
                   },
                 ),

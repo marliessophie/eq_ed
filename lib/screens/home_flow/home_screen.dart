@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eq_ed/components/design_components/alert.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/game_navigation_components/scorer.dart';
@@ -65,31 +66,21 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: Icon(Icons.logout_rounded),
             onPressed: () {
+              var signOut = () {
+                _auth.signOut();
+                Navigator.of(context).popUntil((route) {
+                  return route.settings.name == WelcomeScreen.id;
+                });
+              };
               // TODO: adjust this per iOS or android OS
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Logout'),
-                  content: const Text('Are you sure you want to logout?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('NO'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context, 'OK');
-                        _auth.signOut();
-                        Navigator.of(context).popUntil((route) {
-                          return route.settings.name == WelcomeScreen.id;
-                        });
-                      },
-                      child: const Text('YES'),
-                    ),
-                  ],
-                  elevation: 24.0,
-                ),
-              );
+              UserAlert.showMessageTwoButtons(
+                  context,
+                  'Logout',
+                  'Are you sure you want to logout?',
+                  'NO',
+                  'OK',
+                  onPressed,
+                  signOut);
             },
           )
         ],

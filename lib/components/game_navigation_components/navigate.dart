@@ -9,6 +9,7 @@ import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
 import 'package:eq_ed/screens/login_flow/register_screen.dart';
 import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
+import 'package:eq_ed/screens/login_flow/verify_screen.dart';
 import 'package:flutter/material.dart';
 
 class Navigate {
@@ -23,6 +24,6 @@ class Navigate {
     ScenarioScreen.id: (context) => ScenarioScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),
     InfoDetailsScreen.id: (context) => InfoDetailsScreen(),
-    // ExampleAnswerScreen.id: (context) => ExampleAnswerScreen(),
+    VerifyScreen.id: (context) => VerifyScreen(),
   };
 }

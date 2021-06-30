@@ -6,7 +6,6 @@ import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/alert.dart';

@@ -141,32 +141,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    // Expanded(
-                    //   child: SignInButton(
-                    //     Buttons.Facebook,
-                    //     text: "Connect via Facebook",
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(18.0),
-                    //     ),
-                    //     onPressed: () {},
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 10.0,
-                    // ),
-                    // Expanded(
-                    //   child: SignInButton(
-                    //     Buttons.Twitter,
-                    //     text: "Connect via Twitter",
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(18.0),
-                    //     ),
-                    //     onPressed: () {},
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 10.0,
-                    // ),
                     Expanded(
                       child: SignInButton(
                         Buttons.Email,

@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/game_navigation_components/firebase_service.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
+import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:eq_ed/screens/login_flow/email_login_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
 import 'package:eq_ed/screens/login_flow/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static var id = 'welcome_screen';
@@ -17,6 +20,10 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final googleSignIn = GoogleSignIn();
+  final _firestore = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,16 +98,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ),
+                        // TODO: adjust logout via google
                         onPressed: () async {
-                          FirebaseService service = new FirebaseService();
-                          try {
-                            await service.signInwithGoogle();
-                            // TODO: include navigator and check playstore connection
-                            // Navigator.pushNamedAndRemoveUntil(context, Constants.homeNavigate, (route) => false);
-                          } catch (e) {
-                            if (e is FirebaseAuthException) {
-                              showMessage(e.message!);
+                          final user = await googleSignIn.signIn();
+                          if (user != null) {
+                            final googleAuth = await user.authentication;
+                            final credential = GoogleAuthProvider.credential(
+                              accessToken: googleAuth.accessToken,
+                              idToken: googleAuth.idToken,
+                            );
+                            await _auth.signInWithCredential(credential);
+                            try {
+                              final user = await _auth.currentUser;
+                              if (user != null) {
+                                _firestore
+                                    .collection('user_data')
+                                    .doc(user.uid)
+                                    .get()
+                                    .then((DocumentSnapshot value) {
+                                  if (!value.exists) {
+                                    // add user to the database as this is the first login ever
+                                    _firestore
+                                        .collection('user_data')
+                                        .doc(user.uid)
+                                        .set({
+                                      'user_name': user.displayName,
+                                      'score': 0,
+                                    });
+                                  }
+                                });
+                              }
+                            } catch (e) {
+                              print(e);
                             }
+
+                            // move to home screen
+                            Navigator.pushNamed(context, HomeScreen.id);
                           }
                         },
                       ),
@@ -108,32 +141,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Expanded(
-                      child: SignInButton(
-                        Buttons.Facebook,
-                        text: "Connect via Facebook",
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: SignInButton(
-                        Buttons.Twitter,
-                        text: "Connect via Twitter",
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
+                    // Expanded(
+                    //   child: SignInButton(
+                    //     Buttons.Facebook,
+                    //     text: "Connect via Facebook",
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(18.0),
+                    //     ),
+                    //     onPressed: () {},
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10.0,
+                    // ),
+                    // Expanded(
+                    //   child: SignInButton(
+                    //     Buttons.Twitter,
+                    //     text: "Connect via Twitter",
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(18.0),
+                    //     ),
+                    //     onPressed: () {},
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10.0,
+                    // ),
                     Expanded(
                       child: SignInButton(
                         Buttons.Email,

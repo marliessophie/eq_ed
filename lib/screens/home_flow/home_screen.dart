@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             .get()
             .then((DocumentSnapshot value) {
           if (value.exists) {
+            print('success');
             setState(() {
               userName = value['user_name'].toString();
               score = value['score'].toInt();

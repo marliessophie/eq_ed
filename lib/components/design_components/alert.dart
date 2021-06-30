@@ -11,8 +11,8 @@ class UserAlert {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              f();
               Navigator.pop(context, button);
+              f();
             },
             child: Text(button),
           ),
@@ -38,15 +38,15 @@ class UserAlert {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              fOne();
               Navigator.pop(context, buttonOne);
+              fOne();
             },
             child: Text(buttonOne),
           ),
           TextButton(
             onPressed: () {
-              fTwo();
               Navigator.pop(context, buttonTwo);
+              fTwo();
             },
             child: Text(buttonTwo),
           ),

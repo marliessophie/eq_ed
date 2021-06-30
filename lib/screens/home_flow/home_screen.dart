@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Logout',
                   'Are you sure you want to logout?',
                   'NO',
-                  'OK',
+                  'YES',
                   onPressed,
                   signOut);
             },

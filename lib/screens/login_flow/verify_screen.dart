@@ -57,7 +57,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kAppBarColor,
-        title: Text('EQ\'ed'),
+        title: Text('EQ\'ed | Email Verification'),
       ),
       body: Text(
           'An email has been sent to ${user.email}, please verify. As soon as you have verified your email, you will be taken to the home screen.'),

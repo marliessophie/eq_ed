@@ -1,8 +1,10 @@
 import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
+import 'package:eq_ed/components/design_components/alert.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
+import 'package:eq_ed/screens/login_flow/password_reset_screen.dart';
 import 'package:eq_ed/screens/login_flow/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -98,8 +100,26 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                               fontStyle: FontStyle.italic),
                         ),
                       ),
-                      SizedBox(
-                        height: 10.0,
+                      TextButton(
+                        child: Text('Forgot password?',
+                            style: kNormalTextStyle.copyWith(
+                              color: kAccentColor,
+                              fontSize: 15.0,
+                            )),
+                        onPressed: () {
+                          var moveToResetScreen = () {
+                            Navigator.pushNamed(
+                                context, PasswordResetScreen.id);
+                          };
+                          UserAlert.showMessageTwoButtons(
+                              context,
+                              'Password Reset',
+                              'Are you sure you would like to reset your password?',
+                              'NO',
+                              'YES',
+                              onPressed,
+                              moveToResetScreen);
+                        },
                       ),
                       Expanded(
                         child: ReusableCard(

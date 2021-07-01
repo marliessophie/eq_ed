@@ -81,7 +81,11 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                     ),
                     Expanded(
                       child: ReusableCard(
-                        cardChild: Text('Send email!', style: kLabelTextStyle),
+                        cardChild: Center(
+                            child: Text('Send email!',
+                                style: kLabelTextStyle.copyWith(
+                                  color: Colors.white,
+                                ))),
                         onPress: () {
                           _auth.sendPasswordResetEmail(email: _email);
                           Navigator.pop(context);

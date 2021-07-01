@@ -2,9 +2,9 @@
 
 class Scorer {
   static Map<int, String> levels = {
-    0: 'Newbie',
-    100: 'Snowballer',
-    200: 'Ice Champ'
+    0: 'Level 0 | Newbie',
+    100: 'Level 1 | Snowballer',
+    200: 'Level 2 | Ice Champ'
   };
 
   static String getLevel(int score) {

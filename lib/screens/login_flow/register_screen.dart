@@ -172,9 +172,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .doc(loggedInUser.uid)
                                       .set({
                                     'user_name': userName,
-                                    'score': 0,
+                                    'empathy_score': 0,
+                                    'communication_score': 0,
                                   });
-                                  // show altert to user with privacy conditions.
                                   // TODO: adjust this per iOS or android OS
                                   showDialog<String>(
                                       context: context,
@@ -184,7 +184,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 'Terms & Conditions'),
                                             content: SingleChildScrollView(
                                               scrollDirection: Axis.vertical,
-                                              // TODO: add actual privacy terms and conditions.
                                               child: Text(
                                                 Privacy.policy,
                                                 style: TextStyle(

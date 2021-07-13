@@ -9,6 +9,8 @@ import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// TODO: build separate screen for score details (possibly benchmark against analytics)
+
 class HomeScreen extends StatefulWidget {
   static var id = 'home_screen';
 
@@ -45,8 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
             print('success');
             setState(() {
               userName = value['user_name'].toString();
-              score = value['score'].toInt();
-              level = Scorer.getLevel(score);
+              int empathyScore = value['empathy_score'].toInt();
+              int communicationScore = value['communication_score'].toInt();
+              score = empathyScore + communicationScore;
+              level = Scorer.getLevel(
+                  score); // TODO: outsource this logic to server
             });
           }
         });

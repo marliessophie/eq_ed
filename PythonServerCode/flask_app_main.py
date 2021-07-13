@@ -9,8 +9,6 @@ import pickle
 
 from flask_errors import InvalidUsage
 
-# from FirebaseM import getUserIDsInGroup, createNewCatchup, callVoteOnCatchup
-
 app = Flask(__name__)
 
 
@@ -53,7 +51,7 @@ def main_initLevelForUser_get():
     level_id = json_data['level_id']
 
     # return the intro of the specific level to the application
-    level_narrative = get_level_narrative(level_id) # TODO: fix this
+    level_narrative = get_level_narrative(level_id)  # TODO: define json schema detailing the return to the UI
 
     return json.dumps({'success': True, 'level_narrative': level_narrative}), \
            200, {'ContentType': 'application/json'}

@@ -123,7 +123,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                         .doc(user.uid)
                                         .set({
                                       'user_name': user.displayName,
-                                      'score': 0,
+                                      'empathy_score': 0,
+                                      'communication_score': 0,
                                     });
                                   }
                                 });

@@ -1,6 +1,8 @@
 from abc import ABC
 import json
 
+# TODO: seperate out classes into seperate files
+
 
 class Display(ABC):
     def __init__(self, text):
@@ -16,7 +18,6 @@ class Intro(Display):
 
 class Question(Display):
     def __init__(self, question_text, number_of_answers, answers, next_question_id):
-        self.question_text = question_text
         Display.__init__(self, question_text)
         self.number_of_answers = number_of_answers
         self.answers = answers

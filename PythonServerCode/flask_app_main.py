@@ -8,7 +8,6 @@ import pandas as pd
 import pickle
 
 from flask_errors import InvalidUsage
-from firebase_config import get_level_narrative
 
 # from FirebaseM import getUserIDsInGroup, createNewCatchup, callVoteOnCatchup
 
@@ -40,7 +39,7 @@ def handle_invalid_usage(error):
 # create proper scheme for usage
 @app.route('/initLevelForUser', methods=['GET'])  # check this with Boyd
 def main_initLevelForUser_get():
-    with open('schema_initLevelForUser_get.json') as sch_init:
+    with open('json_schemas/schema_initLevelForUser_get.json') as sch_init:
         sch_init = json.load(sch_init)
 
     json_data = request.get_json()
@@ -54,7 +53,7 @@ def main_initLevelForUser_get():
     level_id = json_data['level_id']
 
     # return the intro of the specific level to the application
-    level_narrative = get_level_narrative(level_id)
+    level_narrative = get_level_narrative(level_id) # TODO: fix this
 
     return json.dumps({'success': True, 'level_narrative': level_narrative}), \
            200, {'ContentType': 'application/json'}

@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/product.schema.json",
+    "title": "initLevelForUser",
+    "description": "Returns the level narrative.",
+    "type": "object",
+    "properties": {
+        "uid": {
+            "description": "uid",
+            "type": "string",
+            "minLength": 1
+        },
+        "level_id": {
+            "description": "level_id",
+            "type": "string",
+            "minLength": 1
+        }
+    },
+    "required": ["uid", "level_id"]
+}

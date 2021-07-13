@@ -1,7 +1,7 @@
 from abc import ABC
 import json
 
-# TODO: seperate out classes into seperate files
+# TODO: separate out classes into separate files
 
 
 class Display(ABC):

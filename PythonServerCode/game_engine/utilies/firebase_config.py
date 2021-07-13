@@ -12,7 +12,7 @@ class DbConnection:
         firebase_admin.initialize_app(self.credentials)
         self.db = firestore.client()  # stores client to firebase database
 
-    def get_level_narrative(self, level_id):
+    def get_level_narrative(self, level_id):  # TODO: adjust this function to return the level narrative
         result = self.db.collection('questions').document(level_id).get()
         if result.exsits:
             print(result.to_dict())

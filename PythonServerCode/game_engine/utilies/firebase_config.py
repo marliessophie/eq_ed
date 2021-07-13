@@ -31,7 +31,7 @@ class DbConnection:
         }
 
         # Add an entry in the question node
-        ref = self.db.reference('questions')  # create db reference
+        ref = self.db.collection('questions')  # create db reference
         ref.document(id).set(new_level_end_entry)
 
     # stores Question objects and question ids
@@ -45,7 +45,7 @@ class DbConnection:
         }
 
         # Add an entry in the question node
-        ref = self.db.reference('questions')  # create db reference
+        ref = self.db.collection('questions')  # create db reference
         ref.document(id).set(new_level_end_entry)
 
     def add_question_to_db(self, question, id):
@@ -58,7 +58,7 @@ class DbConnection:
         }
 
         # Add an entry in the question node
-        ref = self.db.reference('questions')   # create db reference
+        ref = self.db.collection('questions')   # create db reference
         ref.document(id).set(new_question_entry)
 
 

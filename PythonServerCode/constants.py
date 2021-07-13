@@ -13,9 +13,9 @@ class K:
             " given in an assignment: \"What is the future of work?\". The " \
             "group should create a presentation answering this question. " \
             "The user first listens to the others discussing. ",
-            1001,
+            'X1001',
         ),
-        1000)
+        'X1000')
 
 
 

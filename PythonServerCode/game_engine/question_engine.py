@@ -17,14 +17,19 @@ class GameEngine:
         print(current_list)
         # add items in current list to question list
 
+    def get_temp_user_score(self):  # TODO: query db for user score
+        pass
+
     # used for adding questions to levels
     def add_item(self, item):
         if not self.question_list.__contains__(item):
-            self.question_list.__setitem__(item.id, item)
+            self.question_list.__setitem__(item.item_id, item)
             if isinstance(item.display_item, Question):
-                self.db_connect.add_question_to_db(item.display_item, item.item_id)
+                print('question')
+                # self.db_connect.add_question_to_db(item.display_item, item.item_id)
             if isinstance(item.display_item, LevelEnd):
-                self.db_connect.add_level_end_to_db(item.display_item, item.item_id)
+                print('level_end')
+                # self.db_connect.add_level_end_to_db(item.display_item, item.item_id)
             if isinstance(item.display_item, Intro):
                 self.db_connect.add_intro_to_db(item.display_item, item.item_id)
 
@@ -32,7 +37,7 @@ class GameEngine:
     def get_next_item(self, key):
         return self.question_list.__getitem__(key)
 
-    def enhance_score(self, uid, answer_id):
+    def enhance_score(self, uid, answer_id):  # TODO: connect this to db
         self.user_scores[uid] = self.question_list.__getitem__(answer_id).score
 
 

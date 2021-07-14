@@ -22,7 +22,7 @@ class _InfoDetailsScreenState extends State<InfoDetailsScreen> {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: kGradientColors,
+                  colors: kGradientColorsEQed,
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                 ),

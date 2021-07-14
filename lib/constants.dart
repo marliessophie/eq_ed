@@ -13,7 +13,8 @@ const kAccentTransparent = Color(0x29E91E63);
 const kSecondaryAccentColor = Color(0xFF7B1FA2);
 const kActiveCardColour = Color(0x1A1D1E33);
 const kInactiveCardColour = Colors.white;
-final List<Color> kGradientColors = [kLightColor, kAppBarColor];
+final List<Color> kGradientColorsEQed = [kLightColor, kAppBarColor];
+final List<Color> kGradientColorsScore = [kAccentTransparent, kAppBarColor];
 
 // text styles
 const kLabelTextStyle = TextStyle(

@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
+import 'package:eq_ed/components/design_components/icon_content.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/game_navigation_components/scorer.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
+import 'package:eq_ed/screens/home_flow/score_details_screen.dart';
 import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // TODO: build separate screen for score details (possibly benchmark against analytics)
 
@@ -78,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   return route.settings.name == WelcomeScreen.id;
                 });
               };
-              // TODO: adjust this per iOS or android OS
               UserAlert.showMessageTwoButtons(
                   context,
                   'Logout',
@@ -125,16 +127,43 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Expanded(
-                        child: Text('Your score: $score ice cubes',
-                            style: kNormalTextStyle),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Expanded(
-                        child:
-                            Text('Your level: $level', style: kNormalTextStyle),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Your score: $score ice cubes',
+                                  style: kNormalTextStyle.copyWith(
+                                    fontSize: 21.0,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                Text(
+                                  'Your level: $level',
+                                  style: kNormalTextStyle.copyWith(
+                                    fontSize: 21.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: ReusableCard(
+                              onPress: () {
+                                Navigator.pushNamed(
+                                    context, ScoreDetailsScreen.id);
+                              },
+                              colour: kSecondaryColor,
+                              cardChild: IconContent(
+                                icon: FontAwesomeIcons.search,
+                                label: 'Score Details',
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 70.0,

@@ -28,7 +28,7 @@ class CharacterWidget extends StatelessWidget {
                 width: 0.9 * screenWidth,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
-                  colors: kGradientColors,
+                  colors: kGradientColorsEQed,
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                 )),

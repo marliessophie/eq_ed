@@ -4,6 +4,7 @@ import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
 import 'package:eq_ed/screens/game_flow/played_scenarios_screen.dart';
 import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_details_screen.dart';
+import 'package:eq_ed/screens/home_flow/score_details_screen.dart';
 import 'package:eq_ed/screens/login_flow/email_login_screen.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
@@ -27,5 +28,6 @@ class Navigate {
     InfoDetailsScreen.id: (context) => InfoDetailsScreen(),
     VerifyScreen.id: (context) => VerifyScreen(),
     PasswordResetScreen.id: (context) => PasswordResetScreen(),
+    ScoreDetailsScreen.id: (context) => ScoreDetailsScreen(),
   };
 }

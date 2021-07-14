@@ -6,7 +6,6 @@ from jsonschema import validate
 import datetime
 import pandas as pd
 import pickle
-
 from flask_errors import InvalidUsage
 
 app = Flask(__name__)
@@ -29,39 +28,38 @@ def handle_invalid_usage(error):
     return response
 
 
-# need api endpoint that is triggered when the user starts a new level to display the first text
-
 # need api endpoint to record user responses in scoring model and return the next question conditional on decision
-# tree logic
-
 # create proper scheme for usage
-@app.route('/initLevelForUser', methods=['GET'])  # check this with Boyd
-def main_initLevelForUser_get():
-    with open('json_schemas/schema_initLevelForUser_get.json') as sch_init:
-        sch_init = json.load(sch_init)
+"""
+json file to send: 
+{
+    "level_id": "User1",
+    "uid":"G3"
+}
+"""
+@app.route('/initLevelForUser', methods=['POST'])  # check deployment on AWS with boyd
+def main_initLevelForUser_post():
+    if request.method == 'POST':
+        with open('json_schemas/schema_initLevelForUser_post.json') as sch_init:
+            sch_init = json.load(sch_init)
+            print(sch_init)
 
-    json_data = request.get_json()
-    print(json_data)
-    if not validate_json(json_data, sch_init):
-        raise InvalidUsage('Invalid json format. uid and level_id fields required',
-                           status_code=400)
+        json_data = request.get_json()
+        print(json_data)
+        if not validate_json(json_data, sch_init):
+            raise InvalidUsage('Invalid json format. uid and level_id fields required',
+                               status_code=400)
 
-    print(f'json received is: {json_data}')
-    uid = json_data['uid']
-    level_id = json_data['level_id']
+        print(f'json received is: {json_data}')
+        uid = json_data['uid']
+        level_id = json_data['level_id']
 
-    # return the intro of the specific level to the application
-    level_narrative = 'This is the level'# get_level_narrative(level_id)  # TODO: define json schema detailing the return to the UI in conjuction with firebase
+        level_narrative = 'This is the level'# get_level_narrative(level_id)
+        # TODO: define json schema detailing the return to the UI in conjuction with firebase
+        # TODO: need to return next question id as well
 
-    return json.dumps({'success': True, 'level_narrative': level_narrative}), \
-           200, {'ContentType': 'application/json'}
-
-    """
-    {
-    "groupID":"G3",
-    "hostuserID": "User1"
-    }
-    """
+        return json.dumps({'success': True, 'level_narrative': level_narrative}), \
+               200, {'ContentType': 'application/json'}
 
 
 '''
@@ -109,4 +107,5 @@ def main_catchupCountVotes():
 
 if __name__ == '__main__':
     # app.run(host="0.0.0.0", port=5000)  # TODO: AWS connection
-    app.run()  # localhost
+    app.run()
+    # app.run(debug=True, port=9090)

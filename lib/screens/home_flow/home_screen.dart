@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
@@ -5,6 +8,7 @@ import 'package:eq_ed/components/design_components/icon_content.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/game_navigation_components/scorer.dart';
 import 'package:eq_ed/constants.dart';
+import 'package:eq_ed/models/server_api.dart';
 import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
 import 'package:eq_ed/screens/home_flow/score_details_screen.dart';
 import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
@@ -62,6 +66,34 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print(e);
     }
+  }
+
+  /*
+    Future<void> _incrementCounter() async {
+
+    var url = Uri.parse('http://127.0.0.1:5000/summarise/yoyo');
+    var  result;
+    var responseString = await getResponse(url); //.then((value) => value);
+    print("Response string");
+    print(responseString.runtimeType);
+
+    setState(() {
+      _counter++;
+    });
+  }
+   */
+
+  Future<String> apiRequest(String url, Set<Map> jsonMap) async {
+    HttpClient httpClient = new HttpClient();
+    HttpClientRequest request = await httpClient.getUrl(Uri.parse(url));
+    request.headers.set('content-type', 'application/json');
+    request.add(utf8.encode(json.encode(jsonMap)));
+    HttpClientResponse response = await request.close();
+    print(response.statusCode);
+    // todo - you should check the response.statusCode
+    String reply = await response.transform(utf8.decoder).join();
+    httpClient.close();
+    return reply;
   }
 
   @override
@@ -127,62 +159,85 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Your score: $score ice cubes',
-                                  style: kNormalTextStyle.copyWith(
-                                    fontSize: 21.0,
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 20.0,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                                Text(
-                                  'Your level: $level',
-                                  style: kNormalTextStyle.copyWith(
-                                    fontSize: 21.0,
+                                  Text(
+                                    'Your score: $score ice cubes',
+                                    style: kNormalTextStyle.copyWith(
+                                      fontSize: 21.0,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: ReusableCard(
-                              onPress: () {
-                                Navigator.pushNamed(
-                                    context, ScoreDetailsScreen.id);
-                              },
-                              colour: kSecondaryColor,
-                              cardChild: IconContent(
-                                icon: FontAwesomeIcons.search,
-                                label: 'Score Details',
+                                  SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Text(
+                                    'Your level: $level',
+                                    style: kNormalTextStyle.copyWith(
+                                      fontSize: 21.0,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: ReusableCard(
+                                onPress: () {
+                                  Navigator.pushNamed(
+                                      context, ScoreDetailsScreen.id);
+                                },
+                                colour: kSecondaryColor,
+                                cardChild: IconContent(
+                                  icon: FontAwesomeIcons.search,
+                                  label: 'Score Details',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      TextButton(
+                        child: Text('Server test'),
+                        onPressed: () async {
+                          // TODO: include the json of what to send
+                          // var url = Uri.parse(
+                          //     'http://127.0.0.1:5000/initLevelForUser'); // TODO: send level_id and uid
+                          // var response = await getResponse(url);
+                          // setState(() {
+                          //   print("Done");
+                          //   print(response);
+                          // });
+                          String url = 'http://127.0.0.1:5000/initLevelForUser';
+                          Set<Map<String, String>> map = {
+                            {"uid": "User1", "level_id": "X1000"}
+                          };
+
+                          print(await apiRequest(url, map));
+                        },
                       ),
                       SizedBox(
                         height: 70.0,
                       ),
-                      Expanded(
-                        child: ReusableCard(
-                          colour: kPrimaryColor,
-                          cardChild: Center(
-                            child: Text(
-                              'Start a new game!',
-                              style: kLabelTextStyle.copyWith(
-                                color: Colors.white,
-                              ),
+                      ReusableCard(
+                        colour: kPrimaryColor,
+                        cardChild: Center(
+                          child: Text(
+                            'Start a new game!',
+                            style: kLabelTextStyle.copyWith(
+                              color: Colors.white,
                             ),
                           ),
-                          onPress: () {
-                            Navigator.pushNamed(context, ScenarioScreen.id);
-                          },
                         ),
+                        onPress: () {
+                          Navigator.pushNamed(context, ScenarioScreen.id);
+                        },
                       ),
                       SizedBox(
                         height: 10.0,

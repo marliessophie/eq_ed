@@ -5,6 +5,7 @@ class ReusableCard extends StatelessWidget {
   ReusableCard(
       {this.colour = Colors.white54,
       this.borderColor = Colors.white54,
+      this.height = 50.0,
       required this.cardChild,
       required this.onPress});
 
@@ -12,6 +13,7 @@ class ReusableCard extends StatelessWidget {
   final Widget cardChild;
   final VoidCallback onPress;
   final Color borderColor;
+  final double height;
 
   @override
   Widget build(BuildContext context) {

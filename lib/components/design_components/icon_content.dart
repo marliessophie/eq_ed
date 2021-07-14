@@ -12,17 +12,24 @@ class IconContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          icon,
-          size: 80.0,
+        Expanded(
+          child: Icon(
+            icon,
+            size: 70.0,
+          ),
         ),
         SizedBox(
           height: 15.0,
         ),
         Text(
           label,
-          style: kLabelTextStyle,
-        )
+          style: kLabelTextStyle.copyWith(
+            color: kAppBarColor,
+          ),
+        ),
+        SizedBox(
+          height: 5.0,
+        ),
       ],
     );
   }

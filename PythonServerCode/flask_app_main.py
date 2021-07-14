@@ -51,10 +51,17 @@ def main_initLevelForUser_get():
     level_id = json_data['level_id']
 
     # return the intro of the specific level to the application
-    level_narrative = 'This is the level'# get_level_narrative(level_id)  # TODO: define json schema detailing the return to the UI
+    level_narrative = 'This is the level'# get_level_narrative(level_id)  # TODO: define json schema detailing the return to the UI in conjuction with firebase
 
     return json.dumps({'success': True, 'level_narrative': level_narrative}), \
            200, {'ContentType': 'application/json'}
+
+    """
+    {
+    "groupID":"G3",
+    "hostuserID": "User1"
+    }
+    """
 
 
 '''

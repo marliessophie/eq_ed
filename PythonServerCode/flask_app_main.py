@@ -51,7 +51,7 @@ def main_initLevelForUser_get():
     level_id = json_data['level_id']
 
     # return the intro of the specific level to the application
-    level_narrative = get_level_narrative(level_id)  # TODO: define json schema detailing the return to the UI
+    level_narrative = 'This is the level'# get_level_narrative(level_id)  # TODO: define json schema detailing the return to the UI
 
     return json.dumps({'success': True, 'level_narrative': level_narrative}), \
            200, {'ContentType': 'application/json'}
@@ -101,5 +101,5 @@ def main_catchupCountVotes():
 '''
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)  # AWS connection
-    # app.run()  # localhost
+    # app.run(host="0.0.0.0", port=5000)  # TODO: AWS connection
+    app.run()  # localhost

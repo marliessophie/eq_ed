@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
@@ -15,6 +14,7 @@ import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 
 // TODO: build separate screen for score details (possibly benchmark against analytics)
 
@@ -68,32 +68,20 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  /*
-    Future<void> _incrementCounter() async {
-
-    var url = Uri.parse('http://127.0.0.1:5000/summarise/yoyo');
-    var  result;
-    var responseString = await getResponse(url); //.then((value) => value);
-    print("Response string");
-    print(responseString.runtimeType);
-
-    setState(() {
-      _counter++;
-    });
-  }
-   */
-
-  Future<String> apiRequest(String url, Set<Map> jsonMap) async {
-    HttpClient httpClient = new HttpClient();
-    HttpClientRequest request = await httpClient.getUrl(Uri.parse(url));
-    request.headers.set('content-type', 'application/json');
-    request.add(utf8.encode(json.encode(jsonMap)));
-    HttpClientResponse response = await request.close();
+  void apiRequest(String url, Map data) async {
+    // todo - replace with Future<String>
+    final response = await http.post(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    );
     print(response.statusCode);
+    print(jsonDecode(response.body));
     // todo - you should check the response.statusCode
-    String reply = await response.transform(utf8.decoder).join();
-    httpClient.close();
-    return reply;
+    //   String reply = await response.transform(utf8.decoder).join();
+    // return jsonDecode(response.body);
   }
 
   @override
@@ -206,20 +194,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       TextButton(
                         child: Text('Server test'),
                         onPressed: () async {
-                          // TODO: include the json of what to send
-                          // var url = Uri.parse(
-                          //     'http://127.0.0.1:5000/initLevelForUser'); // TODO: send level_id and uid
-                          // var response = await getResponse(url);
-                          // setState(() {
-                          //   print("Done");
-                          //   print(response);
-                          // });
+                          // TODO: refactor this into api model
                           String url = 'http://127.0.0.1:5000/initLevelForUser';
-                          Set<Map<String, String>> map = {
-                            {"uid": "User1", "level_id": "X1000"}
+                          var data = json.encode({
+                            "uid": "User1",
+                            "level_id": "X1000",
+                          });
+
+                          Map body = {
+                            "uid": "User1",
+                            "level_id": "X1000",
                           };
 
-                          print(await apiRequest(url, map));
+                          apiRequest(url, body);
+                          // print(await apiRequest(url, data));
                         },
                       ),
                       SizedBox(

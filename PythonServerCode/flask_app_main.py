@@ -8,6 +8,8 @@ import pandas as pd
 import pickle
 from flask_errors import InvalidUsage
 
+# TODO: remove print statements from production code
+
 app = Flask(__name__)
 
 
@@ -106,6 +108,4 @@ def main_catchupCountVotes():
 '''
 
 if __name__ == '__main__':
-    # app.run(host="0.0.0.0", port=5000)  # TODO: AWS connection
-    app.run()
-    # app.run(debug=True, port=9090)
+    app.run(host="0.0.0.0", port=5000)  # TODO: AWS connection

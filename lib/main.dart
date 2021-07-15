@@ -4,13 +4,12 @@ import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-// TODO: work on interaction with back-end API endpoints >> build model (do research)
-/* TODO: change score display for users, as second screen to come up
-    when the user presses on their level, to see a description of the current level, and score split */
 // TODO: include graphical representation of actual snowballs / badges that users get while enhancing
 // TODO: call verify email function before deploying to users
 // TODO: ask user for more details if they sign up
 // TODO: retrieve more details from user account if they chose to sign up via google
+// TODO: make api model fully
+// TODO: add level description in model
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

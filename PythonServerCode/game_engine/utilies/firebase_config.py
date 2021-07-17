@@ -52,21 +52,33 @@ class DbConnection:
         new_question_entry = {
             'question_text': question.text,
             'number_of_answers': question.number_of_answers,
-            'answers': question.convert_answers_to_json(),
+            'answers': question.add_answers(),
             'next_question_id': question.next_question_id,
             'question_id': id,
         }
+
+        # add answers to db
+        for i in range(0, question.number_of_answers):
+            self.add_answers_to_db(question.answers[i])
 
         # Add an entry in the question node
         ref = self.db.collection('questions')   # create db reference
         ref.document(id).set(new_question_entry)
 
+    def add_answers_to_db(self, answer):
+        new_answer_entry = {
+            'text': answer.text,
+            'score': self.add_score_to_db(answer.score),
+            'answer_id': answer.answer_id,
+            'next_question_id': answer.next_question_id,
+        }
 
-# example for adding with auto id to the db
-# db.collection('questions').add({'id': 'xx', 'answer_options': 'yy'})
+        ref = self.db.collection('answers')  # create db reference
+        ref.document(answer.answer_id).set(new_answer_entry)
 
-# example for adding with custom id to the db
-# db.collection('questions').document('id').set({'id': 'xx', 'answer_options': 'yy'}, merge=True) # will merge with exisiting entry
+    def add_score_to_db(self, score):
+        score_entry = [score.empathy, score.communication]
+        return score_entry
 
 
 '''

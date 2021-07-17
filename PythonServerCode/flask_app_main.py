@@ -32,13 +32,7 @@ def handle_invalid_usage(error):
 
 # need api endpoint to record user responses in scoring model and return the next question conditional on decision
 # create proper scheme for usage
-"""
-json file to send: 
-{
-    "level_id": "User1",
-    "uid":"G3"
-}
-"""
+
 @app.route('/initLevelForUser', methods=['POST'])  # check deployment on AWS with boyd
 def main_initLevelForUser_post():
     if request.method == 'POST':

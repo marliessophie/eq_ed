@@ -6,8 +6,6 @@ from PythonServerCode.game_engine.utilies.question_list import QuestionList
 # TODO: check with boyd approach of saving model in pickle file
 # TODO: save game engine object in pickle file and retrain when necessary
 # TODO: define separate model for scoring user working with db, saving current user score and gameEngine
-# TODO: host server on AWS
-# TODO: work on connection to front end via API calls
 # TODO: work on API calls from server side to send back data in format that is expected
 # TODO: detail out json schema for return to front end for level data
 # TODO: detail out json schema for scoring model given the user
@@ -31,7 +29,8 @@ class GameEngine:
         if current_list is not None:
             for snapshot in current_list:
                 if snapshot.exists:
-                    print(snapshot.to_dict())
+                    print(snapshot)
+                    # check what kind of instance it is
                     # add item to question list
         # add items in current list to question list
 

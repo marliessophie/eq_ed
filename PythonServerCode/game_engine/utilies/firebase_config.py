@@ -77,7 +77,7 @@ class DbConnection:
         ref.document(answer.answer_id).set(new_answer_entry)
 
     def add_score_to_db(self, score):
-        score_entry = [score.empathy, score.communication]
+        score_entry = {'EP': score.empathy, 'CP': score.communication}
         return score_entry
 
 

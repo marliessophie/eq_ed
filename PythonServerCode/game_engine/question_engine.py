@@ -1,6 +1,8 @@
 # game engine for communication with database
+from PythonServerCode.game_engine.utilies.components.intro import Intro
+from PythonServerCode.game_engine.utilies.components.level_end import LevelEnd
+from PythonServerCode.game_engine.utilies.components.question import Question
 from PythonServerCode.game_engine.utilies.firebase_config import DbConnection
-from PythonServerCode.game_engine.utilies.item import Question, LevelEnd, Intro
 from PythonServerCode.game_engine.utilies.question_list import QuestionList
 
 # TODO: check with boyd approach of saving model in pickle file

@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
+import 'package:eq_ed/models/server_api.dart';
 import 'package:eq_ed/screens/game_flow/answer_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,11 @@ class ScenarioScreen extends StatefulWidget {
 class _ScenarioScreenState extends State<ScenarioScreen>
     with TickerProviderStateMixin {
   late AnimationController controller;
+  late Map result;
+  String levelNarrative = "";
+  late String nextQuestionId;
+
+  // todo - get current user function
 
   @override
   void initState() {
@@ -22,6 +29,21 @@ class _ScenarioScreenState extends State<ScenarioScreen>
       vsync: this,
     );
     super.initState();
+    makeApiCall();
+  }
+
+  void makeApiCall() async {
+    String url = 'http://127.0.0.1:5000/initLevelForUser';
+    Map body = {
+      "uid": "User1",
+      "level_id": "X1000",
+    };
+    result = await apiRequestInitLevel(url, body);
+    print(result);
+    setState(() {
+      levelNarrative = result['levelNarrative'];
+      nextQuestionId = result['nextQuestionId'];
+    });
   }
 
   @override
@@ -76,10 +98,12 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                     height: 200.0,
                   ),
                   // try the rest here
-                  Text(
-                    '[Video placeholder]',
-                    style: kLabelTextStyle.copyWith(
-                        backgroundColor: kAppBarColor, color: Colors.white),
+                  SingleChildScrollView(
+                    child: Text(
+                      levelNarrative,
+                      style: kLabelTextStyle.copyWith(
+                          backgroundColor: kAppBarColor, color: Colors.white),
+                    ),
                   ),
                   SizedBox(
                     height: 200.0,

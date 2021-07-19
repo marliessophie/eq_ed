@@ -68,22 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void apiRequest(String url, Map data) async {
-    // todo - replace with Future<String>
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(data),
-    );
-    print(response.statusCode);
-    print(jsonDecode(response.body));
-    // todo - you should check the response.statusCode
-    //   String reply = await response.transform(utf8.decoder).join();
-    // return jsonDecode(response.body);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,25 +175,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      TextButton(
-                        child: Text('Server test'),
-                        onPressed: () async {
-                          // TODO: refactor this into api model
-                          String url = 'http://127.0.0.1:5000/initLevelForUser';
-                          var data = json.encode({
-                            "uid": "User1",
-                            "level_id": "X1000",
-                          });
-
-                          Map body = {
-                            "uid": "User1",
-                            "level_id": "X1000",
-                          };
-
-                          apiRequest(url, body);
-                          // print(await apiRequest(url, data));
-                        },
-                      ),
+                      // TextButton(
+                      //   child: Text('Server test'),
+                      //   onPressed: () async {
+                      //     // TODO: refactor this into api model
+                      //     String url = 'http://127.0.0.1:5000/initLevelForUser';
+                      //     var data = json.encode({
+                      //       "uid": "User1",
+                      //       "level_id": "X1000",
+                      //     });
+                      //
+                      //     Map body = {
+                      //       "uid": "User1",
+                      //       "level_id": "X1000",
+                      //     };
+                      //
+                      //     apiRequest(url, body);
+                      //   },
+                      // ),
                       SizedBox(
                         height: 70.0,
                       ),
@@ -217,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         colour: kPrimaryColor,
                         cardChild: Center(
                           child: Text(
-                            'Start a new game!',
+                            'Start the first level!',
                             style: kLabelTextStyle.copyWith(
                               color: Colors.white,
                             ),

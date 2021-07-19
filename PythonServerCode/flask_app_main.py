@@ -6,6 +6,8 @@ from jsonschema import validate
 import datetime
 import pandas as pd
 import pickle
+
+from PythonServerCode.game_engine.question_engine import GameEngine
 from flask_errors import InvalidUsage
 
 # TODO: remove print statements from production code
@@ -50,56 +52,18 @@ def main_initLevelForUser_post():
         uid = json_data['uid']
         level_id = json_data['level_id']
 
-        level_narrative = 'This is the level'# get_level_narrative(level_id)
-        # TODO: define json schema detailing the return to the UI in conjuction with firebase
-        # TODO: need to return next question id as well
+        engine = GameEngine()
+        level_narrative = engine.get_next_item(level_id)
+        text = level_narrative['question_text']
+        next_question_id = level_narrative['next_question_id']
+        # if level_narrative['answers'] is None:
+        #     answers = False
 
-        return json.dumps({'success': True, 'level_narrative': level_narrative}), \
+        # todo - score user by uid something like engine.score(uid, level_id)
+
+        return json.dumps({'success': True, 'level_narrative': text, 'next_question_id': next_question_id}), \
                200, {'ContentType': 'application/json'}
 
-
-'''
-@app.route('/catchupInitWithHost', methods=['POST'])
-def main_catchupInitWithHost_post():
-    with open('schema_catchupInitWithHost_post.json') as sch_init:
-        sch_init = json.load(sch_init)
-
-    jsonData = request.get_json()
-    print(jsonData)
-    if not validateJson(jsonData, sch_init):
-        raise InvalidUsage('Invalid json format. groupID and hostuserID fields required',
-                           status_code=400)
-
-    # print('valid json')
-    print(f'json received is: {jsonData}')
-    groupIDReq = jsonData['groupID']
-    hostIDReq = jsonData['hostuserID']
-
-    # Run Recommender System Model to generate shortlist of restaurants
-    newCatchupID = createNewCatchup(groupIDReq, numRecommendation=20, hostuserID=hostIDReq)
-
-    return json.dumps({'success': True, 'newCatchupID': newCatchupID}), \
-           200, {'ContentType': 'application/json'}
-
-@app.route('/catchupCountVotes', methods=['POST'])
-def main_catchupCountVotes():
-    with open('schema_catchupCountVotes_post.json') as sch_count_votes:
-        sch_count_votes = json.load(sch_count_votes)
-
-    jsonData = request.get_json()
-
-    if not validateJson(jsonData, sch_count_votes):
-        raise InvalidUsage(r'Invalid json format. catchupID field required',
-                           status_code=400)
-
-    # print('valid json')
-    print(jsonData)
-    catchupID = jsonData['catchupID']
-    winnerID = callVoteOnCatchup(catchupID)
-
-    return json.dumps({'success': True, 'WinnerID': winnerID}), \
-           200, {'ContentType': 'application/json'}
-'''
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)  # TODO: AWS connection

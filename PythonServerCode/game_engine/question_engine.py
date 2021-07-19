@@ -1,9 +1,11 @@
 # game engine for communication with database
+from PythonServerCode.constants import K
 from PythonServerCode.game_engine.utilies.components.intro import Intro
 from PythonServerCode.game_engine.utilies.components.level_end import LevelEnd
 from PythonServerCode.game_engine.utilies.components.question import Question
 from PythonServerCode.game_engine.utilies.firebase_config import DbConnection
 from PythonServerCode.game_engine.utilies.question_list import QuestionList
+
 
 # TODO: check with boyd approach of saving model in pickle file
 # TODO: save game engine object in pickle file and retrain when necessary
@@ -25,15 +27,20 @@ class GameEngine:
 
     # this function only runs once when the model is first trained, and then not again
     def get_current_question_list_initial(self):  # TODO: query db for current question list
+        self.add_item(K.introX1000)
+        self.add_item(K.questionX1001)
+        self.add_item(K.questionX1002)
+        self.add_item(K.questionX1005)
+        self.add_item(K.questionX1008)
         # go through the question node in the db and add all the current questions here in the right format
-        current_list = self.db_connect.db.collection('questions').get()
-        print(current_list)
-        if current_list is not None:
-            for snapshot in current_list:
-                if snapshot.exists:
-                    print(snapshot)
-                    # check what kind of instance it is
-                    # add item to question list
+        # current_list = self.db_connect.db.collection('questions').get()
+        # print(current_list)
+        # if current_list is not None:
+        #     for snapshot in current_list:
+        #         if snapshot.exists:
+        #             print(snapshot)
+        # check what kind of instance it is
+        # add item to question list
         # add items in current list to question list
 
     def update(self):  # TODO: go through db and add the questions that are not in the model
@@ -60,10 +67,10 @@ class GameEngine:
 
     # returns desired item from question list
     def get_next_item(self, key):
-        return self.question_list.__getitem__(key)
+        item = self.db_connect.db.collection('questions').document(key).get()
+        print(item.to_dict())
+        return item.to_dict()
+        #return self.question_list.__getitem__(key)
 
     def enhance_score(self, uid, answer_id):  # TODO: outsource this to score model
         self.user_scores[uid] = self.question_list.__getitem__(answer_id).score
-
-
-

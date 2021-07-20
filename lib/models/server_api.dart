@@ -30,6 +30,33 @@ Future<Map> apiRequestInitLevel(String url, Map data) async {
   // return jsonDecode(response.body);
 }
 
+Future<Map> apiRequestGetQuestion(String url, Map data) async {
+  // todo - replace with Future<String>
+  final response = await http.post(
+    Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: convert.jsonEncode(data),
+  );
+  Map result;
+  if (response.statusCode == 200) {
+    var jsonData = convert.jsonDecode(response.body) as Map<String, dynamic>;
+    result = {
+      "questionText": jsonData['question_text'],
+    };
+  } else {
+    return result = {
+      "questionText": 'Placeholder',
+    }; // todo - raise exception here
+  }
+  return result;
+  print(convert.jsonDecode(response.body));
+  // todo - you should check the response.statusCode
+  //   String reply = await response.transform(utf8.decoder).join();
+  // return jsonDecode(response.body);
+}
+
 // Future getData(url) async {
 //   // Await the http get response, then decode the json-formatted response.
 //   print("The url");

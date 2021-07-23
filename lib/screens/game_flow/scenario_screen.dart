@@ -111,7 +111,14 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                   ReusableCard(
                     colour: kSecondaryColor,
                     onPress: () {
-                      Navigator.pushNamed(context, AnswerScreen.id);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AnswerScreen(
+                            currentQuestionId: 'X1002',
+                          ),
+                        ),
+                      );
                     },
                     cardChild: Center(
                       child: Text(

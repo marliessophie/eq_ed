@@ -21,7 +21,7 @@ class Navigate {
     RegisterScreen.id: (context) => RegisterScreen(),
     EmailLoginScreen.id: (context) => EmailLoginScreen(),
     InfoScreen.id: (context) => InfoScreen(),
-    AnswerScreen.id: (context) => AnswerScreen(),
+    // AnswerScreen.id: (context) => AnswerScreen(),
     FeedbackScreen.id: (context) => FeedbackScreen(),
     ScenarioScreen.id: (context) => ScenarioScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),

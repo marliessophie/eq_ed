@@ -14,6 +14,10 @@ enum Answer {
 
 class AnswerScreen extends StatefulWidget {
   static var id = 'answer_screen';
+  final String currentQuestionId;
+
+  const AnswerScreen({Key? key, required this.currentQuestionId})
+      : super(key: key);
 
   @override
   _AnswerScreenState createState() => _AnswerScreenState();
@@ -24,7 +28,15 @@ class _AnswerScreenState extends State<AnswerScreen>
   late AnimationController controller;
   late Answer selectedAnswer = Answer.none;
   late Map result;
+  late int numberOfAnswers;
   String questionText = "";
+  late var answers;
+  var answerText = ["", "", ""];
+  Map<Answer, int> answerMapping = {
+    Answer.one: 0,
+    Answer.two: 1,
+    Answer.three: 2,
+  };
 
   @override
   void initState() {
@@ -37,15 +49,29 @@ class _AnswerScreenState extends State<AnswerScreen>
   }
 
   void makeApiCall() async {
+    // todo - replace with currentQuestionId
+    print('in api call ' + widget.currentQuestionId);
     String url = 'http://127.0.0.1:5000/getQuestionResponse';
     Map body = {
       "uid": "User1",
-      "question_id": "X1001",
+      "question_id": widget.currentQuestionId,
     };
     result = await apiRequestGetQuestion(url, body);
     print(result);
     setState(() {
       questionText = result['questionText'];
+      answers = (result['answers']).entries.toList();
+      numberOfAnswers = (result['numberOfAnswers']).toInt();
+      int j = 0;
+      for (int i = 0; i < answers.length; i++) {
+        // todo - take care of the questions where we only have 2 pos >> maybe fix in tree?
+        if (answers[i].value.length > 1) {
+          answerText[j] = answers[i].value[1];
+          j++;
+        }
+        answerText[j] = answers[i].value[0];
+        j++;
+      }
     });
   }
 
@@ -53,6 +79,11 @@ class _AnswerScreenState extends State<AnswerScreen>
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  String getNextAnswerId() {
+    var index = answerMapping[selectedAnswer];
+    return answers[index].key;
   }
 
   @override
@@ -121,7 +152,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                       child: ReusableCard(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('[Placeholder: Answer 1]'),
+                          child: Text(answerText[0]),
                         ),
                         onPress: () {
                           setState(() {
@@ -141,7 +172,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                       child: ReusableCard(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('[Placeholder: Answer 2]'),
+                          child: Text(answerText[1]),
                         ),
                         onPress: () {
                           setState(() {
@@ -161,7 +192,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                       child: ReusableCard(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('[Placeholder: Answer 3]'),
+                          child: Text(answerText[2]),
                         ),
                         onPress: () {
                           setState(() {
@@ -200,7 +231,30 @@ class _AnswerScreenState extends State<AnswerScreen>
                   ),
                   onPress: () {
                     if (selectedAnswer != Answer.none) {
-                      Navigator.pushNamed(context, FeedbackScreen.id);
+                      // get the answer id
+                      var answerId = getNextAnswerId();
+
+                      // X stands for questionId
+                      if (answerId[0] == 'X') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AnswerScreen(
+                              currentQuestionId: answerId,
+                            ),
+                          ),
+                        );
+                        // Z stands for levelEndId
+                      } else if (answerId[0] == 'Z') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FeedbackScreen(
+                                // currentQuestionId: answerId,
+                                ),
+                          ),
+                        );
+                      }
                     } else {
                       // TODO: adjust this per iOS or android OS
                       UserAlert.showMessageOneButton(

@@ -1,5 +1,6 @@
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
+import 'package:eq_ed/models/server_api.dart';
 import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
@@ -22,6 +23,8 @@ class _AnswerScreenState extends State<AnswerScreen>
     with TickerProviderStateMixin {
   late AnimationController controller;
   late Answer selectedAnswer = Answer.none;
+  late Map result;
+  String questionText = "";
 
   @override
   void initState() {
@@ -30,6 +33,20 @@ class _AnswerScreenState extends State<AnswerScreen>
       vsync: this,
     );
     super.initState();
+    makeApiCall();
+  }
+
+  void makeApiCall() async {
+    String url = 'http://127.0.0.1:5000/getQuestionResponse';
+    Map body = {
+      "uid": "User1",
+      "question_id": "X1001",
+    };
+    result = await apiRequestGetQuestion(url, body);
+    print(result);
+    setState(() {
+      questionText = result['questionText'];
+    });
   }
 
   @override
@@ -95,6 +112,11 @@ class _AnswerScreenState extends State<AnswerScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(questionText),
+                      ),
+                    ),
                     Expanded(
                       child: ReusableCard(
                         cardChild: Padding(

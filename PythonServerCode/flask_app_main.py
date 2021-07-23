@@ -91,7 +91,6 @@ def main_getQuestionResponse_post():
         question_id = json_data['question_id']
 
         # engine = GameEngine()
-        # level_narrative = engine.get_next_item(level_id) f'Groups-Users/{groupID}/memberID'
         question = get_level(question_id)
         text = question['question_text']
         number_of_answers = question['number_of_answers']

@@ -105,6 +105,27 @@ class K:
     )
     questionX1008 = Item(new_questionX1008, "X1008")
 
+    # question item X1003
+    answersX1003 = list()
+    answersX1003.append(Answer("This sounds like a good idea, let's go with this!",
+                               Score(0, 0),
+                               "Y1013", "Z1002"))
+    answersX1003.append(Answer("Thanks apologising to Morty, Rick. Morty are you happy with this division of work?",
+                               Score(10, 10), "Y1014", "X1004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1003 = Question(
+        "Rick: Alright, alright. Sorry Morty. Then I will do the research task instead and you guys "
+        "look up some statistics and graphs on how peoples perception has developed.",
+        2,
+        answersX1003,
+        None,
+    )
+    questionX1003 = Item(new_questionX1008, "X1003")
+
+
+
+
+
 
 
 

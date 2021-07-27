@@ -1,28 +1,29 @@
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/models/server_api.dart';
-import 'package:eq_ed/screens/home_flow/home_screen.dart';
+import 'package:eq_ed/screens/game_flow/answer_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class FeedbackScreen extends StatefulWidget {
-  static var id = 'feedback_screen';
+class TryAgainScreen extends StatefulWidget {
+  static var id = 'try_again_screen';
   final String currentQuestionId;
 
-  const FeedbackScreen({Key? key, required this.currentQuestionId})
+  const TryAgainScreen({Key? key, required this.currentQuestionId})
       : super(key: key);
 
   @override
-  _FeedbackScreenState createState() => _FeedbackScreenState();
+  _TryAgainScreenState createState() => _TryAgainScreenState();
 }
 
-class _FeedbackScreenState extends State<FeedbackScreen>
+class _TryAgainScreenState extends State<TryAgainScreen>
     with TickerProviderStateMixin {
   late AnimationController controller;
   final _auth = FirebaseAuth.instance;
   String uid = "User1";
   late Map result;
   String questionText = "";
+  late String nextQuestionId;
 
   @override
   void initState() {
@@ -56,7 +57,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     result = await apiRequestLevelEnd(url, body);
     setState(() {
       questionText = result['questionText'];
-      // todo - check if user has completed level --> implement in BE
+      nextQuestionId = result['nextQuestionId'];
     });
   }
 
@@ -100,7 +101,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                     height: 50.0,
                   ),
                   Text(
-                    'Thanks for playing!',
+                    'Think about it...',
                     style: kNormalTextStyle.copyWith(
                       fontSize: 30.0,
                     ),
@@ -109,7 +110,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                     height: 5.0,
                   ),
                   Text(
-                    'Please see your feedback below.',
+                    'Please read the response provided below',
                     style: kNormalTextStyle.copyWith(
                       fontSize: 18.0,
                     ),
@@ -126,24 +127,6 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Expanded(
-                      child: Text('[Total score: XX/YY]'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: Text('[Communication: XX]'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: Text('[Empathy: XX]'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
                     Expanded(
                       child: Text('Feedback: ' + questionText),
                     ),
@@ -165,14 +148,21 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                   colour: kSecondaryColor,
                   cardChild: Center(
                     child: Text(
-                      'Back to home!',
+                      'Try again!',
                       style: kLabelTextStyle.copyWith(
                         color: Colors.white,
                       ),
                     ),
                   ),
                   onPress: () {
-                    Navigator.pushNamed(context, HomeScreen.id);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AnswerScreen(
+                          currentQuestionId: nextQuestionId,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],

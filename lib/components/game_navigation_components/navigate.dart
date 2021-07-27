@@ -22,7 +22,7 @@ class Navigate {
     EmailLoginScreen.id: (context) => EmailLoginScreen(),
     InfoScreen.id: (context) => InfoScreen(),
     // AnswerScreen.id: (context) => AnswerScreen(),
-    FeedbackScreen.id: (context) => FeedbackScreen(),
+    // FeedbackScreen.id: (context) => FeedbackScreen(),
     ScenarioScreen.id: (context) => ScenarioScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),
     InfoDetailsScreen.id: (context) => InfoDetailsScreen(),

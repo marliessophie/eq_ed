@@ -2,6 +2,8 @@ import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/models/server_api.dart';
 import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
+import 'package:eq_ed/screens/game_flow/try_again_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
 
@@ -37,6 +39,8 @@ class _AnswerScreenState extends State<AnswerScreen>
     Answer.two: 1,
     Answer.three: 2,
   };
+  final _auth = FirebaseAuth.instance;
+  String uid = "User1";
 
   @override
   void initState() {
@@ -45,29 +49,54 @@ class _AnswerScreenState extends State<AnswerScreen>
       vsync: this,
     );
     super.initState();
+    getCurrentUser();
     makeApiCall();
   }
 
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        uid = user.uid;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void makeApiCall() async {
-    // todo - replace with currentQuestionId
     print('in api call ' + widget.currentQuestionId);
     String url = 'http://127.0.0.1:5000/getQuestionResponse';
     Map body = {
-      "uid": "User1",
+      "uid": uid,
       "question_id": widget.currentQuestionId,
     };
     result = await apiRequestGetQuestion(url, body);
-    print(result);
     setState(() {
       questionText = result['questionText'];
       answers = (result['answers']).entries.toList();
       numberOfAnswers = (result['numberOfAnswers']).toInt();
       int j = 0;
       for (int i = 0; i < answers.length; i++) {
-        // todo - take care of the questions where we only have 2 pos >> maybe fix in tree?
         if (answers[i].value.length > 1) {
           answerText[j] = answers[i].value[1];
           j++;
+          // if i == 0 then set answer.one = 0, answer.two = 0, answer.three = 1,
+          if (i == 0) {
+            answerMapping = {
+              Answer.one: 0,
+              Answer.two: 0,
+              Answer.three: 1,
+            };
+            // if i == 1 then set answer.one = 0, answer.two = 1, answer.three = 1
+          } else if (i == 1) {
+            answerMapping = {
+              Answer.one: 0,
+              Answer.two: 1,
+              Answer.three: 1,
+            };
+          }
+          // else leave the mapping as is as we never enter this loop
         }
         answerText[j] = answers[i].value[0];
         j++;
@@ -83,6 +112,7 @@ class _AnswerScreenState extends State<AnswerScreen>
 
   String getNextAnswerId() {
     var index = answerMapping[selectedAnswer];
+    print(answers[index].key);
     return answers[index].key;
   }
 
@@ -166,7 +196,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                       ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 2.0,
                     ),
                     Expanded(
                       child: ReusableCard(
@@ -186,7 +216,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                       ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 2.0,
                     ),
                     Expanded(
                       child: ReusableCard(
@@ -206,7 +236,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                       ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 2.0,
                     ),
                   ],
                 ),
@@ -250,8 +280,17 @@ class _AnswerScreenState extends State<AnswerScreen>
                           context,
                           MaterialPageRoute(
                             builder: (context) => FeedbackScreen(
-                                // currentQuestionId: answerId,
-                                ),
+                              currentQuestionId: answerId,
+                            ),
+                          ),
+                        );
+                      } else if (answerId[0] == 'A') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TryAgainScreen(
+                              currentQuestionId: answerId,
+                            ),
                           ),
                         );
                       }

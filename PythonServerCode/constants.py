@@ -4,6 +4,7 @@ import os
 from PythonServerCode.game_engine.utilies.components.answer import Answer
 from PythonServerCode.game_engine.utilies.components.intro import Intro
 from PythonServerCode.game_engine.utilies.components.item import Item
+from PythonServerCode.game_engine.utilies.components.level_end import LevelEnd
 from PythonServerCode.game_engine.utilies.components.question import Question
 from PythonServerCode.game_engine.utilies.components.score import Score
 
@@ -240,6 +241,59 @@ class K:
     )
     questionX1011 = Item(new_questionX1011, "X1011")
 
+    # level_end item Z1001
+    new_level_endZ1001 = LevelEnd(
+        False,
+        "Level failed! Think about it. If you were Morty, would you have appreciated to be treated this way?",
+    )
+    level_endZ1001 = Item(new_level_endZ1001, "Z1001")
+
+    # level_end item Z1002
+    new_level_endZ1002 = LevelEnd(
+        False,
+        "Level failed! You should have properly checked in with Morty if he feels comfortable in the team setting.",
+    )
+    level_endZ1002 = Item(new_level_endZ1002, "Z1002")
+
+    # level_end item Z1003
+    new_level_endZ1003 = LevelEnd(
+        True,
+        "Level completed! Thanks facilitating the discussion. Good job!",
+    )
+    level_endZ1003 = Item(new_level_endZ1003, "Z1003")
+
+    # level_end item Z1004
+    new_level_endZ1004 = LevelEnd(
+        True,
+        "Level completed! Thanks facilitating the discussion so well. Great job on communicating.",
+    )
+    level_endZ1004 = Item(new_level_endZ1004, "Z1004")
+
+    # level_end item A1000
+    level_endA1000 = Item(LevelEnd(
+        False,
+        "Try again! Are you sure everyone in the team is happy with the situation? "
+        "Maybe worth checking in with Morty again.",
+    ), "A1000")
+
+    # level_end item Z1006
+    level_endZ1006 = Item(LevelEnd(
+        True,
+        "Level completed! Thanks facilitating the discussion. Good job!",
+    ), "Z1006")
+
+    # level_end item Z1007
+    level_endZ1007 = Item(LevelEnd(
+        True,
+        "Level completed! Thanks facilitating the discussion so well. Great job on empathy and communication.",
+    ), "Z1007")
+
+    # level_end item Z1008
+    level_endZ1008 = Item(LevelEnd(
+        False,
+        "Level failed! You should have properly made sure everyone felt comfortable "
+        "in this group setting and tried to find a common solution.  ",
+    ), "Z1008")
 
 
 

@@ -12,7 +12,7 @@ from firebase_admin import firestore
 
 from PythonServerCode.firebase_connect import get_level, get_answers
 from PythonServerCode.game_engine.question_engine import GameEngine
-from flask_errors import InvalidUsage
+from PythonServerCode.flask_errors import InvalidUsage
 
 # TODO: remove print statements from production code
 
@@ -123,11 +123,10 @@ def main_getLevelEnd_post():
         question_id = json_data['question_id']
 
         # engine = GameEngine()
-        question = get_level(question_id) # todo - need to rewrite this
+        question = get_level(question_id)
         # todo - include bool if user passed or not
         text = question['question_text']
         next_question_id = question['next_question_id']
-
         # todo - score user by uid something like engine.score(uid, level_id)
 
         return json.dumps({'success': True, 'question_text': text, 'next_question_id': next_question_id}), \

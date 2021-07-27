@@ -120,7 +120,125 @@ class K:
         answersX1003,
         None,
     )
-    questionX1003 = Item(new_questionX1008, "X1003")
+    questionX1003 = Item(new_questionX1003, "X1003")
+
+    # question item X1004
+    answersX1004 = list()
+    answersX1004.append(Answer("Great, then everyone is happy.",
+                               Score(5, 0),
+                               "Y1023", "Z1002"))
+    answersX1004.append(Answer("Ok. Morty are you sure you are okay with this?",
+                               Score(5, 8), "Y1024", "Z1003"))
+    answersX1004.append(Answer("Ok. Is there anything else you would like to add Morty? "
+                               "And are you sure you are no longer overwhelmed?",
+                               Score(10, 10), "Y1025", "Z1004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1004 = Question(
+        "Morty: Sorry, I was a bit overwhelmed. Yes, I am happy with this division of work!",
+        3,
+        answersX1004,
+        None,
+    )
+    questionX1004 = Item(new_questionX1004, "X1004")
+
+    # question item X1006
+    answersX1006 = list()
+    answersX1006.append(Answer("Great, then everyone is happy.",
+                               Score(5, 0),
+                               "Y1023", "Z1002"))
+    answersX1006.append(Answer("Ok. Morty are you sure you are okay with this?",
+                               Score(5, 8), "Y1024", "Z1003"))
+    answersX1006.append(Answer("Ok. Is there anything else you would like to add Morty? "
+                               "And are you sure you are no longer overwhelmed?",
+                               Score(10, 10), "Y1025", "Z1004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1006 = Question(
+        "Rick: I really do not see why I should do the task? Morty you are totally okay with doing the task, right? "
+        "Morty: I mean yeah... But as I said I think we should rather...  "
+        "Rick: See? Morty is totally happy to do the task. Then the two of us can just look into some graphs"
+        " and statistics.",
+        3,
+        answersX1006,
+        None,
+    )
+    questionX1006 = Item(new_questionX1006, "X1006")
+
+    # question item X1007
+    answersX1007 = list()
+    answersX1007.append(Answer("Great, then everyone is happy.",
+                               Score(0, 0),
+                               "Y1015", "A1000"))
+    answersX1007.append(Answer("Ok. Morty are you sure you are okay with this?",
+                               Score(5, 5), "Y1016", "Z1006"))
+    answersX1007.append(Answer("Great idea Rick. But I would love to hear what ideas you had Morty!"
+                               " Care to share? ",
+                               Score(10, 10), "Y1017", "Z1007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1007 = Question(
+        "Morty: I actually have some ideas, how about we... Rick: So we have the research of news "
+        "articles that needs to be done, someone needs to look into statistics release to the topics"
+        " and finally we need some nice visuals for the presentation. "
+        "Morty: That also sounds good I guess...",
+        3,
+        answersX1007,
+        None,
+    )
+    questionX1007 = Item(new_questionX1007, "X1007")
+
+    # question item X1009
+    answersX1009 = list()
+    answersX1009.append(Answer("Rick, I do not care what you say anymore, your behaviour is totally not okay. "
+                               "I do not see how we can work together if you act like this. Come Morty, let's go!",
+                               Score(-2, 2),
+                               "Y1018", "Z1008"))
+    answersX1009.append(Answer("Ok, it might have just come off that way. Then let us refocus on the task.",
+                               Score(8, 5), "Y1019", "X1010"))
+    answersX1009.append(Answer("Ok. It might have come off wrong. Maybe let's think about the task. "
+                               "Morty, do you have any ideas on how to approach this assignment?",
+                               Score(10, 10), "Y1020", "Z1007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1009 = Question(
+        "Rick: I have not been talking over anyone. "
+        "It is not my problem if people cannot handle some factual discussion.",
+        3,
+        answersX1009,
+        None,
+    )
+    questionX1009 = Item(new_questionX1009, "X1009")
+
+    # question item X1010
+    answersX1010 = list()
+    answersX1010.append(Answer("No",
+                               Score(0, 0),
+                               "Y1026", "Z1008"))
+    answersX1010.append(Answer("Yes",
+                               Score(10, 10), "Y1027", "Z1007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1010 = Question(
+        "EQ'ed: do you think it is necessary to check in with Morty to see if he has any ideas?",
+        2,
+        answersX1010,
+        None,
+    )
+    questionX1010 = Item(new_questionX1010, "X1010")
+
+    # question item X1011
+    answersX1011 = list()
+    answersX1011.append(Answer("Sure. This works.",
+                               Score(0, 0),
+                               "Y1021", "Z1006"))
+    answersX1011.append(Answer("Great input both. Are you happy with this Morty?",
+                               Score(10, 10), "Y1022", "Z1007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX1011 = Question(
+        "Morty: Sure, I think it would be nice to 1) find some statistics about how peoples opinion evolved, "
+        "2) conduct some expert interviews and 3) do some research in recent news articles. "
+        "Rick: Ok, sure. Then Morty, you do 1, you do 2 and I will do 3.",
+        2,
+        answersX1011,
+        None,
+    )
+    questionX1011 = Item(new_questionX1011, "X1011")
 
 
 

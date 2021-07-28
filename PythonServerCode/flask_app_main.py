@@ -10,7 +10,8 @@ import firebase_admin
 from firebase_admin import credentials, db
 from firebase_admin import firestore
 
-from PythonServerCode.firebase_connect import get_level, get_answers, get_question, uid_valid, score_user, init_level
+from PythonServerCode.firebase_connect import get_level, get_answers, get_question, uid_valid, score_user, init_level, \
+    transfer_user_score
 from PythonServerCode.game_engine.question_engine import GameEngine
 from PythonServerCode.flask_errors import InvalidUsage
 
@@ -120,7 +121,7 @@ def main_getLevelEnd_post():
 
         # end of level if should start with a Z, then the level is completed
         if question_id[0] == 'Z':
-            transfer_user_score(question_id)
+            transfer_user_score(question_id, uid)
 
         text = question['question_text']
         next_question_id = question['next_question_id']

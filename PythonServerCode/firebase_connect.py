@@ -115,16 +115,48 @@ def get_user_current_score(uid, level):
     return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep']
 
 
-def transfer_user_score(question_id):
-    # todo - think of scoring mechanism here to get percentages
+def transfer_user_score(question_id, uid):
     # look up in db if the user has passed or failed
-    pass
+    snapshot = db.collection('questions').document(question_id).get()
+    snapshot = snapshot.to_dict()
+    complete = snapshot.get('completed')
+
+    # create mapping for level
+    level = K.level_mapping[question_id[1]]
 
     # if passed the level then transfer the scores to permanent
+    if complete:
+        # get the temp scores from the db and calculate percentages
+        ccp, cep, chcp, chep = get_user_current_score(uid, level)
+
+        # add score to permanent score and scale according to percentages
+        data = {
+            'final_scores': {
+                level: {
+                    'final_cp': ccp,
+                    'final_ep': cep,
+                    'final_hcp': chcp,
+                    'final_hep': chep,
+                    'final_cp_percentage': ccp/chcp,
+                    'final_ep_percentage': cep/chep,
+                }
+            }
+        }
+        db.collection('user_data').document(uid).update(data)
 
     # if not passed the level then do not transfer scores, hence do nothing
-
     # set temp scores to zero
+    data = {
+        'current_score': {
+            level: {
+                'current_cp': 0,
+                'current_ep': 0,
+                'current_hcp': 0,
+                'current_hep': 0,
+            }
+        }
+    }
+    db.collection('user_data').document(uid).update(data)
 
 
 class AnswerResponse:

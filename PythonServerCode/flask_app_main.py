@@ -10,13 +10,11 @@ import firebase_admin
 from firebase_admin import credentials, db
 from firebase_admin import firestore
 
-from PythonServerCode.firebase_connect import get_level, get_answers, get_question
+from PythonServerCode.firebase_connect import get_level, get_answers, get_question, uid_valid, score_user
 from PythonServerCode.game_engine.question_engine import GameEngine
 from PythonServerCode.flask_errors import InvalidUsage
 
 # TODO: remove print statements from production code
-
-# todo - build third api endpoint for answers
 
 app = Flask(__name__)
 
@@ -38,12 +36,9 @@ def handle_invalid_usage(error):
     return response
 
 
-# need api endpoint to record user responses in scoring model and return the next question conditional on decision
-# create proper scheme for usage
-
 # todo - seperate out db connection into seperate model
 
-@app.route('/initLevelForUser', methods=['POST'])  # check deployment on AWS with boyd
+@app.route('/initLevelForUser', methods=['POST'])
 def main_initLevelForUser_post():
     if request.method == 'POST':
         with open('json_schemas/schema_initLevelForUser_post.json') as sch_init:
@@ -68,13 +63,11 @@ def main_initLevelForUser_post():
         # if level_narrative['answers'] is None:
         #     answers = False
 
-        # todo - score user by uid something like engine.score(uid, level_id)
-
         return json.dumps({'success': True, 'level_narrative': text, 'next_question_id': next_question_id}), \
                200, {'ContentType': 'application/json'}
 
 
-@app.route('/getQuestionResponse', methods=['POST'])  # check deployment on AWS with boyd
+@app.route('/getQuestionResponse', methods=['POST'])
 def main_getQuestionResponse_post():
     if request.method == 'POST':
         with open('json_schemas/schema_getQuestionResponse_post.json') as sch_init:
@@ -105,7 +98,7 @@ def main_getQuestionResponse_post():
                200, {'ContentType': 'application/json'}
 
 
-@app.route('/getLevelEnd', methods=['POST'])  # check deployment on AWS with boyd
+@app.route('/getLevelEnd', methods=['POST'])
 def main_getLevelEnd_post():
     if request.method == 'POST':
         with open('json_schemas/schema_getLevelEnd_post.json') as sch_init:
@@ -125,11 +118,54 @@ def main_getLevelEnd_post():
         # engine = GameEngine()
         question = get_level(question_id)
         # todo - include bool if user passed or not
+        # todo - write to the db that the user has completed the level and convert the temp scores to actual scores
         text = question['question_text']
         next_question_id = question['next_question_id']
         # todo - score user by uid something like engine.score(uid, level_id)
 
         return json.dumps({'success': True, 'question_text': text, 'next_question_id': next_question_id}), \
+               200, {'ContentType': 'application/json'}
+
+
+@app.route('/scoreUser', methods=['POST'])
+def main_scoreUser_post():
+    if request.method == 'POST':
+        with open('json_schemas/schema_scoreUser_post.json') as sch_init:
+            sch_init = json.load(sch_init)
+            print(sch_init)
+
+        json_data = request.get_json()
+        print(json_data)
+        if not validate_json(json_data, sch_init):
+            raise InvalidUsage('Invalid json format. uid and answer_id fields required',
+                               status_code=400)
+
+        # get the answer_id and the uid
+        # check if the user id is valid, otherwise raise exception
+        # todo - check if this works
+        uid = json_data['uid']
+        answer_id = json_data['answer_id']
+        if not uid_valid(uid):
+            raise InvalidUsage('User ID not found.', status_code=403)
+
+
+        # todo - make this flexible in case the user is playing a different level
+        score_user(uid, answer_id, 1)  # last parameter here is the level the user is playing
+
+        # todo - think about interrupts for the level >> whenever user starts a level then set the temp scores to 0
+
+        # print(f'json received is: {json_data}')
+        # uid = json_data['uid']
+        # question_id = json_data['question_id']
+        #
+        # # engine = GameEngine()
+        # question = get_level(question_id)
+        # # todo - include bool if user passed or not
+        # text = question['question_text']
+        # next_question_id = question['next_question_id']
+        # # todo - score user by uid something like engine.score(uid, level_id)
+
+        return json.dumps({'success': True}), \
                200, {'ContentType': 'application/json'}
 
 

@@ -2,6 +2,7 @@ import firebase_admin
 import ast
 from firebase_admin import credentials
 from firebase_admin import firestore
+from firebase_admin import auth
 from PythonServerCode.constants import K
 from PythonServerCode.flask_errors import InvalidUsage
 
@@ -44,6 +45,35 @@ def get_answers(answer_ids, number_of_answers):
         else:
             print('no')
     return answers
+
+
+def uid_valid(uid):
+    user = auth.get_user(uid)  # alternative - do this over cloud db
+    if user is None:
+        return False
+    return True
+
+
+def score_user(uid, answer_id, level):
+    # find the score and highscore by answer id
+    temp_ep, temp_cp, temp_ep, temp_hcp = get_score(answer_id)
+
+
+    # go to the db and increase the users:
+        # temp_empathy_score_one
+        # temp_communication_score_one
+        # temp_empathy_highscore_one
+        # temp_empathy_highscore_one
+
+    # create the string variables with temp_ep_1
+
+    db.collection('user_data').document(uid).set({
+
+    })
+
+def get_score(answer_id):
+    # look up in db what the corresponding score is
+    # return the four scores
 
 
 class AnswerResponse:

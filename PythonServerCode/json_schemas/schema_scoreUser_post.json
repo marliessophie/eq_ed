@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/product.schema.json",
+    "title": "scoreUser",
+    "description": "Holds temporary scoring data for user in db.",
+    "type": "object",
+    "properties": {
+        "uid": {
+            "description": "uid",
+            "type": "string",
+            "minLength": 1
+        },
+        "level_id": {
+            "description": "answer_id",
+            "type": "string",
+            "minLength": 1
+        }
+    },
+    "required": ["uid", "answer_id"]
+}

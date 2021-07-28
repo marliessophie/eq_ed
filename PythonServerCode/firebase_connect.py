@@ -11,6 +11,23 @@ firebase_admin.initialize_app(credentials)
 db = firestore.client()
 
 
+def init_level(level_id, uid):
+    # second character in level id corresponds to the number of the level shown in the mapping
+    level = K.level_mapping[level_id[1]]
+
+    data = {
+        'current_score': {
+            level: {
+                'current_cp': 0,
+                'current_ep': 0,
+                'current_hcp': 0,
+                'current_hep': 0,
+            }
+        }
+    }
+    db.collection('user_data').document(uid).update(data)
+
+
 def get_level(level_id):
     level_narrative = db.collection('questions').document(level_id).get()
     if not level_narrative.exists:
@@ -48,38 +65,53 @@ def get_answers(answer_ids, number_of_answers):
 
 
 def uid_valid(uid):
-    user = auth.get_user(uid)  # alternative - do this over cloud db
-    if user is None:
+    user = db.collection('user_data').document(uid).get()
+    if not user.exists:
         return False
     return True
 
 
 def score_user(uid, answer_id, level):
     # find the score and highscore by answer id
-    cp, ep, hcp, hep = get_score(answer_id)
+    cp, ep, hcp, hep = get_score_by_answer_id(answer_id)
 
     # get the users current scores for level 1
     ccp, cep, chcp, chep = get_user_current_score(uid, level)
 
     # increase the current scores for level 1
-    db.collection('user_data').document(uid).document('current_score').document(level).set({
-        'current_cp': ccp+cp,
-        'current_ep': cep+ep,
-        'current_hcp': chcp+hcp,
-        'current_hep': chep+hep,
-    })
+    data = {
+        'current_score': {
+            level: {
+                'current_cp': ccp+cp,
+                'current_ep': cep+ep,
+                'current_hcp': chcp+hcp,
+                'current_hep': chep+hep,
+            }
+        }
+    }
+    db.collection('user_data').document(uid).update(data)
 
 
-def get_score(answer_id):
+def get_score_by_answer_id(answer_id):
     # look up in db what the corresponding score is and return
-    score = db.collection('answers').document(answer_id).document('score').get()
-    highscore = db.collection('answers').document(answer_id).document('highscore').get()
+    snapshot = db.collection('answers').document(answer_id).get()
+    snapshot = snapshot.to_dict()
+    score = snapshot.get('score')
+    highscore = snapshot.get('highscore')
     return score['CP'], score['EP'], highscore['CP'], highscore['EP']
 
 
 def get_user_current_score(uid, level):
     # find current user in db by uid and find the ccp, cep, chcp, chep per level and return these
-    score = db.collection('user_data').document(uid).document('current_score').document(level).get()
+    snapshot = db.collection('user_data').document(uid).get()
+    snapshot = snapshot.to_dict()
+    current_score = snapshot.get('current_score')
+
+    # if this does not exist raise an InvalidUsage exception
+    if current_score is None:
+        raise InvalidUsage('Level not initiated.', status_code=403)
+
+    score = current_score.get(level)
     return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep']
 
 

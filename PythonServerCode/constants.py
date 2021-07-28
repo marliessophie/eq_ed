@@ -10,6 +10,11 @@ from PythonServerCode.game_engine.utilies.components.score import Score
 
 
 class K:
+    level_mapping = {
+        '1': 'one',
+        '2': 'two',
+        '3': 'three',
+    }
     path = Path(__file__).parent
     cred = os.path.join(path, 'json_schemas/serviceAccountKey.json')
     introX1000 = Item(

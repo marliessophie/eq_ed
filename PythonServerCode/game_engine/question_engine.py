@@ -9,14 +9,6 @@ from PythonServerCode.game_engine.utilies.question_list import QuestionList
 
 # TODO: check with boyd approach of saving model in pickle file
 # TODO: save game engine object in pickle file and retrain when necessary
-# TODO: define separate model for scoring user working with db, saving current user score and gameEngine
-# TODO: work on API calls from server side to send back data in format that is expected
-# TODO: detail out json schema for return to front end for level data
-# TODO: detail out json schema for scoring model given the user
-# TODO: note down assumption for thesis
-# TODO: refactor code classes
-# TODO: add remaining levels to the db
-
 
 class GameEngine:
     def __init__(self):

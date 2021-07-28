@@ -136,6 +136,7 @@ def main_scoreUser_post():
             print(sch_init)
 
         json_data = request.get_json()
+        print(json_data)
         if not validate_json(json_data, sch_init):
             raise InvalidUsage('Invalid json format. uid and answer_id fields required',
                                status_code=400)
@@ -144,6 +145,10 @@ def main_scoreUser_post():
         answer_id = json_data['answer_id']
         if not uid_valid(uid):
             raise InvalidUsage('User ID not found.', status_code=403)
+
+        if answer_id is "":
+            raise InvalidUsage('Invalid json format. uid and answer_id fields required',
+                               status_code=400)
 
         level = K.level_mapping[answer_id[1]]
         score_user(uid, answer_id, level)

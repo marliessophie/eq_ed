@@ -2,7 +2,6 @@ import firebase_admin
 import ast
 from firebase_admin import credentials
 from firebase_admin import firestore
-from firebase_admin import auth
 from PythonServerCode.constants import K
 from PythonServerCode.flask_errors import InvalidUsage
 
@@ -95,6 +94,9 @@ def score_user(uid, answer_id, level):
 def get_score_by_answer_id(answer_id):
     # look up in db what the corresponding score is and return
     snapshot = db.collection('answers').document(answer_id).get()
+    if not snapshot.exists:
+        raise InvalidUsage('Answer ID not found.', status_code=403)
+
     snapshot = snapshot.to_dict()
     score = snapshot.get('score')
     highscore = snapshot.get('highscore')
@@ -157,6 +159,7 @@ def transfer_user_score(question_id, uid):
         }
     }
     db.collection('user_data').document(uid).update(data)
+    return complete
 
 
 class AnswerResponse:

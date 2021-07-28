@@ -115,6 +115,18 @@ def get_user_current_score(uid, level):
     return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep']
 
 
+def transfer_user_score(question_id):
+    # todo - think of scoring mechanism here to get percentages
+    # look up in db if the user has passed or failed
+    pass
+
+    # if passed the level then transfer the scores to permanent
+
+    # if not passed the level then do not transfer scores, hence do nothing
+
+    # set temp scores to zero
+
+
 class AnswerResponse:
     def __init__(self, text, next_question_id):
         self.text = text

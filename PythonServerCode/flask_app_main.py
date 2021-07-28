@@ -117,9 +117,15 @@ def main_getLevelEnd_post():
         question = get_level(question_id)
         # todo - include bool if user passed or not
         # todo - write to the db that the user has completed the level and convert the temp scores to actual scores
+
+        # end of level if should start with a Z, then the level is completed
+        if question_id[0] == 'Z':
+            transfer_user_score(question_id)
+
         text = question['question_text']
         next_question_id = question['next_question_id']
 
+        # todo - include if level is completed
         return json.dumps({'success': True, 'question_text': text, 'next_question_id': next_question_id}), \
                200, {'ContentType': 'application/json'}
 

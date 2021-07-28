@@ -27,11 +27,12 @@ class GameEngine:
 
     # this function only runs once when the model is first trained, and then not again
     def get_current_question_list_initial(self):  # TODO: query db for current question list
-        self.add_item(K.introX1000)
-        self.add_item(K.questionX1001)
-        self.add_item(K.questionX1002)
-        self.add_item(K.questionX1005)
-        self.add_item(K.questionX1008)
+        pass
+        # self.add_item(K.introX1000)
+        # self.add_item(K.questionX1001)
+        # self.add_item(K.questionX1002)
+        # self.add_item(K.questionX1005)
+        # self.add_item(K.questionX1008)
         # go through the question node in the db and add all the current questions here in the right format
         # current_list = self.db_connect.db.collection('questions').get()
         # print(current_list)

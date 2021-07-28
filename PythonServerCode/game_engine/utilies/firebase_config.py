@@ -28,6 +28,7 @@ class DbConnection:
             'answers': None,
             'next_question_id': None,
             'question_id': id,
+            'completed': level_end.completed,
         }
 
         # Add an entry in the question node

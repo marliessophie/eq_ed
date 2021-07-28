@@ -69,6 +69,7 @@ class DbConnection:
         new_answer_entry = {
             'text': answer.text,
             'score': self.add_score_to_db(answer.score),
+            'highscore': self.add_score_to_db(answer.highscore),
             'answer_id': answer.answer_id,
             'next_question_id': answer.next_question_id,
         }

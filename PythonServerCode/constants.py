@@ -25,13 +25,13 @@ class K:
 
     # question item X1001
     answersX1001 = list()
-    answersX1001.append(Answer("Say nothing and see how the discussion evolves.", Score(0, 0),
+    answersX1001.append(Answer("Say nothing and see how the discussion evolves.", Score(0, 0), Score(10, 8),
                           "Y1001", "X1002"))
     answersX1001.append(Answer("Tell Rick that he is being unfair to Morty and he should do the research task instead.",
-                               Score(3, 5), "Y1002", "X1005"))
+                               Score(3, 5), Score(10, 8), "Y1002", "X1005"))
     answersX1001.append(Answer("Say that you think it would be good to take a step back"
-                          " and think about which tasks need to be distributed first.", Score(10, 10),
-                          "Y1003", "X1008"))
+                          " and think about which tasks need to be distributed first.",
+                               Score(10, 8), Score(10, 8), "Y1003", "X1008"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1001 = Question(
         "Rick: Alright, now that we have the task I'd say Morty look at news "
@@ -47,13 +47,13 @@ class K:
 
     # question item X1002
     answersX1002 = list()
-    answersX1002.append(Answer("Agree with Rick, you need to get to work!", Score(-10, -10),
+    answersX1002.append(Answer("Agree with Rick, you need to get to work!", Score(-10, -10), Score(10, 10),
                                "Y1004", "Z1001"))
     answersX1002.append(Answer("Say nothing and end the meeting like this.",
-                               Score(2, 0), "Y1005", "Z1001"))
+                               Score(2, 0), Score(10, 10), "Y1005", "Z1001"))
     answersX1002.append(Answer("Calmly ask Rick if he thinks that this behaviour is "
                                "appropriate towards the team and ask him to apologise to Morty..", Score(10, 10),
-                               "Y1006", "X1003"))
+                               Score(10, 10), "Y1006", "X1003"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1002 = Question(
         "Morty: Hmm maybe we should try and understand the components of the question first and... " +
@@ -67,14 +67,14 @@ class K:
     # question item X1005
     answersX1005 = list()
     answersX1005.append(Answer("Morty why are you not saying anything? I defended you and now this... "
-                               "Rick was right, you should do the task!", Score(0, 2),
+                               "Rick was right, you should do the task!", Score(0, 2), Score(10, 10),
                                "Y1007", "X1002"))
     answersX1005.append(Answer("I really think you should do the task, Rick. After the way you "
                                "spoke to Morty that is the least you can do.",
-                               Score(3, 8), "Y1008", "X1006"))
+                               Score(3, 8), Score(10, 10), "Y1008", "X1006"))
     answersX1005.append(Answer("Well, if you are also not happy to do this research maybe let's "
                                "reconsider what we should do about this assignment. "
-                               "And please try to keep friendly vibes.", Score(10, 10),
+                               "And please try to keep friendly vibes.", Score(10, 10), Score(10, 10),
                                "Y1009", "X1007"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1005 = Question(
@@ -88,14 +88,14 @@ class K:
     # question item X1008
     answersX1008 = list()
     answersX1008.append(Answer("What do you mean he agrees? You have been talking over him this whole time!",
-                               Score(2, 2),
+                               Score(2, 2), Score(10, 10),
                                "Y1010", "X1009"))
     answersX1008.append(Answer("I really think you should do the task, Rick. After the way you "
                                "spoke to Morty that is the least you can do.",
-                               Score(8, 5), "Y1011", "X1011"))
+                               Score(8, 5), Score(10, 10), "Y1011", "X1011"))
     answersX1008.append(Answer("How about we focus on what needs to be done for the task. "
                                "Morty, do you have a suggestion on how to split up work?",
-                               Score(10, 10),
+                               Score(10, 10), Score(10, 10),
                                "Y1012", "X1011"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1008 = Question(
@@ -109,10 +109,10 @@ class K:
     # question item X1003
     answersX1003 = list()
     answersX1003.append(Answer("This sounds like a good idea, let's go with this!",
-                               Score(0, 0),
+                               Score(0, 0), Score(10, 10),
                                "Y1013", "Z1002"))
     answersX1003.append(Answer("Thanks apologising to Morty, Rick. Morty are you happy with this division of work?",
-                               Score(10, 10), "Y1014", "X1004"))
+                               Score(10, 10), Score(10, 10), "Y1014", "X1004"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1003 = Question(
         "Rick: Alright, alright. Sorry Morty. Then I will do the research task instead and you guys "
@@ -126,13 +126,13 @@ class K:
     # question item X1004
     answersX1004 = list()
     answersX1004.append(Answer("Great, then everyone is happy.",
-                               Score(5, 0),
+                               Score(5, 0), Score(10, 10),
                                "Y1023", "Z1002"))
     answersX1004.append(Answer("Ok. Morty are you sure you are okay with this?",
-                               Score(5, 8), "Y1024", "Z1003"))
+                               Score(5, 8), Score(10, 10), "Y1024", "Z1003"))
     answersX1004.append(Answer("Ok. Is there anything else you would like to add Morty? "
                                "And are you sure you are no longer overwhelmed?",
-                               Score(10, 10), "Y1025", "Z1004"))
+                               Score(10, 10), Score(10, 10), "Y1025", "Z1004"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1004 = Question(
         "Morty: Sorry, I was a bit overwhelmed. Yes, I am happy with this division of work!",
@@ -145,13 +145,13 @@ class K:
     # question item X1006
     answersX1006 = list()
     answersX1006.append(Answer("Great, then everyone is happy.",
-                               Score(5, 0),
+                               Score(5, 0), Score(10, 10),
                                "Y1023", "Z1002"))
     answersX1006.append(Answer("Ok. Morty are you sure you are okay with this?",
-                               Score(5, 8), "Y1024", "Z1003"))
+                               Score(5, 8), Score(10, 10), "Y1024", "Z1003"))
     answersX1006.append(Answer("Ok. Is there anything else you would like to add Morty? "
                                "And are you sure you are no longer overwhelmed?",
-                               Score(10, 10), "Y1025", "Z1004"))
+                               Score(10, 10), Score(10, 10), "Y1025", "Z1004"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1006 = Question(
         "Rick: I really do not see why I should do the task? Morty you are totally okay with doing the task, right? "
@@ -167,13 +167,13 @@ class K:
     # question item X1007
     answersX1007 = list()
     answersX1007.append(Answer("Great, then everyone is happy.",
-                               Score(0, 0),
+                               Score(0, 0), Score(10, 10),
                                "Y1015", "A1000"))
     answersX1007.append(Answer("Ok. Morty are you sure you are okay with this?",
-                               Score(5, 5), "Y1016", "Z1006"))
+                               Score(5, 5), Score(10, 10), "Y1016", "Z1006"))
     answersX1007.append(Answer("Great idea Rick. But I would love to hear what ideas you had Morty!"
                                " Care to share? ",
-                               Score(10, 10), "Y1017", "Z1007"))
+                               Score(10, 10), Score(10, 10), "Y1017", "Z1007"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1007 = Question(
         "Morty: I actually have some ideas, how about we... Rick: So we have the research of news "
@@ -190,13 +190,13 @@ class K:
     answersX1009 = list()
     answersX1009.append(Answer("Rick, I do not care what you say anymore, your behaviour is totally not okay. "
                                "I do not see how we can work together if you act like this. Come Morty, let's go!",
-                               Score(-2, 2),
+                               Score(-2, 2), Score(10, 10),
                                "Y1018", "Z1008"))
     answersX1009.append(Answer("Ok, it might have just come off that way. Then let us refocus on the task.",
-                               Score(8, 5), "Y1019", "X1010"))
+                               Score(8, 5), Score(10, 10), "Y1019", "X1010"))
     answersX1009.append(Answer("Ok. It might have come off wrong. Maybe let's think about the task. "
                                "Morty, do you have any ideas on how to approach this assignment?",
-                               Score(10, 10), "Y1020", "Z1007"))
+                               Score(10, 10), Score(10, 10), "Y1020", "Z1007"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1009 = Question(
         "Rick: I have not been talking over anyone. "
@@ -210,10 +210,10 @@ class K:
     # question item X1010
     answersX1010 = list()
     answersX1010.append(Answer("No",
-                               Score(0, 0),
+                               Score(0, 0), Score(10, 10),
                                "Y1026", "Z1008"))
     answersX1010.append(Answer("Yes",
-                               Score(10, 10), "Y1027", "Z1007"))
+                               Score(10, 10), Score(10, 10), "Y1027", "Z1007"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1010 = Question(
         "EQ'ed: do you think it is necessary to check in with Morty to see if he has any ideas?",
@@ -226,10 +226,10 @@ class K:
     # question item X1011
     answersX1011 = list()
     answersX1011.append(Answer("Sure. This works.",
-                               Score(0, 0),
+                               Score(0, 0), Score(10, 10),
                                "Y1021", "Z1006"))
     answersX1011.append(Answer("Great input both. Are you happy with this Morty?",
-                               Score(10, 10), "Y1022", "Z1007"))
+                               Score(10, 10), Score(10, 10), "Y1022", "Z1007"))
     # question_text, number_of_answers, answers, next_question_id
     new_questionX1011 = Question(
         "Morty: Sure, I think it would be nice to 1) find some statistics about how peoples opinion evolved, "

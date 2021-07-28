@@ -150,7 +150,8 @@ def main_scoreUser_post():
 
 
         # todo - make this flexible in case the user is playing a different level
-        score_user(uid, answer_id, 1)  # last parameter here is the level the user is playing
+        # level designed to be string
+        score_user(uid, answer_id, 'one')  # last parameter here is the level the user is playing
 
         # todo - think about interrupts for the level >> whenever user starts a level then set the temp scores to 0
 

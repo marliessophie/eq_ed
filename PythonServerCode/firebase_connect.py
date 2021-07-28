@@ -56,24 +56,31 @@ def uid_valid(uid):
 
 def score_user(uid, answer_id, level):
     # find the score and highscore by answer id
-    temp_ep, temp_cp, temp_ep, temp_hcp = get_score(answer_id)
+    cp, ep, hcp, hep = get_score(answer_id)
 
+    # get the users current scores for level 1
+    ccp, cep, chcp, chep = get_user_current_score(uid, level)
 
-    # go to the db and increase the users:
-        # temp_empathy_score_one
-        # temp_communication_score_one
-        # temp_empathy_highscore_one
-        # temp_empathy_highscore_one
-
-    # create the string variables with temp_ep_1
-
-    db.collection('user_data').document(uid).set({
-
+    # increase the current scores for level 1
+    db.collection('user_data').document(uid).document('current_score').document(level).set({
+        'current_cp': ccp+cp,
+        'current_ep': cep+ep,
+        'current_hcp': chcp+hcp,
+        'current_hep': chep+hep,
     })
 
+
 def get_score(answer_id):
-    # look up in db what the corresponding score is
-    # return the four scores
+    # look up in db what the corresponding score is and return
+    score = db.collection('answers').document(answer_id).document('score').get()
+    highscore = db.collection('answers').document(answer_id).document('highscore').get()
+    return score['CP'], score['EP'], highscore['CP'], highscore['EP']
+
+
+def get_user_current_score(uid, level):
+    # find current user in db by uid and find the ccp, cep, chcp, chep per level and return these
+    score = db.collection('user_data').document(uid).document('current_score').document(level).get()
+    return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep']
 
 
 class AnswerResponse:

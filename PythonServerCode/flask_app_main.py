@@ -82,7 +82,7 @@ def main_getQuestionResponse_post():
             print(sch_init)
 
         json_data = request.get_json()
-        print(json_data)
+        # print(json_data)
         if not validate_json(json_data, sch_init):
             raise InvalidUsage('Invalid json format. uid and level_id fields required',
                                status_code=400)

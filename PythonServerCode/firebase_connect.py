@@ -3,13 +3,17 @@ import ast
 from firebase_admin import credentials
 from firebase_admin import firestore
 from PythonServerCode.constants import K
+from PythonServerCode.flask_errors import InvalidUsage
 
 credentials = credentials.Certificate(K.cred)
 firebase_admin.initialize_app(credentials)
 db = firestore.client()
 
+
 def get_level(level_id):
     level_narrative = db.collection('questions').document(level_id).get()
+    if not level_narrative.exists:
+        raise InvalidUsage('Level ID not found.', status_code=403)
     level_narrative = level_narrative.to_dict()
     return level_narrative
 

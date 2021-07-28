@@ -44,7 +44,7 @@ class FlaskTestCase(unittest.TestCase):
         self.assertIsNotNone(data['message'])
         self.assertTrue('Invalid json format' in data['message'])
 
-        # todo - think of testing invalid level_id (valid json, not found error)
+        # Test invalid level_id (valid json, not found error)
         response = tester.post('/initLevelForUser', json=({"level_id": "X1111", "uid": "User1"}))
         data = json.loads(response.get_data(as_text=True))
         print(data)
@@ -63,6 +63,42 @@ class FlaskTestCase(unittest.TestCase):
         self.assertIsNotNone(data['question_text'])
         self.assertIsNotNone(data['number_of_answers'])
         self.assertIsNotNone(data['answers'])
+
+        # Test misspelling of key 'question_id' (invalid json)
+        response = tester.post('/getQuestionResponse', json=({"questionId": "X1002", "uid": "User1"}))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 400)
+        self.assertIsNotNone(data['message'])
+        self.assertTrue('Invalid json format' in data['message'])
+
+        # Test misspelling of key 'uid' (invalid json)
+        response = tester.post('/getQuestionResponse', json=({"question_id": "X1002", "UID": "User1"}))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 400)
+        self.assertIsNotNone(data['message'])
+        self.assertTrue('Invalid json format' in data['message'])
+
+        # Test empty question_id field (invalid json)
+        response = tester.post('/getQuestionResponse', json=({"question_id": "", "uid": "User1"}))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 400)
+        self.assertIsNotNone(data['message'])
+        self.assertTrue('Invalid json format' in data['message'])
+
+        # Test empty uid field (invalid json)
+        response = tester.post('/getQuestionResponse', json=({"question_id": "X1002", "uid": ""}))
+        data = json.loads(response.get_data(as_text=True))
+        self.assertEqual(response.status_code, 400)
+        self.assertIsNotNone(data['message'])
+        self.assertTrue('Invalid json format' in data['message'])
+
+        # Test invalid question_id (valid json, not found error)
+        response = tester.post('/getQuestionResponse', json=({"question_id": "X1724", "uid": "User1"}))
+        data = json.loads(response.get_data(as_text=True))
+        print(data)
+        self.assertEqual(response.status_code, 403)
+        self.assertIsNotNone(data['message'])
+        self.assertEqual(data['message'], 'Question ID not found.')
 
     def test_getLevelEnd(self):
         tester = app.test_client(self)

@@ -10,7 +10,7 @@ import firebase_admin
 from firebase_admin import credentials, db
 from firebase_admin import firestore
 
-from PythonServerCode.firebase_connect import get_level, get_answers
+from PythonServerCode.firebase_connect import get_level, get_answers, get_question
 from PythonServerCode.game_engine.question_engine import GameEngine
 from PythonServerCode.flask_errors import InvalidUsage
 
@@ -53,7 +53,7 @@ def main_initLevelForUser_post():
         json_data = request.get_json()
         print(json_data)
         if not validate_json(json_data, sch_init):
-            raise InvalidUsage('Invalid json format. uid and level_id fields required',
+            raise InvalidUsage('Invalid json format. uid and next_question_id fields required',
                                status_code=400)
 
         print(f'json received is: {json_data}')
@@ -92,7 +92,7 @@ def main_getQuestionResponse_post():
         question_id = json_data['question_id']
 
         # engine = GameEngine()
-        question = get_level(question_id)
+        question = get_question(question_id)
         text = question['question_text']
         number_of_answers = question['number_of_answers']
         answer_ids = question['answers']

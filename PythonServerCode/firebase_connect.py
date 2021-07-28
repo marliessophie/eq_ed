@@ -18,6 +18,14 @@ def get_level(level_id):
     return level_narrative
 
 
+def get_question(question_id):
+    question = db.collection('questions').document(question_id).get()
+    if not question.exists:
+        raise InvalidUsage('Question ID not found.', status_code=403)
+    level_narrative = question.to_dict()
+    return level_narrative
+
+
 def get_answers(answer_ids, number_of_answers):
     answer_ids = ast.literal_eval(answer_ids)
     print(answer_ids)

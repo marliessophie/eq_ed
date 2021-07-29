@@ -30,8 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final _firestore = FirebaseFirestore.instance;
   late User loggedInUser;
   String userName = 'friend';
-  int score = 0;
+  double cp = 0;
+  double ep = 0;
   String level = 'ice queen';
+  int attempts = 0;
+  String score = '';
 
   @override
   void initState() {
@@ -51,14 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
             .get()
             .then((DocumentSnapshot value) {
           if (value.exists) {
-            print('success');
             setState(() {
               userName = value['user_name'].toString();
-              int empathyScore = value['empathy_score'].toInt();
-              int communicationScore = value['communication_score'].toInt();
-              score = empathyScore + communicationScore;
-              level = Scorer.getLevel(
-                  score); // TODO: outsource this logic to server
+              attempts = value['attempts'];
+              // todo - need to think about how to get all the scores, and show per level (get the average)
+              // int empathyScore = value['empathy_score'].toInt();
+              // int communicationScore = value['communication_score'].toInt();
+              score = attempts.toString();
+              level = Scorer.getLevel(attempts.toInt());
             });
           }
         });

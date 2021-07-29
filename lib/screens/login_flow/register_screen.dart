@@ -172,8 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .doc(loggedInUser.uid)
                                       .set({
                                     'user_name': userName,
-                                    'empathy_score': 0,
-                                    'communication_score': 0,
+                                    'attempts': 0,
                                   });
                                   // TODO: adjust this per iOS or android OS
                                   showDialog<String>(

@@ -305,20 +305,21 @@ class _AnswerScreenState extends State<AnswerScreen>
                     }
                   },
                 ),
-                ReusableCard(
-                  colour: kSecondaryColor,
-                  cardChild: Center(
-                    child: Text(
-                      'Re-watch the scenario.',
-                      style: kLabelTextStyle.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  onPress: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                // todo - comment in or out, depending on how videos are displayed
+                // ReusableCard(
+                //   colour: kSecondaryColor,
+                //   cardChild: Center(
+                //     child: Text(
+                //       'Re-watch the scenario.',
+                //       style: kLabelTextStyle.copyWith(
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                //   onPress: () {
+                //     Navigator.pop(context);
+                //   },
+                // ),
               ],
             ),
           ),

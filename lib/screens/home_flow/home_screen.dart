@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double ep = 0;
   String level = 'ice queen';
   int attempts = 0;
-  String score = '';
+  String score = '0';
 
   @override
   void initState() {
@@ -178,24 +178,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      // TextButton(
-                      //   child: Text('Server test'),
-                      //   onPressed: () async {
-                      //     // TODO: refactor this into api model
-                      //     String url = 'http://127.0.0.1:5000/initLevelForUser';
-                      //     var data = json.encode({
-                      //       "uid": "User1",
-                      //       "level_id": "X1000",
-                      //     });
-                      //
-                      //     Map body = {
-                      //       "uid": "User1",
-                      //       "level_id": "X1000",
-                      //     };
-                      //
-                      //     apiRequest(url, body);
-                      //   },
-                      // ),
                       SizedBox(
                         height: 70.0,
                       ),

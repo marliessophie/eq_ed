@@ -8,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 // TODO: call verify email function before deploying to users
 // TODO: ask user for more details if they sign up
 // TODO: retrieve more details from user account if they chose to sign up via google
-// TODO: make api model fully
 // TODO: add level description in model
 
 void main() async {

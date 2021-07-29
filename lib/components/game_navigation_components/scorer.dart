@@ -6,7 +6,11 @@ class Scorer {
   };
 
   static String getLevel(int score) {
-    score = score + (100 - score % 100);
+    score = score + (10 - score % 10);
     return levels[score] ?? 'error';
+  }
+
+  static getLevelDescription(int score) {
+    return "you are awesome";
   }
 }

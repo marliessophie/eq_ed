@@ -37,11 +37,11 @@ class _ScoreDetailsScreenState extends State<ScoreDetailsScreen> {
             if (value.exists) {
               print('success');
               setState(() {
+                // todo change this subject to level
                 empathyScore = value['empathy_score'].toInt();
                 communicationScore = value['communication_score'].toInt();
                 score = empathyScore + communicationScore;
-                level = Scorer.getLevel(
-                    score); // TODO: outsource this logic to server
+                level = Scorer.getLevel(score);
               });
             }
           });
@@ -143,6 +143,16 @@ class _ScoreDetailsScreenState extends State<ScoreDetailsScreen> {
                         "Of which communication: $communicationScore",
                         style: kLabelTextStyle.copyWith(
                           fontSize: 20.0,
+                          color: Colors.white,
+                          height: 1.5,
+                        ),
+                      ),
+                      SizedBox(height: 15.0),
+                      Text(
+                        "Your level $level means " +
+                            Scorer.getLevelDescription(score),
+                        style: kLabelTextStyle.copyWith(
+                          fontSize: 22.0,
                           color: Colors.white,
                           height: 1.5,
                         ),

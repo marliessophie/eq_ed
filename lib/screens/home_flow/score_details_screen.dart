@@ -19,6 +19,7 @@ class _ScoreDetailsScreenState extends State<ScoreDetailsScreen> {
     final _firestore = FirebaseFirestore.instance;
     late User loggedInUser;
     int score = 0;
+    String attempts = '';
     int empathyScore = 0;
     int communicationScore = 0;
     String level = 'ice queen';
@@ -38,9 +39,11 @@ class _ScoreDetailsScreenState extends State<ScoreDetailsScreen> {
               print('success');
               setState(() {
                 // todo change this subject to level
-                empathyScore = value['empathy_score'].toInt();
-                communicationScore = value['communication_score'].toInt();
-                score = empathyScore + communicationScore;
+                score = value['attempts'];
+                // todo - need to think about how to get all the scores, and show per level (get the average)
+                // int empathyScore = value['empathy_score'].toInt();
+                // int communicationScore = value['communication_score'].toInt();
+                attempts = attempts.toString();
                 level = Scorer.getLevel(score);
               });
             }

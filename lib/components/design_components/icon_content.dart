@@ -13,9 +13,12 @@ class IconContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Expanded(
-          child: Icon(
-            icon,
-            size: 70.0,
+          child: IconTheme(
+            data: IconThemeData(color: kAppBarColor),
+            child: Icon(
+              icon,
+              size: 70.0,
+            ),
           ),
         ),
         SizedBox(

@@ -8,6 +8,7 @@ import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/game_navigation_components/scorer.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/models/server_api.dart';
+import 'package:eq_ed/screens/game_flow/level_screen.dart';
 import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
 import 'package:eq_ed/screens/home_flow/score_details_screen.dart';
 import 'package:eq_ed/screens/home_flow/welcome_screen.dart';
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String level = 'ice queen';
   int attempts = 0;
   String score = '0';
+  int index = 0;
 
   @override
   void initState() {
@@ -100,6 +102,34 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: kPrimaryColor,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          )
+        ],
+        currentIndex: index,
+        onTap: (int i) {
+          setState(() {
+            index = i;
+            if (i == 1) {
+              UserAlert.showMessageOneButton(
+                  context,
+                  'Not available',
+                  'Our development team is working hard to release this feature, please be patient.',
+                  'OK',
+                  onPressed);
+            }
+          });
+        },
+      ),
+      //),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -147,16 +177,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Text(
                                     'Your score: $score ice cubes',
                                     style: kNormalTextStyle.copyWith(
-                                      fontSize: 21.0,
+                                      fontSize: 20.0,
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 20.0,
+                                    height: 15.0,
                                   ),
                                   Text(
                                     'Your level: $level',
                                     style: kNormalTextStyle.copyWith(
-                                      fontSize: 21.0,
+                                      fontSize: 20.0,
                                     ),
                                   ),
                                 ],
@@ -179,20 +209,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 70.0,
+                        height: 20.0,
                       ),
                       ReusableCard(
                         colour: kPrimaryColor,
                         cardChild: Center(
                           child: Text(
-                            'Start the first level!',
+                            'Start playing!',
                             style: kLabelTextStyle.copyWith(
                               color: Colors.white,
                             ),
                           ),
                         ),
                         onPress: () {
-                          Navigator.pushNamed(context, ScenarioScreen.id);
+                          // todo - exchnage this by the level screen
+                          Navigator.pushNamed(context, LevelScreen.id);
                         },
                       ),
                       SizedBox(

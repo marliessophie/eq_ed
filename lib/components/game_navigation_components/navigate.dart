@@ -1,6 +1,7 @@
 import 'package:eq_ed/screens/game_flow/answer_screen.dart';
 import 'package:eq_ed/screens/game_flow/example_answer_screen.dart';
 import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
+import 'package:eq_ed/screens/game_flow/level_screen.dart';
 import 'package:eq_ed/screens/game_flow/played_scenarios_screen.dart';
 import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_details_screen.dart';
@@ -23,6 +24,7 @@ class Navigate {
     InfoScreen.id: (context) => InfoScreen(),
     // AnswerScreen.id: (context) => AnswerScreen(),
     // FeedbackScreen.id: (context) => FeedbackScreen(),
+    LevelScreen.id: (context) => LevelScreen(),
     ScenarioScreen.id: (context) => ScenarioScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),
     InfoDetailsScreen.id: (context) => InfoDetailsScreen(),

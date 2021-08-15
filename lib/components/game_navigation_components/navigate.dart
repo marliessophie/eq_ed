@@ -25,7 +25,7 @@ class Navigate {
     // AnswerScreen.id: (context) => AnswerScreen(),
     // FeedbackScreen.id: (context) => FeedbackScreen(),
     LevelScreen.id: (context) => LevelScreen(),
-    ScenarioScreen.id: (context) => ScenarioScreen(),
+    // ScenarioScreen.id: (context) => ScenarioScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),
     InfoDetailsScreen.id: (context) => InfoDetailsScreen(),
     VerifyScreen.id: (context) => VerifyScreen(),

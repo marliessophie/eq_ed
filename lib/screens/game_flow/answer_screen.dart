@@ -66,7 +66,7 @@ class _AnswerScreenState extends State<AnswerScreen>
 
   void makeApiCall() async {
     print('in api call ' + widget.currentQuestionId);
-    String url = 'http://127.0.0.1:5000/getQuestionResponse';
+    String url = kGetQuestionResponse;
     Map body = {
       "uid": uid,
       "question_id": widget.currentQuestionId,

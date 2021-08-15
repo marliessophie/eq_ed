@@ -8,6 +8,12 @@ import 'package:flutter/material.dart';
 
 class ScenarioScreen extends StatefulWidget {
   static var id = 'scenario_screen';
+  final String levelId;
+  final String questionId;
+
+  const ScenarioScreen(
+      {Key? key, required this.levelId, required this.questionId})
+      : super(key: key);
 
   @override
   _ScenarioScreenState createState() => _ScenarioScreenState();
@@ -36,7 +42,7 @@ class _ScenarioScreenState extends State<ScenarioScreen>
     String url = 'http://127.0.0.1:5000/initLevelForUser';
     Map body = {
       "uid": "User1",
-      "level_id": "X1000",
+      "level_id": widget.levelId,
     };
     result = await apiRequestInitLevel(url, body);
     print(result);
@@ -114,15 +120,16 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AnswerScreen(
-                            currentQuestionId: 'X1001',
+                          builder: (context) => AnswerScreen(
+                            // todo - replace this with item that is passed
+                            currentQuestionId: widget.questionId,
                           ),
                         ),
                       );
                     },
                     cardChild: Center(
                       child: Text(
-                        'Record response!',
+                        'Show me the question!',
                         style: kLabelTextStyle.copyWith(
                           color: Colors.white,
                         ),

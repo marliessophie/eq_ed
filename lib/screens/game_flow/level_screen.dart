@@ -2,11 +2,13 @@ import 'package:eq_ed/components/design_components/alert.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/screens/game_flow/scenario_screen.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class LevelScreen extends StatefulWidget {
   static var id = 'level_screen';
+  final FirebaseAnalytics _analytics = FirebaseAnalytics();
 
   @override
   _LevelScreenState createState() => _LevelScreenState();
@@ -72,8 +74,17 @@ class _LevelScreenState extends State<LevelScreen> {
                             ),
                           ),
                           onPress: () {
-                            // todo - exchnage this by the scenario screen, which should be inilalised with the number of the level
-                            Navigator.pushNamed(context, ScenarioScreen.id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ScenarioScreen(
+                                  levelId: kLevelId1,
+                                  questionId: kQuestionId1,
+                                ),
+                              ),
+                            );
+                            widget._analytics
+                                .logEvent(name: 'level_1', parameters: null);
                           },
                         ),
                       ),
@@ -93,12 +104,23 @@ class _LevelScreenState extends State<LevelScreen> {
                           ),
                           onPress: () {
                             // todo - include check if the user has completed the previous level
-                            UserAlert.showMessageOneButton(
-                                context,
-                                'Not unlocked yet 😲',
-                                'You have not completed the previous levels. To unlock this level, please complete level 1 🤩',
-                                'OK',
-                                onPressed);
+                            // UserAlert.showMessageOneButton(
+                            //     context,
+                            //     'Not unlocked yet 😲',
+                            //     'You have not completed the previous levels. To unlock this level, please complete level 1 🤩',
+                            //     'OK',
+                            //     onPressed);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ScenarioScreen(
+                                  levelId: kLevelId2,
+                                  questionId: kQuestionId2,
+                                ),
+                              ),
+                            );
+                            widget._analytics
+                                .logEvent(name: 'level_2', parameters: null);
                           },
                         ),
                       ),
@@ -118,12 +140,23 @@ class _LevelScreenState extends State<LevelScreen> {
                           ),
                           onPress: () {
                             // todo - include check if the user has completed the previous level
-                            UserAlert.showMessageOneButton(
-                                context,
-                                'Not unlocked yet 😲',
-                                'You have not completed the previous levels. To unlock this level, please complete level 2 🤩',
-                                'OK',
-                                onPressed);
+                            // UserAlert.showMessageOneButton(
+                            //     context,
+                            //     'Not unlocked yet 😲',
+                            //     'You have not completed the previous levels. To unlock this level, please complete level 2 🤩',
+                            //     'OK',
+                            //     onPressed);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ScenarioScreen(
+                                  levelId: kLevelId3,
+                                  questionId: kQuestionId3,
+                                ),
+                              ),
+                            );
+                            widget._analytics
+                                .logEvent(name: 'level_3', parameters: null);
                           },
                         ),
                       ),

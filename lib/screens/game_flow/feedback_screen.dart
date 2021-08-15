@@ -23,6 +23,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   String uid = "User1";
   late Map result;
   String questionText = "";
+  // late ConfettiController confettiController;
 
   @override
   void initState() {
@@ -33,6 +34,8 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     super.initState();
     getCurrentUser();
     makeApiCall();
+    //confettiController = ConfettiController(duration: Duration(seconds: 5));
+    //confettiController.play();
   }
 
   void getCurrentUser() async {
@@ -48,7 +51,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
 
   void makeApiCall() async {
     print('in api call ' + widget.currentQuestionId);
-    String url = 'http://127.0.0.1:5000/getLevelEnd';
+    String url = kLevelEnd;
     Map body = {
       "uid": uid,
       "question_id": widget.currentQuestionId,
@@ -56,13 +59,14 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     result = await apiRequestLevelEnd(url, body);
     setState(() {
       questionText = result['questionText'];
-      // todo - check if user has completed level --> implement in BE
+      // todo - check if user has completed level --> implement in BE (check this)
     });
   }
 
   @override
   void dispose() {
     controller.dispose();
+    //confettiController.dispose();
     super.dispose();
   }
 
@@ -74,110 +78,133 @@ class _FeedbackScreenState extends State<FeedbackScreen>
         backgroundColor: kAppBarColor,
         title: Text('EQ\'ed | Feedback'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 15.0,
-                      left: 15.0,
-                    ),
-                    child: LinearProgressIndicator(
-                      value: controller.value,
-                      semanticsLabel: 'Linear progress indicator',
-                      color: kSecondaryColor,
-                      backgroundColor: kActiveCardColour,
-                    ),
+      body: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 15.0,
+                          left: 15.0,
+                        ),
+                        child: LinearProgressIndicator(
+                          value: controller.value,
+                          semanticsLabel: 'Linear progress indicator',
+                          color: kSecondaryColor,
+                          backgroundColor: kActiveCardColour,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Text(
+                        'Thanks for playing!',
+                        style: kNormalTextStyle.copyWith(
+                          fontSize: 30.0,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        'Please see your feedback below.',
+                        style: kNormalTextStyle.copyWith(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Text(
-                    'Thanks for playing!',
-                    style: kNormalTextStyle.copyWith(
-                      fontSize: 30.0,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(
-                    'Please see your feedback below.',
-                    style: kNormalTextStyle.copyWith(
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            child: ReusableCard(
-              cardChild: Padding(
-                padding: const EdgeInsets.all(15.0),
+              Expanded(
+                child: ReusableCard(
+                  cardChild: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Expanded(
+                          child: Text('[Total score: XX/YY]'),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Expanded(
+                          child: Text('[Communication: XX]'),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Expanded(
+                          child: Text('[Empathy: XX]'),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Expanded(
+                          child: Text('Feedback: ' + questionText),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                  onPress: () {},
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Expanded(
-                      child: Text('[Total score: XX/YY]'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: Text('[Communication: XX]'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: Text('[Empathy: XX]'),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: Text('Feedback: ' + questionText),
-                    ),
-                    SizedBox(
-                      height: 10.0,
+                    ReusableCard(
+                      colour: kSecondaryColor,
+                      cardChild: Center(
+                        child: Text(
+                          'Back to home!',
+                          style: kLabelTextStyle.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      onPress: () {
+                        Navigator.pushNamed(context, HomeScreen.id);
+                      },
                     ),
                   ],
                 ),
               ),
-              onPress: () {},
-            ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ReusableCard(
-                  colour: kSecondaryColor,
-                  cardChild: Center(
-                    child: Text(
-                      'Back to home!',
-                      style: kLabelTextStyle.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  onPress: () {
-                    Navigator.pushNamed(context, HomeScreen.id);
-                  },
-                ),
-              ],
-            ),
-          ),
+          // todo - check if this is on the bottom
+          //   Align(
+          //     alignment: Alignment.center,
+          //     child: ConfettiWidget(
+          //       confettiController: confettiController,
+          //       colors: [
+          //         Colors.red,
+          //         Colors.blue,
+          //       ],
+          //       blastDirectionality: BlastDirectionality.explosive,
+          //       shouldLoop: true,
+          //       emissionFrequency: 0.05,
+          //       numberOfParticles: 5,
+          //       gravity: 0.2,
+          //       maxBlastForce: 2,
+          //       minBlastForce: 1,
+          //       particleDrag: 0.1,
+          //     ),
+          //   ),
         ],
       ),
     );

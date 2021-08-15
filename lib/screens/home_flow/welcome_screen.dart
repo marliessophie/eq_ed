@@ -3,7 +3,10 @@ import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/game_navigation_components/firebase_service.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
+import 'package:eq_ed/screens/game_flow/video_screen.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
+import 'package:eq_ed/screens/home_flow/test.dart';
+import 'package:eq_ed/screens/home_flow/test2.dart';
 import 'package:eq_ed/screens/login_flow/email_login_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
 import 'package:eq_ed/screens/login_flow/register_screen.dart';
@@ -11,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static var id = 'welcome_screen';
@@ -187,12 +191,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
           ),
+          TextButton(
+            child: Text('test'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VideoScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
   }
 
-  // TODO: refactor alters to single class throughtout app
   void showMessage(String message) {
     showDialog(
         context: context,

@@ -62,3 +62,15 @@ const kBodyTextStyle = TextStyle(
 
 // variables
 final Function onPressed = () {};
+
+// api endpoints
+const String kLevelEnd = 'http://127.0.0.1:5000/getLevelEnd';
+const String kGetQuestionResponse = 'http://127.0.0.1:5000/getQuestionResponse';
+
+// game data
+const String kLevelId1 = 'X1000';
+const String kLevelId2 = 'X2000';
+const String kLevelId3 = 'X3000';
+const String kQuestionId1 = 'X1001';
+const String kQuestionId2 = 'X2001';
+const String kQuestionId3 = 'X3001';

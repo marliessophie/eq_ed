@@ -75,7 +75,7 @@ def score_user(uid, answer_id, level):
     cp, ep, hcp, hep = get_score_by_answer_id(answer_id)
 
     # get the users current scores for level 1
-    ccp, cep, chcp, chep = get_user_current_score(uid, level)
+    ccp, cep, chcp, chep, attempts = get_user_current_score(uid, level)  #
 
     # increase the current scores for level 1
     data = {
@@ -108,13 +108,19 @@ def get_user_current_score(uid, level):
     snapshot = db.collection('user_data').document(uid).get()
     snapshot = snapshot.to_dict()
     current_score = snapshot.get('current_score')
+    attempts = snapshot.get('attempts')
 
-    # if this does not exist raise an InvalidUsage exception
+    # check if user has already got attempts, if not, set to one
+    number_of_attempts = 1
+    if attempts is not None:
+        number_of_attempts = attempts
+
+        # if this does not exist raise an InvalidUsage exception
     if current_score is None:
         raise InvalidUsage('Level not initiated.', status_code=403)
 
     score = current_score.get(level)
-    return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep']
+    return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep'], number_of_attempts
 
 
 def transfer_user_score(question_id, uid):
@@ -129,10 +135,11 @@ def transfer_user_score(question_id, uid):
     # if passed the level then transfer the scores to permanent
     if complete:
         # get the temp scores from the db and calculate percentages
-        ccp, cep, chcp, chep = get_user_current_score(uid, level)
+        ccp, cep, chcp, chep, attempts = get_user_current_score(uid, level)
 
         # add score to permanent score and scale according to percentages
         data = {
+            'attempts': attempts+1,
             'final_scores': {
                 level: {
                     'final_cp': ccp,

@@ -300,7 +300,603 @@ class K:
         "in this group setting and tried to find a common solution.  ",
     ), "Z1008")
 
+    # intro level 2
+    introX2000 = Item(
+        Intro(
+            "Setting: You are currently working on on an individual project in undergrad. "
+            "This level comprises the first kick-off meeting with your supervisor around timeline "
+            "and milestones. First, the supervisor begins the meeting. Listen carefully and have fun!",
+            'X2001',
+        ),
+        'X2000')
 
+    # question item X2001
+    answersX2001 = list()
+    answersX2001.append(Answer("I don't really have any expectations.",
+                               Score(0, 0), Score(10, 10),
+                               "Y2001", "X2002"))
+    answersX2001.append(Answer("My main interest is learning something new. I also really want "
+                               "to make sure we are on the same page regarding expectations. "
+                               "What is important for you in these projects?",
+                               Score(10, 10), Score(10, 10), "Y2002", "X2002"))
+    answersX2001.append(Answer("I would really like to have a creative component to my project.",
+                               Score(5, 3), Score(10, 10), "Y2003", "X2006"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2001 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX2001,
+        None,
+    )
+    questionX2001 = Item(new_questionX2001, "X2001")
+
+    # question item X2002
+    answersX2002 = list()
+    answersX2002.append(Answer("I think daily updates are way too much, especially given two weekly"
+                               " meetings a week. Let's do no updates and one meeting per week.",
+                               Score(0, 0), Score(10, 10),
+                               "Y2004", "Z2001"))
+    answersX2002.append(Answer("I am not sure I will be able to handle the quantity of updates. "
+                               "I would suggest one meeting start of the week and one update end of the week.",
+                               Score(10, 5), Score(10, 10), "Y2005", "X2003"))
+    answersX2002.append(Answer("I appreciate how much time you are aiming to put into this. Yet I would suggest"
+                               " one update message and meeting per week, as some steps may take a while and I "
+                               "would be sending you updates on outdated progress.",
+                               Score(10, 10), Score(10, 10), "Y2006", "X2004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2002 = Question(
+        "EQ'ed: You think that daily updates might be a bit much in terms of updates. "
+        "Try to communicate this to your supervisor.",
+        3,
+        answersX2002,
+        None,
+    )
+    questionX2002 = Item(new_questionX2002, "X2002")
+
+    # question item X2003
+    answersX2003 = list()
+    answersX2003.append(Answer("No offense, I appreciate your enthusiasm but this amount of meetings "
+                               "will actually hinder my progress, not help it.",
+                               Score(2, 0), Score(10, 10),
+                               "Y2007", "Z2002"))
+    answersX2003.append(Answer("I am grateful you are willing to put in so much time into this, yet I"
+                               " think my work will be constantly iterated and too many updates might "
+                               "be more confusing than helpful, as some approaches might change in "
+                               "the matter of days.",
+                               Score(8, 7), Score(10, 10), "Y2008", "X2005"))
+    answersX2003.append(Answer("I appreciate how much time you are aiming to put into this. Yet I "
+                               "would suggest one update message and meeting per week, as some steps "
+                               "may take a while and I would be sending you updates on outdated progress. "
+                               "Would you be okay with this? Or is there any reason why you would prefer "
+                               "more updates? ",
+                               Score(10, 10), Score(10, 10), "Y2009", "X2004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2003 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX2003,
+        None,
+    )
+    questionX2003 = Item(new_questionX2003, "X2003")
+
+    # question item X2004
+    answersX2004 = list()
+    answersX2004.append(Answer("I think it is too early to discuss milestones. Let me get back to you.",
+                               Score(0, 0), Score(10, 10),
+                               "Y2028", "Z2004"))
+    answersX2004.append(Answer("I would like to make a draft by next week, before the meeting is that okay?",
+                               Score(8, 5), Score(10, 10), "Y2029", "X2010"))
+    answersX2004.append(Answer("I would suggest that I propose a couple of approaches I would like to follow,"
+                               " which you provide feedback on. And then we can define a corresponding "
+                               "structure with milestones. I would make a draft before the next meeting, "
+                               "if that's okay?",
+                               Score(10, 10), Score(10, 10), "Y2030", "X2010"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2004 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX2004,
+        None,
+    )
+    questionX2004 = Item(new_questionX2004, "X2004")
+
+    # question item X2005
+    answersX2005 = list()
+    answersX2005.append(Answer("That would be fine, yes. I will then do that instead of the additional weekly updates.",
+                               Score(3, 0), Score(10, 10),
+                               "Y2010", "Z2003"))
+    answersX2005.append(Answer("Of course, I would be more than happy to!",
+                               Score(10, 10), Score(10, 10), "Y2011", "X2004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2005 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX2005,
+        None,
+    )
+    questionX2005 = Item(new_questionX2005, "X2005")
+
+    # question item X2006
+    answersX2006 = list()
+    answersX2006.append(Answer("I am looking to explore different approaches. "
+                               "In terms of expectations I am not sure. What would you suggest?",
+                               Score(5, 8), Score(10, 10),
+                               "Y2013", "X2002"))
+    answersX2006.append(Answer("I want to work very freely and go with the flow. "
+                               "So I guess I don't really have any expectations from you.",
+                               Score(3, 0), Score(10, 10), "Y2012", "X2007"))
+    answersX2006.append(Answer("I wish to test different approaches to the topic. "
+                               "I would suggest that I propose a couple of approaches, "
+                               "which you provide feedback on. And then we can define a "
+                               "corresponding structure with milestones.",
+                               Score(10, 10), Score(10, 10), "Y2014", "X2010"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2006 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX2006,
+        None,
+    )
+    questionX2006 = Item(new_questionX2006, "X2006")
+
+    # question item X2007
+    answersX2007 = list()
+    answersX2007.append(Answer("I have to disagree. I think I can get most value from this project"
+                               " if I explore different approaches freely and do not follow a "
+                               "predefined structure.",
+                               Score(0, 0), Score(10, 10),
+                               "Y2015", "Z2004"))
+    answersX2007.append(Answer("I understand where you are coming from. Then I will stick to your "
+                               "structure and suggestions.",
+                               Score(5, 8), Score(10, 10), "Y2016", "X2008"))
+    answersX2007.append(Answer("I appreciate your input. However, I would suggest a combined approach. "
+                               "How about I list and structure the approaches I would like to explore,"
+                               " you provide feedback and we build the structure together?",
+                               Score(10, 10), Score(10, 10), "Y2017", "X2009"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2007 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX2007,
+        None,
+    )
+    questionX2007 = Item(new_questionX2007, "X2007")
+
+    # question item X2008
+    answersX2008 = list()
+    answersX2008.append(Answer("Yes, sure. This is exactly what I wanted!",
+                               Score(0, 5), Score(10, 10),
+                               "Y2018", "Z2005"))
+    answersX2008.append(Answer("Actually, sorry to pivot on this. I would really appreciate "
+                               "a combined approach, meaning we both create the structure together. "
+                               "Would this be okay for you? ",
+                               Score(10, 10), Score(10, 10), "Y2019", "X2009"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2008 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX2008,
+        None,
+    )
+    questionX2008 = Item(new_questionX2008, "X2008")
+
+    # question item X2009
+    answersX2009 = list()
+    answersX2009.append(Answer("Yes, I think it would be important to discuss milestones. "
+                               "I would suggest to define weekly milestones and goals, and iterate if "
+                               "necessary. ",
+                               Score(8, 5), Score(10, 10),
+                               "Y2023", "Z2006"))
+    answersX2009.append(Answer("Yes, I think we should discuss milestones and timeline. "
+                               "I would propose weekly milestones with associated goals. Also I think"
+                               " we should aim to have a pre-final meeting after 3/4 of the project, "
+                               "to make sure we are wrapping up properly.",
+                               Score(10, 10), Score(10, 10), "Y2024", "Z2007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2009 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX2009,
+        None,
+    )
+    questionX2009 = Item(new_questionX2009, "X2009")
+
+    # question item X2010
+    answersX2010 = list()
+    answersX2010.append(Answer("That timeline is very unrealistic. I will not be able to make that in time!",
+                               Score(0, 0), Score(10, 10),
+                               "Y2020", "A2000"))
+    answersX2010.append(Answer("I am not sure I can create all of this by tomorrow, maybe I can "
+                               "do some research and get back to you in our next meeting?",
+                               Score(5, 8), Score(10, 10), "Y2021", "X2011"))
+    answersX2010.append(Answer("I am not sure I will manage by tomorrow. However I would suggest I send"
+                               " you an outline of the approaches I wish to look at by tomorrow, and then"
+                               " create a more detailed schedule before the next meeting?",
+                               Score(10, 10), Score(10, 10), "Y2022", "X2011"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2010 = Question(
+        "EQ'ed: You know it is unrealistic for you to create this by tomorrow. "
+        "Try to communicate to Jane that you will not be able to do this in time.",
+        3,
+        answersX2010,
+        None,
+    )
+    questionX2010 = Item(new_questionX2010, "X2010")
+
+    # question item X2011
+    answersX2011 = list()
+    answersX2011.append(Answer("Sure, if that is part of the project.",
+                               Score(3, 3), Score(10, 10),
+                               "Y2025", "Z2007"))
+    answersX2011.append(Answer("Yes, of course, I am happy to do that.",
+                               Score(5, 5), Score(10, 10), "Y2026", "Z0008"))
+    answersX2011.append(Answer("No problem at all. I will make sure to send you a draft"
+                               " of the final communication I would send out.",
+                               Score(10, 10), Score(10, 10), "Y2027", "Z0009"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX2011 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX2011,
+        None,
+    )
+    questionX2011 = Item(new_questionX2011, "X2011")
+
+    # level_end item A2000
+    level_endA2000 = Item(LevelEnd(
+        False,
+        "Try again! Are you sure this is the best way to communicate this to Jane?",
+    ), "A2000")
+
+    # level_end item Z2001
+    level_endZ2001 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. If you were Jane, would you have "
+        "appreciated this form of communication?",
+    ), "Z2001")
+
+    # level_end item Z2002
+    level_endZ2002 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. If you were Jane, do you think you would feel "
+        "as if your efforts were appreciated? She really wants to be engaged.",
+    ), "Z2002")
+
+    # level_end item Z2003
+    level_endZ2003 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. Jane really wanted you to provide lots of "
+        "updates as she is so engaged in the project. It is not okay to just assume "
+        "that she does not want additional weekly updates.",
+    ), "Z2003")
+
+    # level_end item Z2004
+    level_endZ2004 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. You disregarded Jane's wishes and expectations"
+        " how to design the project. Next time maybe try to incorporate her wishes more.",
+    ), "Z2004")
+
+    # level_end item Z2005
+    level_endZ2005 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. You did reasonably on showing empathy, "
+        "however you were not able to communicate what you wanted till then end,"
+        " and now agreed to an approach you did not want. ",
+    ), "Z2005")
+
+    # level_end item Z2006
+    level_endZ2006 = Item(LevelEnd(
+        True,
+        "Level failed! Think about it. You did reasonably on showing empathy, "
+        "however you were not able to communicate what you wanted till then end,"
+        " and now agreed to an approach you did not want. ",
+    ), "Z2006")
+
+    # level_end item Z2007
+    level_endZ2007 = Item(LevelEnd(
+        True,
+        "Level completed! You did well on communication and empathy, overall. "
+        "Also you added additional points to the discussion, which helped "
+        "communication and goal setting.",
+    ), "Z2007")
+
+    # level_end item Z0008
+    level_endZ2008 = Item(LevelEnd(
+        True,
+        "Level completed! You did well on communication and empathy, overall. "
+        "Also you added additional points to the discussion, which helped "
+        "communication and goal setting.",
+    ), "Z0008")
+
+    # level_end item Z0009
+    level_endZ2009 = Item(LevelEnd(
+        True,
+        "Level completed! Great job on communicating and showing empathy "
+        "for Jane's points by compromising. You could have not done better!",
+    ), "Z0009")
+
+    # intro level 3
+    introX3000 = Item(
+        Intro(
+            "Setting: You have prepared a client presentation as well as corresponding "
+            "analysis and results. You now have a meeting with your boss, Jackie, to get some "
+            "feedback. Despite your best efforts, you have not achieved the results you were hoping for, "
+            "and now have to communicate this to Jackie.",
+            'X3001',
+        ),
+        'X3000')
+
+    # question item X3001
+    answersX3001 = list()
+    answersX3001.append(Answer("Both the analysis and the presentation are looking good. There "
+                               "were a couple points with the analysis though that did not go completely smooth.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3001", "X3002"))
+    answersX3001.append(Answer("The presentation framework is looking okay overall. Yet there are a couple"
+                               " of points regarding the analysis I would like to discuss. ",
+                               Score(8, 5), Score(10, 10), "Y3002", "X3003"))
+    answersX3001.append(Answer("There have been some complications with the analysis, would you like me "
+                               "to walk you through it?",
+                               Score(10, 10), Score(10, 10), "Y3003", "X3004"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3001 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3001,
+        None,
+    )
+    questionX3001 = Item(new_questionX3001, "X3001")
+
+    # question item X3002
+    answersX3002 = list()
+    answersX3002.append(Answer("Oh, it was just minor points that did not go as planned, "
+                               "if you do not want to know the details, I will not bother you with them.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3004", "Z3001"))
+    answersX3002.append(Answer("Well, not exactly. There were some issues with the analysis. ",
+                               Score(8, 3), Score(10, 10), "Y3005", "X3005"))
+    answersX3002.append(Answer("Actually, there were some complications around the analysis. "
+                               "Would you like me to take you through them?",
+                               Score(10, 10), Score(10, 10), "Y3006", "X3003"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3002 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3002,
+        None,
+    )
+    questionX3002 = Item(new_questionX3002, "X3002")
+
+    # question item X3003
+    answersX3003 = list()
+    answersX3003.append(Answer("Put very simply - we ran into issues. The results were not as we had hoped.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3015", "X3008"))
+    answersX3003.append(Answer("In a nutshell: we followed the discussed technical implementation, "
+                               "yet the results we got did not match our expectations. "
+                               "We still summarised it for the presentation.",
+                               Score(10, 5), Score(10, 10), "Y3016", "X3008"))
+    answersX3003.append(Answer("To summarise: the implementation was correct, yet the results not as "
+                               "good as we had hoped. We however have already consolidated why the "
+                               "results are not great and thought of alternative approaches.",
+                               Score(10, 10), Score(10, 10), "Y3017", "X3010"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3003 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3003,
+        None,
+    )
+    questionX3003 = Item(new_questionX3003, "X3003")
+
+    # question item X3004
+    answersX3004 = list()
+    answersX3004.append(Answer("The results simply were not as good as we had hoped. "
+                               "There was no way to see this coming.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3023", "X3008"))
+    answersX3004.append(Answer("The results were not as good as we had hoped. I think it "
+                               "would have been difficult to predict, but at least this "
+                               "is a learning for us and the client.",
+                               Score(10, 5), Score(10, 10), "Y3024", "X3010"))
+    answersX3004.append(Answer("I think the key is communicating this to the client. These things happen,"
+                               " we should try and focus on the way forward for them.",
+                               Score(10, 10), Score(10, 10), "Y3025", "X3010"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3004 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3004,
+        None,
+    )
+    questionX3004 = Item(new_questionX3004, "X3004")
+
+    # question item X3005
+    answersX3005 = list()
+    answersX3005.append(Answer("Well, we did our best with the analysis but things did "
+                               "not work as planned. There is nothing we could have done about that.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3007", "Z3002"))
+    answersX3005.append(Answer("Despite our best efforts, some bits of the analysis "
+                               "did not return the expected results.",
+                               Score(8, 3), Score(10, 10), "Y3008", "X3006"))
+    answersX3005.append(Answer("Despite putting in lots of work, the analysis did not "
+                               "yield the desired results. Would you like me to explain in detail? ",
+                               Score(10, 10), Score(10, 10), "Y3009", "X3007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3005 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3005,
+        None,
+    )
+    questionX3005 = Item(new_questionX3005, "X3005")
+
+    # question item X3006
+    answersX3006 = list()
+    answersX3006.append(Answer("This really does not have anything to with the work that was put in."
+                               " Sometimes these analysis just do not work as planned.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3010", "Z3002"))
+    answersX3006.append(Answer("The team did put in lots of work. However the analysis unfortunately "
+                               "did not go as hoped. Let me take you through the details of the complications.",
+                               Score(10, 10), Score(10, 10), "Y3011", "X3007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3006 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX3006,
+        None,
+    )
+    questionX3006 = Item(new_questionX3006, "X3006")
+
+    # question item X3007
+    answersX3007 = list()
+    answersX3007.append(Answer("Sorry, but I really do not think this was our fault. "
+                               "I would appreciate if we could have a factual discussion about this.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3012", "Z3003"))
+    answersX3007.append(Answer("With all due respect, these things can happen. There was no error in implementation."
+                               " It is simply that the results did not quite match our expectations.",
+                               Score(5, 5), Score(10, 10), "Y3013", "Z3003"))
+    answersX3007.append(Answer("Let's take a step back. I would like to walk you through "
+                               "our approach and results in detail.",
+                               Score(10, 10), Score(10, 10), "Y3014", "X3003"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3007 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3007,
+        None,
+    )
+    questionX3007 = Item(new_questionX3007, "X3007")
+
+    # question item X3008
+    answersX3008 = list()
+    answersX3008.append(Answer("I really do not know. I am sorry.",
+                               Score(0, 0), Score(8, 5),
+                               "Y3018", "Z3004"))
+    answersX3008.append(Answer("Of course. What we have tried to convey in the presentation is "
+                               "a) the work we have done and b) what we would suggest going forward.",
+                               Score(8, 5), Score(8, 5), "Y3019", "X3009"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3008 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX3008,
+        None,
+    )
+    questionX3008 = Item(new_questionX3008, "X3008")
+
+    # question item X3009
+    answersX3009 = list()
+    answersX3009.append(Answer("Well, I really do not think there is much more we could have done. "
+                               "I am sure the client will understand this.",
+                               Score(5, 3), Score(10, 10),
+                               "Y3021", "Z3005"))
+    answersX3009.append(Answer("I would again emphasise that these things happen and focus the "
+                               "discussion towards what is important to get good results on the way forward.",
+                               Score(10, 10), Score(10, 10), "Y3022", "Z3005"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3009 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX3009,
+        None,
+    )
+    questionX3009 = Item(new_questionX3009, "X3009")
+
+    # question item X3010
+    answersX3010 = list()
+    answersX3010.append(Answer("There was just no time to predict this.",
+                               Score(0, 0), Score(10, 10),
+                               "Y3026", "X3008"))
+    answersX3010.append(Answer("We thought the results would have been more helpful. We should "
+                               "have tested the approaches earlier though. And will do so next time.",
+                               Score(8, 5), Score(10, 10), "Y3027", "X3011"))
+    answersX3010.append(Answer("We hoped the results would have been better. Earlier "
+                               "testing should help next time. Also here, I will get you in the "
+                               "loop earlier next time. So we can align on what to do and communicate to the client.",
+                               Score(10, 10), Score(10, 10), "Y3028", "X3011"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3010 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        3,
+        answersX3010,
+        None,
+    )
+    questionX3010 = Item(new_questionX3010, "X3010")
+
+    # question item X3011
+    answersX3011 = list()
+    answersX3011.append(Answer("Yes, that makes sense.",
+                               Score(5, 8), Score(10, 10),
+                               "Y3029", "Z3006"))
+    answersX3011.append(Answer("I will definitely explain the underlying approach, results and way forward. "
+                               "Generally I think it is important that we show a united front, and "
+                               "make sure the client understands exactly what is going on.",
+                               Score(10, 10), Score(10, 10), "Y3030", "Z3007"))
+    # question_text, number_of_answers, answers, next_question_id
+    new_questionX3011 = Question(
+        "EQ'ed: given what you just heard, what would you do now?",
+        2,
+        answersX3011,
+        None,
+    )
+    questionX3011 = Item(new_questionX3011, "X3011")
+
+    # level_end item Z3001
+    level_endZ3001 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. You completely missed the mark on communicating "
+        "your difficulties with your boss. This is very important and best to bring up "
+        "earlier rather than later. Make sure to be more upfront next time.",
+    ), "Z3001")
+
+    # level_end item Z3002
+    level_endZ3002 = Item(LevelEnd(
+        False,
+        "Level failed! Think about it. You missed the mark on communicating your "
+        "difficulties with your boss. It would be best to communicate what "
+        "happened and not get defensive.",
+    ), "Z3002")
+
+    # level_end item Z3003
+    level_endZ3003 = Item(LevelEnd(
+        False,
+        "Level failed! Despite your boss not communicating properly, it is important to "
+        "stay calm and professional. Try to re-focus the conversation on the content "
+        "of the discussion instead of getting defensive.",
+    ), "Z3003")
+
+    # level_end item Z3004
+    level_endZ3004 = Item(LevelEnd(
+        False,
+        "Level failed! A key aspect of empathy is understanding what Jackie cares about. "
+        "In this case that is delivering value to the client. "
+        "You should try to communicate focused on what she cares about.",
+    ), "Z3004")
+
+    # level_end item Z3005
+    level_endZ3005 = Item(LevelEnd(
+        True,
+        "Level completed! You did a good job understanding Jackie's intentions and communicating correctly.",
+    ), "Z3005")
+
+    # level_end item Z3006
+    level_endZ3006 = Item(LevelEnd(
+        True,
+        "Level completed! You did a great job on empathy and communication. Well done!",
+    ), "Z3006")
+
+    # level_end item Z3007
+    level_endZ3007 = Item(LevelEnd(
+        True,
+        "Level completed! Amazing, you did an incredible job! Especially "
+        "considering Jackie and the client the entire time really "
+        "shows strong empathy and communication skills!",
+    ), "Z3007")
 
 
 

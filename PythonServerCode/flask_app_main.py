@@ -120,6 +120,7 @@ def main_getLevelEnd_post():
         if question_id[0] == 'Z':
             completed = transfer_user_score(question_id, uid)
 
+
         text = question['question_text']
         next_question_id = question['next_question_id']
 
@@ -146,7 +147,7 @@ def main_scoreUser_post():
         if not uid_valid(uid):
             raise InvalidUsage('User ID not found.', status_code=403)
 
-        if answer_id is "":
+        if answer_id == "":
             raise InvalidUsage('Invalid json format. uid and answer_id fields required',
                                status_code=400)
 

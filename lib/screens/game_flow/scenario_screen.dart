@@ -3,7 +3,8 @@ import 'package:eq_ed/components/design_components/animated_image.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/models/server_api.dart';
-import 'package:eq_ed/screens/game_flow/answer_screen.dart';
+import 'package:eq_ed/screens/game_flow/video_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ScenarioScreen extends StatefulWidget {
@@ -25,8 +26,32 @@ class _ScenarioScreenState extends State<ScenarioScreen>
   late Map result;
   String levelNarrative = "";
   late String nextQuestionId;
+  final _auth = FirebaseAuth.instance;
+  String uid = "User1";
 
-  // todo - get current user function
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        uid = user.uid;
+      }
+    } catch (e) {
+      print(e);
+    }
+    String url = kInitLevel;
+    Map body = {
+      "uid": uid,
+      "level_id": widget.levelId,
+    };
+    print(uid);
+    print(widget.levelId);
+    result = await apiRequestInitLevel(url, body);
+    print(result);
+    setState(() {
+      levelNarrative = result['levelNarrative'];
+      nextQuestionId = result['nextQuestionId'];
+    });
+  }
 
   @override
   void initState() {
@@ -35,21 +60,12 @@ class _ScenarioScreenState extends State<ScenarioScreen>
       vsync: this,
     );
     super.initState();
+    getCurrentUser();
     makeApiCall();
   }
 
   void makeApiCall() async {
-    String url = 'http://127.0.0.1:5000/initLevelForUser';
-    Map body = {
-      "uid": "User1",
-      "level_id": widget.levelId,
-    };
-    result = await apiRequestInitLevel(url, body);
-    print(result);
-    setState(() {
-      levelNarrative = result['levelNarrative'];
-      nextQuestionId = result['nextQuestionId'];
-    });
+    return;
   }
 
   @override
@@ -104,11 +120,22 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                     height: 200.0,
                   ),
                   // try the rest here
-                  SingleChildScrollView(
-                    child: Text(
-                      levelNarrative,
-                      style: kLabelTextStyle.copyWith(
-                          backgroundColor: kAppBarColor, color: Colors.white),
+                  Expanded(
+                    child: ReusableCard(
+                      cardChild: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            levelNarrative,
+                            style: kLabelTextStyle.copyWith(
+                              //backgroundColor: kAppBarColor,
+                              color: kAppBarColor,
+                              fontSize: 19.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      onPress: () {},
                     ),
                   ),
                   SizedBox(
@@ -120,16 +147,15 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AnswerScreen(
-                            // todo - replace this with item that is passed
-                            currentQuestionId: widget.questionId,
+                          builder: (context) => VideoScreen(
+                            questionId: widget.questionId,
                           ),
                         ),
                       );
                     },
                     cardChild: Center(
                       child: Text(
-                        'Show me the question!',
+                        'Show me the first question!',
                         style: kLabelTextStyle.copyWith(
                           color: Colors.white,
                         ),

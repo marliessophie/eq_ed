@@ -3,6 +3,7 @@ import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/models/server_api.dart';
 import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
 import 'package:eq_ed/screens/game_flow/try_again_screen.dart';
+import 'package:eq_ed/screens/game_flow/video_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
@@ -49,7 +50,7 @@ class _AnswerScreenState extends State<AnswerScreen>
       vsync: this,
     );
     super.initState();
-    getCurrentUser();
+    //getCurrentUser();
     makeApiCall();
   }
 
@@ -65,6 +66,14 @@ class _AnswerScreenState extends State<AnswerScreen>
   }
 
   void makeApiCall() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        uid = user.uid;
+      }
+    } catch (e) {
+      print(e);
+    }
     print('in api call ' + widget.currentQuestionId);
     String url = kGetQuestionResponse;
     Map body = {
@@ -102,6 +111,35 @@ class _AnswerScreenState extends State<AnswerScreen>
         j++;
       }
     });
+  }
+
+  void showAnswer(int index) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            children: [
+              SizedBox(
+                height: 5.0,
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Icon(Icons.home),
+                    flex: 1,
+                  ),
+                  Expanded(
+                    child: Text(answerText[index]),
+                    flex: 5,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.0,
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -156,7 +194,7 @@ class _AnswerScreenState extends State<AnswerScreen>
                     ),
                   ),
                   Text(
-                    'Please choose your answer below.',
+                    'Tap the Boxes to see different \n possibilities below.',
                     style: kNormalTextStyle.copyWith(
                       fontSize: 18.0,
                     ),
@@ -182,9 +220,11 @@ class _AnswerScreenState extends State<AnswerScreen>
                       child: ReusableCard(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(answerText[0]),
+                          child: Text('Tap for Answer 1'),
+                          //child: Text(answerText[0]),
                         ),
                         onPress: () {
+                          showAnswer(0);
                           setState(() {
                             selectedAnswer = Answer.one;
                           });
@@ -202,9 +242,11 @@ class _AnswerScreenState extends State<AnswerScreen>
                       child: ReusableCard(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(answerText[1]),
+                          child: Text('Tap for Answer 2'),
+                          //child: Text(answerText[1]),
                         ),
                         onPress: () {
+                          showAnswer(1);
                           setState(() {
                             selectedAnswer = Answer.two;
                           });
@@ -222,10 +264,12 @@ class _AnswerScreenState extends State<AnswerScreen>
                       child: ReusableCard(
                         cardChild: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(answerText[2]),
+                          child: Text('Tap for Answer 3'),
+                          //child: Text(answerText[2]),
                         ),
                         onPress: () {
                           setState(() {
+                            showAnswer(2);
                             selectedAnswer = Answer.three;
                           });
                         },
@@ -260,17 +304,18 @@ class _AnswerScreenState extends State<AnswerScreen>
                     ),
                   ),
                   onPress: () {
+                    // todo - add scoring mechanism via api endpoint
+                    // ["uid", "answer_id"]
                     if (selectedAnswer != Answer.none) {
                       // get the answer id
                       var answerId = getNextAnswerId();
-
                       // X stands for questionId
                       if (answerId[0] == 'X') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AnswerScreen(
-                              currentQuestionId: answerId,
+                            builder: (context) => VideoScreen(
+                              questionId: answerId,
                             ),
                           ),
                         );
@@ -295,7 +340,6 @@ class _AnswerScreenState extends State<AnswerScreen>
                         );
                       }
                     } else {
-                      // TODO: adjust this per iOS or android OS
                       UserAlert.showMessageOneButton(
                           context,
                           'No Answer selected',
@@ -306,20 +350,20 @@ class _AnswerScreenState extends State<AnswerScreen>
                   },
                 ),
                 // todo - comment in or out, depending on how videos are displayed
-                // ReusableCard(
-                //   colour: kSecondaryColor,
-                //   cardChild: Center(
-                //     child: Text(
-                //       'Re-watch the scenario.',
-                //       style: kLabelTextStyle.copyWith(
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //   ),
-                //   onPress: () {
-                //     Navigator.pop(context);
-                //   },
-                // ),
+                ReusableCard(
+                  colour: kSecondaryColor,
+                  cardChild: Center(
+                    child: Text(
+                      'Re-watch the scenario.',
+                      style: kLabelTextStyle.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  onPress: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ],
             ),
           ),

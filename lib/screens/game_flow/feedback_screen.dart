@@ -23,6 +23,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   String uid = "User1";
   late Map result;
   String questionText = "";
+  bool completed = false;
   // late ConfettiController confettiController;
 
   @override
@@ -32,7 +33,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
       vsync: this,
     );
     super.initState();
-    getCurrentUser();
+    //getCurrentUser();
     makeApiCall();
     //confettiController = ConfettiController(duration: Duration(seconds: 5));
     //confettiController.play();
@@ -49,7 +50,17 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     }
   }
 
+  // todo refactor
   void makeApiCall() async {
+    //await getCurrentUser();
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        uid = user.uid;
+      }
+    } catch (e) {
+      print(e);
+    }
     print('in api call ' + widget.currentQuestionId);
     String url = kLevelEnd;
     Map body = {
@@ -57,9 +68,9 @@ class _FeedbackScreenState extends State<FeedbackScreen>
       "question_id": widget.currentQuestionId,
     };
     result = await apiRequestLevelEnd(url, body);
+    print(result);
     setState(() {
       questionText = result['questionText'];
-      // todo - check if user has completed level --> implement in BE (check this)
     });
   }
 

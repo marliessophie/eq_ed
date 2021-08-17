@@ -66,6 +66,8 @@ final Function onPressed = () {};
 // api endpoints
 const String kLevelEnd = 'http://127.0.0.1:5000/getLevelEnd';
 const String kGetQuestionResponse = 'http://127.0.0.1:5000/getQuestionResponse';
+const String kInitLevel = 'http://127.0.0.1:5000/initLevelForUser';
+const String kScoreUser = 'http://127.0.0.1:5000/scoreUser';
 
 // game data
 const String kLevelId1 = 'X1000';

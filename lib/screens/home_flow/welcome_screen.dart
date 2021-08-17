@@ -191,17 +191,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
           ),
-          TextButton(
-            child: Text('test'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VideoScreen(),
-                ),
-              );
-            },
-          ),
         ],
       ),
     );

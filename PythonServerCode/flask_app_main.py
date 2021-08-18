@@ -89,10 +89,10 @@ def main_getQuestionResponse_post():
         text = question['question_text']
         number_of_answers = question['number_of_answers']
         answer_ids = question['answers']
-        answers = get_answers(answer_ids, number_of_answers)
+        answers, answer_ids = get_answers(answer_ids, number_of_answers)
 
         return json.dumps({'success': True, 'question_text': text, 'number_of_answers': number_of_answers,
-                           'answers': answers}), \
+                           'answers': answers, 'answer_ids': answer_ids}), \
                200, {'ContentType': 'application/json'}
 
 

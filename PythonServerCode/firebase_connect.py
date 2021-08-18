@@ -60,7 +60,7 @@ def get_answers(answer_ids, number_of_answers):
             answers[next_question_id].append(answer_item.get('text'))
         else:
             print('no')
-    return answers
+    return answers, answer_ids
 
 
 def uid_valid(uid):
@@ -111,7 +111,7 @@ def get_user_current_score(uid, level):
     attempts = snapshot.get('attempts')
 
     # check if user has already got attempts, if not, set to one
-    number_of_attempts = 1
+    number_of_attempts = 1  # todo - check if this should be 0
     if attempts is not None:
         number_of_attempts = attempts
 
@@ -154,18 +154,18 @@ def transfer_user_score(question_id, uid):
         db.collection('user_data').document(uid).update(data)
 
     # if not passed the level then do not transfer scores, hence do nothing
-    # set temp scores to zero
-    data = {
-        'current_score': {
-            level: {
-                'current_cp': 0,
-                'current_ep': 0,
-                'current_hcp': 0,
-                'current_hep': 0,
-            }
-        }
-    }
-    db.collection('user_data').document(uid).update(data)
+    # # set temp scores to zero happens in initLevel when attempted again
+    # data = {
+    #     'current_score': {
+    #         level: {
+    #             'current_cp': 0,
+    #             'current_ep': 0,
+    #             'current_hcp': 0,
+    #             'current_hep': 0,
+    #         }
+    #     }
+    # }
+    # db.collection('user_data').document(uid).update(data)
     return complete
 
 

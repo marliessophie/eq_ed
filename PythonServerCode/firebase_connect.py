@@ -123,6 +123,15 @@ def get_user_current_score(uid, level):
     return score['current_cp'], score['current_ep'], score['current_hcp'], score['current_hep'], number_of_attempts
 
 
+def check_levels(level):
+    if level == 'one':
+        return 'two', 'three'
+    if level == 'two':
+        return 'one', 'three'
+    if level == 'three':
+        return 'one', 'two'
+
+
 def transfer_user_score(question_id, uid):
     # look up in db if the user has passed or failed
     snapshot = db.collection('questions').document(question_id).get()
@@ -137,6 +146,82 @@ def transfer_user_score(question_id, uid):
         # get the temp scores from the db and calculate percentages
         ccp, cep, chcp, chep, attempts = get_user_current_score(uid, level)
 
+        # check if final_scores exists
+        snapshot = db.collection('user_data').document(uid).get()
+        snapshot = snapshot.to_dict()
+        final_scoring = snapshot.get('final_scores')
+
+        if final_scoring:
+            # data has to be gathered
+            first_level_save, second_level_save = check_levels(level)
+
+            # get data for first level save if it exists
+            first_has_data = False
+            second_has_data = False
+            first = final_scoring.get(first_level_save)
+            if first:
+                first_has_data = True
+
+            # get data for second level save if it exists
+            second = final_scoring.get(second_level_save)
+            if second:
+                second_has_data = True
+
+            if first_has_data and second_has_data:
+                data = {
+                    'attempts': attempts + 1,
+                    'final_scores': {
+                        level: {
+                            'final_cp': ccp,
+                            'final_ep': cep,
+                            'final_hcp': chcp,
+                            'final_hep': chep,
+                            'final_cp_percentage': ccp / chcp,
+                            'final_ep_percentage': cep / chep,
+                        },
+                        first_level_save: first,
+                        second_level_save: second,
+                    }
+                }
+                db.collection('user_data').document(uid).update(data)
+                return complete
+
+            if first_has_data:
+                data = {
+                    'attempts': attempts + 1,
+                    'final_scores': {
+                        level: {
+                            'final_cp': ccp,
+                            'final_ep': cep,
+                            'final_hcp': chcp,
+                            'final_hep': chep,
+                            'final_cp_percentage': ccp / chcp,
+                            'final_ep_percentage': cep / chep,
+                        },
+                        first_level_save: first,
+                    }
+                }
+                db.collection('user_data').document(uid).update(data)
+                return complete
+
+            if second_has_data:
+                data = {
+                    'attempts': attempts + 1,
+                    'final_scores': {
+                        level: {
+                            'final_cp': ccp,
+                            'final_ep': cep,
+                            'final_hcp': chcp,
+                            'final_hep': chep,
+                            'final_cp_percentage': ccp / chcp,
+                            'final_ep_percentage': cep / chep,
+                        },
+                        second_level_save: second,
+                    }
+                }
+                db.collection('user_data').document(uid).update(data)
+                return complete
+
         # add score to permanent score and scale according to percentages
         data = {
             'attempts': attempts+1,
@@ -148,24 +233,11 @@ def transfer_user_score(question_id, uid):
                     'final_hep': chep,
                     'final_cp_percentage': ccp/chcp,
                     'final_ep_percentage': cep/chep,
-                }
+                },
             }
         }
         db.collection('user_data').document(uid).update(data)
 
-    # if not passed the level then do not transfer scores, hence do nothing
-    # # set temp scores to zero happens in initLevel when attempted again
-    # data = {
-    #     'current_score': {
-    #         level: {
-    #             'current_cp': 0,
-    #             'current_ep': 0,
-    #             'current_hcp': 0,
-    #             'current_hep': 0,
-    #         }
-    #     }
-    # }
-    # db.collection('user_data').document(uid).update(data)
     return complete
 
 

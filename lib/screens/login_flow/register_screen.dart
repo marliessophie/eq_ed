@@ -180,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       builder: (BuildContext context) =>
                                           AlertDialog(
                                             title: const Text(
-                                                'Terms & Conditions'),
+                                                'Terms, Conditions & Consent'),
                                             content: SingleChildScrollView(
                                               scrollDirection: Axis.vertical,
                                               child: Text(
@@ -194,12 +194,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.pop(
-                                                      context, 'I AGREE.');
+                                                  Navigator.pop(context,
+                                                      'I HAVE UNDERSTOOD AND AGREE.');
                                                   Navigator.pushNamed(
                                                       context, HomeScreen.id);
                                                 },
-                                                child: const Text('I AGREE.'),
+                                                child: const Text(
+                                                    'I HAVE UNDERSTOOD AND AGREE.'),
                                               ),
                                             ],
                                             elevation: 24.0,

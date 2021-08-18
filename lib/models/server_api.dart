@@ -40,7 +40,8 @@ Future<Map> apiRequestGetQuestion(String url, Map data) async {
     result = {
       "questionText": jsonData['question_text'],
       "answers": jsonData['answers'],
-      "numberOfAnswers": jsonData['number_of_answers']
+      "numberOfAnswers": jsonData['number_of_answers'],
+      "answerIds": jsonData['answer_ids'],
     };
   } else {
     return result = {
@@ -70,6 +71,28 @@ Future<Map> apiRequestLevelEnd(String url, Map data) async {
       "questionText": 'Placeholder',
       "nextQuestionId": 'Error 400',
     }; // todo - raise exception here
+  }
+  return result;
+}
+
+Future<Map> apiScoreUser(String url, Map data) async {
+  final response = await http.post(
+    Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: convert.jsonEncode(data),
+  );
+  Map result;
+  if (response.statusCode == 200) {
+    var jsonData = convert.jsonDecode(response.body) as Map<String, dynamic>;
+    result = {
+      "success": jsonData['success'],
+    };
+  } else {
+    return result = {
+      "success": false,
+    };
   }
   return result;
 }

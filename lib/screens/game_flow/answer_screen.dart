@@ -34,6 +34,7 @@ class _AnswerScreenState extends State<AnswerScreen>
   late int numberOfAnswers;
   String questionText = "";
   late var answers;
+  late var answerIds;
   var answerText = ["", "", ""];
   Map<Answer, int> answerMapping = {
     Answer.one: 0,
@@ -55,14 +56,16 @@ class _AnswerScreenState extends State<AnswerScreen>
   }
 
   void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        uid = user.uid;
-      }
-    } catch (e) {
-      print(e);
-    }
+    return;
+  }
+
+  void scoreUserApiCall(String answerId) async {
+    String url = kScoreUser;
+    Map body = {
+      "uid": uid,
+      "answer_id": answerId,
+    };
+    result = await apiScoreUser(url, body);
   }
 
   void makeApiCall() async {
@@ -84,6 +87,7 @@ class _AnswerScreenState extends State<AnswerScreen>
     setState(() {
       questionText = result['questionText'];
       answers = (result['answers']).entries.toList();
+      answerIds = (result['answerIds']).entries.toList();
       numberOfAnswers = (result['numberOfAnswers']).toInt();
       int j = 0;
       for (int i = 0; i < answers.length; i++) {
@@ -304,10 +308,13 @@ class _AnswerScreenState extends State<AnswerScreen>
                     ),
                   ),
                   onPress: () {
-                    // todo - add scoring mechanism via api endpoint
+                    print(selectedAnswer);
                     // ["uid", "answer_id"]
                     if (selectedAnswer != Answer.none) {
                       // get the answer id
+                      var scoreAnswerId =
+                          answerIds[answerMapping[selectedAnswer]].value;
+                      scoreUserApiCall(scoreAnswerId);
                       var answerId = getNextAnswerId();
                       // X stands for questionId
                       if (answerId[0] == 'X') {
@@ -349,7 +356,6 @@ class _AnswerScreenState extends State<AnswerScreen>
                     }
                   },
                 ),
-                // todo - comment in or out, depending on how videos are displayed
                 ReusableCard(
                   colour: kSecondaryColor,
                   cardChild: Center(

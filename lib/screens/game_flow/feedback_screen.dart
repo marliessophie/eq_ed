@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
 import 'package:eq_ed/models/server_api.dart';
@@ -24,6 +25,9 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   late Map result;
   String questionText = "";
   bool completed = false;
+  final _firestore = FirebaseFirestore.instance;
+  String communicationScore = "";
+  String empathyScore = "";
   // late ConfettiController confettiController;
 
   @override
@@ -33,26 +37,47 @@ class _FeedbackScreenState extends State<FeedbackScreen>
       vsync: this,
     );
     super.initState();
-    //getCurrentUser();
     makeApiCall();
     //confettiController = ConfettiController(duration: Duration(seconds: 5));
     //confettiController.play();
   }
 
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        uid = user.uid;
+  void getUserScore() async {
+    _firestore
+        .collection('user_data')
+        .doc(uid)
+        .get()
+        .then((DocumentSnapshot value) {
+      if (value.exists) {
+        print('success');
+        var level = 'one';
+        switch (widget.currentQuestionId[1]) {
+          case '2':
+            level = 'two';
+            break;
+          case '3':
+            level = 'three';
+            break;
+          default:
+            break;
+        }
+        var currentScore = value['current_score'];
+        print(currentScore);
+        var levelScore = currentScore[level];
+        double empathyPercentage =
+            (levelScore['current_ep'] / levelScore['current_hep']) * 100;
+        double communicationPercentage =
+            (levelScore['current_cp'] / levelScore['current_hcp']) * 100;
+        setState(() {
+          communicationScore = communicationPercentage.toString();
+          empathyScore = empathyPercentage.toString();
+        });
       }
-    } catch (e) {
-      print(e);
-    }
+    });
   }
 
   // todo refactor
   void makeApiCall() async {
-    //await getCurrentUser();
     try {
       final user = await _auth.currentUser;
       if (user != null) {
@@ -72,6 +97,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     setState(() {
       questionText = result['questionText'];
     });
+    getUserScore();
   }
 
   @override
@@ -144,19 +170,15 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Expanded(
-                          child: Text('[Total score: XX/YY]'),
+                          child: Text(
+                              'Communication Score Percentage: $communicationScore'),
                         ),
                         SizedBox(
                           height: 10.0,
                         ),
                         Expanded(
-                          child: Text('[Communication: XX]'),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Expanded(
-                          child: Text('[Empathy: XX]'),
+                          child:
+                              Text('Empathy Score Percentage: $empathyScore'),
                         ),
                         SizedBox(
                           height: 10.0,

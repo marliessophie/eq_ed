@@ -1,7 +1,5 @@
 import json
 
-# TODO: separate out classes into separate files
-
 
 class Score:
     def __init__(self, communication, empathy):

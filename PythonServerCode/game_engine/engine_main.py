@@ -4,7 +4,7 @@ from PythonServerCode.constants import K
 
 def main():
     engine = GameEngine()
-    engine.add_item(K.introX1000)  # example for model addition
+    engine.add_item(K.questionX3002)  # example for model addition
 
 
 if __name__ == "__main__":

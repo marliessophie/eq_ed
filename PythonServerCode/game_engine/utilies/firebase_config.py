@@ -2,7 +2,6 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from PythonServerCode.constants import K
-# from FlaskErrors import InvalidUsage # need to define this file
 
 
 class DbConnection:
@@ -12,7 +11,7 @@ class DbConnection:
         firebase_admin.initialize_app(self.credentials)
         self.db = firestore.client()  # stores client to firebase database
 
-    def get_level_narrative(self, level_id):  # TODO: adjust this function to return the level narrative
+    def get_level_narrative(self, level_id):
         result = self.db.collection('questions').document(level_id).get()
         if result.exsits:
             print(result.to_dict())
@@ -20,7 +19,6 @@ class DbConnection:
         else:
             print('There is no level with id: ' + level_id)
 
-    # def completed_level(self, uid): # add user score to the database, and that they have completed a level
     def add_level_end_to_db(self, level_end, id):
         new_level_end_entry = {
             'question_text': level_end.text,
@@ -81,32 +79,3 @@ class DbConnection:
     def add_score_to_db(self, score):
         score_entry = {'EP': score.empathy, 'CP': score.communication}
         return score_entry
-
-
-'''
-what I can do is when I add a question then also put it in a dictionary and create class that holds question text, 
-number of answers, answer (incl text, score, next)
-
-next 
-bool question 
-string id 
-
-'''
-
-'''
-def validateCreds(database_ver):
-    if database_ver == 'PS':
-        cred = credentials.Certificate('catchup-3b74a-firebase-adminsdk-ejuc8-ecb43ab5c5.json')
-        firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://catchup-3b74a-default-rtdb.europe-west1.firebasedatabase.app/'
-        })
-    if database_ver == 'catchup':
-        # Group version: "...1957.json"
-        cred = credentials.Certificate('catchup-c1b52-firebase-adminsdk-bmdox-e09f041957.json')
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://catchup-c1b52-default-rtdb.europe-west1.firebasedatabase.app/'
-        })
-
-database_ver = 'catchup'
-validateCreds(database_ver)
-'''

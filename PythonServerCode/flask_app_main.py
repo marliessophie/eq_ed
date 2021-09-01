@@ -12,8 +12,6 @@ from firebase_connect import get_level, get_answers, get_question, uid_valid, sc
     transfer_user_score
 from flask_errors import InvalidUsage
 
-# TODO: remove print statements from production code
-
 app = Flask(__name__)
 
 
@@ -116,7 +114,6 @@ def main_getLevelEnd_post():
         if question_id[0] == 'Z':
             completed = transfer_user_score(question_id, uid)
 
-
         text = question['question_text']
         next_question_id = question['next_question_id']
 
@@ -155,6 +152,5 @@ def main_scoreUser_post():
 
 
 if __name__ == '__main__':
-    # app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
-    #app.run(ssl_context=('cert.pem', 'key.pem'))
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+    app.run(ssl_context=('cert.pem', 'key.pem'))  # run on AWS ec2 instnace

@@ -10,34 +10,6 @@ credentials = credentials.Certificate(K.cred)
 firebase_admin.initialize_app(credentials)
 db = firestore.client()
 
-def get_scores(level_id):
-    docs = db.collection('user_data').stream()
-    epp = 0
-    cpp = 0
-    epc = 0
-    cpc = 0
-
-    for doc in docs:
-        doc = doc.to_dict()
-        if "final_scores" in doc:
-            scores = doc['final_scores']
-            if level_id in scores:
-                score = scores[level_id]
-                epp = epp + score['final_ep_percentage']
-                cpp = cpp + score['final_cp_percentage']
-                epc = epc + 1
-                cpc = cpc + 1
-
-    print(epp/epc, cpp/cpc)
-
-
-def get_json():
-    data = db.collection('user_data').document('User1').get()
-    data = data.to_dict()
-    print(data)
-    with open('user_data.json', 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-
 
 def init_level(level_id, uid):
     # second character in level id corresponds to the number of the level shown in the mapping
@@ -140,7 +112,7 @@ def get_user_current_score(uid, level):
     attempts = snapshot.get('attempts')
 
     # check if user has already got attempts, if not, set to one
-    number_of_attempts = 1  # todo - check if this should be 0
+    number_of_attempts = 1
     if attempts is not None:
         number_of_attempts = attempts
 
@@ -274,3 +246,32 @@ class AnswerResponse:
     def __init__(self, text, next_question_id):
         self.text = text
         self.next_question_id = next_question_id
+
+
+def get_scores(level_id):
+    docs = db.collection('user_data').stream()
+    epp = 0
+    cpp = 0
+    epc = 0
+    cpc = 0
+
+    for doc in docs:
+        doc = doc.to_dict()
+        if "final_scores" in doc:
+            scores = doc['final_scores']
+            if level_id in scores:
+                score = scores[level_id]
+                epp = epp + score['final_ep_percentage']
+                cpp = cpp + score['final_cp_percentage']
+                epc = epc + 1
+                cpc = cpc + 1
+
+    print(epp/epc, cpp/cpc)
+
+
+def get_json():
+    data = db.collection('user_data').document('User1').get()
+    data = data.to_dict()
+    print(data)
+    with open('user_data.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)

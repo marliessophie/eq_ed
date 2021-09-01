@@ -107,10 +107,6 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                       color: kSecondaryColor,
                       backgroundColor: kActiveCardColour,
                     ),
-                    // Container(
-                    //   child: AnimatedImage(),
-                    //   height: 50.0,
-                    // ),
                   ),
                   SizedBox(
                     height: 30.0,
@@ -133,7 +129,6 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                           child: Text(
                             levelNarrative,
                             style: kLabelTextStyle.copyWith(
-                              //backgroundColor: kAppBarColor,
                               color: kAppBarColor,
                               fontSize: 19.0,
                             ),

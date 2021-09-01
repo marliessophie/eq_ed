@@ -51,12 +51,7 @@ class _AnswerScreenState extends State<AnswerScreen>
       vsync: this,
     );
     super.initState();
-    //getCurrentUser();
     makeApiCall();
-  }
-
-  void getCurrentUser() async {
-    return;
   }
 
   void scoreUserApiCall(String answerId) async {
@@ -231,7 +226,6 @@ class _AnswerScreenState extends State<AnswerScreen>
                           fit: BoxFit.fitHeight,
                           child: Text('Tap for Answer 1'),
                         ),
-                        //child: Text(answerText[0]),
                         onPress: () {
                           showAnswer(0);
                           setState(() {
@@ -253,7 +247,6 @@ class _AnswerScreenState extends State<AnswerScreen>
                           fit: BoxFit.fitHeight,
                           child: Text('Tap for Answer 2'),
                         ),
-                        //child: Text(answerText[1]),
                         onPress: () {
                           showAnswer(1);
                           setState(() {
@@ -315,7 +308,6 @@ class _AnswerScreenState extends State<AnswerScreen>
                   ),
                   onPress: () {
                     print(selectedAnswer);
-                    // ["uid", "answer_id"]
                     if (selectedAnswer != Answer.none) {
                       // get the answer id
                       var scoreAnswerId =

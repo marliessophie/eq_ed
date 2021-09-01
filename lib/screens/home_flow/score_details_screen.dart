@@ -275,7 +275,6 @@ class _ScoreDetailsScreenState extends State<ScoreDetailsScreen> {
                           ),
                           colour: kAppBarColor,
                           onPress: () {
-                            // todo - include check if user has unlocked level
                             Navigator.pushNamed(context, CertificateScreen.id);
                           },
                         ),

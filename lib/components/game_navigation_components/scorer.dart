@@ -11,6 +11,6 @@ class Scorer {
   }
 
   static getLevelDescription(int score) {
-    return "you are awesome";
+    return "You have completed $score attempts so far, great job! Keep it up!}";
   }
 }

@@ -28,7 +28,6 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   final _firestore = FirebaseFirestore.instance;
   String communicationScore = "";
   String empathyScore = "";
-  // late ConfettiController confettiController;
 
   @override
   void initState() {
@@ -38,8 +37,6 @@ class _FeedbackScreenState extends State<FeedbackScreen>
     );
     super.initState();
     makeApiCall();
-    //confettiController = ConfettiController(duration: Duration(seconds: 5));
-    //confettiController.play();
   }
 
   void getUserScore() async {
@@ -103,7 +100,6 @@ class _FeedbackScreenState extends State<FeedbackScreen>
   @override
   void dispose() {
     controller.dispose();
-    //confettiController.dispose();
     super.dispose();
   }
 
@@ -219,25 +215,6 @@ class _FeedbackScreenState extends State<FeedbackScreen>
               ),
             ],
           ),
-          // todo - check if this is on the bottom
-          //   Align(
-          //     alignment: Alignment.center,
-          //     child: ConfettiWidget(
-          //       confettiController: confettiController,
-          //       colors: [
-          //         Colors.red,
-          //         Colors.blue,
-          //       ],
-          //       blastDirectionality: BlastDirectionality.explosive,
-          //       shouldLoop: true,
-          //       emissionFrequency: 0.05,
-          //       numberOfParticles: 5,
-          //       gravity: 0.2,
-          //       maxBlastForce: 2,
-          //       minBlastForce: 1,
-          //       particleDrag: 0.1,
-          //     ),
-          //   ),
         ],
       ),
     );

@@ -155,7 +155,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           onPress: () async {
                             if (email != '' && password != '') {
-                              // TODO: insert checks for password & email
                               setState(() {
                                 showSpinner = true;
                               });
@@ -163,7 +162,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 final newUser =
                                     await _auth.createUserWithEmailAndPassword(
                                         email: email, password: password);
-                                // TODO: adjust this to more recent syntax
                                 if (newUser != null) {
                                   loggedInUser = newUser.user!;
                                   // Add userName to the FirebaseFirestore
@@ -174,7 +172,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     'user_name': userName,
                                     'attempts': 0,
                                   });
-                                  // TODO: adjust this per iOS or android OS
                                   showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>

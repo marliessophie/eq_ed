@@ -6,8 +6,6 @@ import 'package:eq_ed/screens/home_flow/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eq_ed/components/design_components/alert.dart';
 
-// TODO: implement a model to retrieve the played scenarios in this round
-
 class PlayedScenariosScreen extends StatefulWidget {
   static var id = 'played_scenarios_screen';
 

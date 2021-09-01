@@ -4,10 +4,39 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from PythonServerCode.constants import K
 from PythonServerCode.flask_errors import InvalidUsage
+import json
 
 credentials = credentials.Certificate(K.cred)
 firebase_admin.initialize_app(credentials)
 db = firestore.client()
+
+def get_scores(level_id):
+    docs = db.collection('user_data').stream()
+    epp = 0
+    cpp = 0
+    epc = 0
+    cpc = 0
+
+    for doc in docs:
+        doc = doc.to_dict()
+        if "final_scores" in doc:
+            scores = doc['final_scores']
+            if level_id in scores:
+                score = scores[level_id]
+                epp = epp + score['final_ep_percentage']
+                cpp = cpp + score['final_cp_percentage']
+                epc = epc + 1
+                cpc = cpc + 1
+
+    print(epp/epc, cpp/cpc)
+
+
+def get_json():
+    data = db.collection('user_data').document('User1').get()
+    data = data.to_dict()
+    print(data)
+    with open('user_data.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 
 def init_level(level_id, uid):

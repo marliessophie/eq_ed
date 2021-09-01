@@ -6,15 +6,11 @@ from jsonschema import validate
 import datetime
 import pandas as pd
 import pickle
-import firebase_admin
-from firebase_admin import credentials, db
-from firebase_admin import firestore
 
-from PythonServerCode.constants import K
-from PythonServerCode.firebase_connect import get_level, get_answers, get_question, uid_valid, score_user, init_level, \
+from constants import K
+from firebase_connect import get_level, get_answers, get_question, uid_valid, score_user, init_level, \
     transfer_user_score
-from PythonServerCode.game_engine.question_engine import GameEngine
-from PythonServerCode.flask_errors import InvalidUsage
+from flask_errors import InvalidUsage
 
 # TODO: remove print statements from production code
 
@@ -159,4 +155,6 @@ def main_scoreUser_post():
 
 
 if __name__ == '__main__':
+    # app.run(host="0.0.0.0", port=5000, ssl_context=('cert.pem', 'key.pem'))
+    #app.run(ssl_context=('cert.pem', 'key.pem'))
     app.run(host="0.0.0.0", port=5000)

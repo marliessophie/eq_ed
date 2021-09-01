@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eq_ed/components/design_components/animated_image.dart';
-import 'package:eq_ed/components/game_navigation_components/firebase_service.dart';
 import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/constants.dart';
-import 'package:eq_ed/screens/game_flow/video_screen.dart';
 import 'package:eq_ed/screens/home_flow/home_screen.dart';
-import 'package:eq_ed/screens/home_flow/test.dart';
-import 'package:eq_ed/screens/home_flow/test2.dart';
 import 'package:eq_ed/screens/login_flow/email_login_screen.dart';
 import 'package:eq_ed/screens/home_flow/info_screen.dart';
 import 'package:eq_ed/screens/login_flow/register_screen.dart';
@@ -14,7 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static var id = 'welcome_screen';
@@ -38,50 +33,48 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Hi, I\'m EQ\'ed!',
-                    style: kNormalTextStyle.copyWith(
-                      fontSize: 30.0,
-                    ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Hi, I\'m EQ\'ed!',
+                  style: kNormalTextStyle.copyWith(
+                    fontSize: 30.0,
                   ),
-                  Text(
-                    'Sign-in below.',
-                    style: kNormalTextStyle.copyWith(
-                      fontSize: 18.0,
-                    ),
+                ),
+                Text(
+                  'Sign-in below.',
+                  style: kNormalTextStyle.copyWith(
+                    fontSize: 18.0,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Who is EQ\'ed?',
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Who is EQ\'ed?',
+                      style: kNormalTextStyle.copyWith(
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, InfoScreen.id);
+                      },
+                      child: Text(
+                        'Find out more about me!',
                         style: kNormalTextStyle.copyWith(
+                          color: kSecondaryAccentColor,
                           fontSize: 15.0,
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, InfoScreen.id);
-                        },
-                        child: Text(
-                          'Find out more about me!',
-                          style: kNormalTextStyle.copyWith(
-                            color: kSecondaryAccentColor,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -102,7 +95,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ),
-                        // TODO: adjust logout via google
                         onPressed: () async {
                           final user = await googleSignIn.signIn();
                           if (user != null) {
@@ -135,7 +127,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             } catch (e) {
                               print(e);
                             }
-
                             // move to home screen
                             Navigator.pushNamed(context, HomeScreen.id);
                           }
@@ -166,29 +157,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onPress: () {},
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Don\'t have an account?',
-                  style: kNormalTextStyle.copyWith(
-                    fontSize: 18.0,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RegisterScreen.id);
-                  },
-                  child: Text(
-                    'Sign Up!',
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Don\'t have an account?',
                     style: kNormalTextStyle.copyWith(
-                      color: kAccentColor,
+                      fontSize: 18.0,
                     ),
                   ),
-                )
-              ],
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegisterScreen.id);
+                    },
+                    child: Text(
+                      'Sign Up!',
+                      style: kNormalTextStyle.copyWith(
+                        color: kAccentColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],

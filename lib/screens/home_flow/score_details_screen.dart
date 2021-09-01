@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eq_ed/components/design_components/reusable_card.dart';
 import 'package:eq_ed/components/game_navigation_components/scorer.dart';
+import 'package:eq_ed/screens/game_flow/certificate_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
@@ -247,9 +249,35 @@ class _ScoreDetailsScreenState extends State<ScoreDetailsScreen> {
                         "Your level $level means " +
                             Scorer.getLevelDescription(score),
                         style: kLabelTextStyle.copyWith(
-                          fontSize: 22.0,
+                          fontSize: 20.0,
                           color: Colors.white,
                           height: 1.5,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: ReusableCard(
+                          cardChild: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0,
+                            ),
+                            child: Text(
+                              'Press for your certificate!',
+                              style: kLabelTextStyle.copyWith(
+                                fontSize: 22.0,
+                                color: Colors.white,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                          colour: kAppBarColor,
+                          onPress: () {
+                            // todo - include check if user has unlocked level
+                            Navigator.pushNamed(context, CertificateScreen.id);
+                          },
                         ),
                       ),
                     ],

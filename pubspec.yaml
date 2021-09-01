@@ -5,7 +5,7 @@ description: EQ'ed app, a mobile skills trainer.
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.1.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -27,12 +27,19 @@ dependencies:
   firebase_storage: ^10.0.1
   video_player: ^2.1.12
   chewie: ^1.2.2
+  confetti: ^0.5.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
+  flutter_launcher_icons: ^0.9.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/app_icon.png"
 
 flutter:
 

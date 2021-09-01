@@ -69,8 +69,8 @@ class _FeedbackScreenState extends State<FeedbackScreen>
         double communicationPercentage =
             (levelScore['current_cp'] / levelScore['current_hcp']) * 100;
         setState(() {
-          communicationScore = communicationPercentage.toString();
-          empathyScore = empathyPercentage.toString();
+          communicationScore = communicationPercentage.toStringAsFixed(2);
+          empathyScore = empathyPercentage.toStringAsFixed(2);
         });
       }
     });

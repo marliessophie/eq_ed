@@ -91,9 +91,8 @@ class _LevelScreenState extends State<LevelScreen> {
                       fontSize: 18.0,
                     ),
                   ),
-                  Container(
+                  Expanded(
                     child: AnimatedImage(),
-                    height: 250.0,
                   ),
                 ],
               ),
@@ -147,7 +146,9 @@ class _LevelScreenState extends State<LevelScreen> {
                             child: Text(
                               'Level two',
                               style: kLabelTextStyle.copyWith(
-                                color: kAppBarColor,
+                                color: completedLevels[1]
+                                    ? Colors.white
+                                    : kAppBarColor,
                               ),
                             ),
                           ),
@@ -188,7 +189,9 @@ class _LevelScreenState extends State<LevelScreen> {
                             child: Text(
                               'Level three',
                               style: kLabelTextStyle.copyWith(
-                                color: kAppBarColor,
+                                color: completedLevels[2]
+                                    ? Colors.white
+                                    : kAppBarColor,
                               ),
                             ),
                           ),

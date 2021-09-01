@@ -160,6 +160,11 @@ class _AnswerScreenState extends State<AnswerScreen>
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+    var width = queryData.size.width;
+    var heigth = queryData.size.height;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -222,11 +227,11 @@ class _AnswerScreenState extends State<AnswerScreen>
                     ),
                     Expanded(
                       child: ReusableCard(
-                        cardChild: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        cardChild: FittedBox(
+                          fit: BoxFit.fitHeight,
                           child: Text('Tap for Answer 1'),
-                          //child: Text(answerText[0]),
                         ),
+                        //child: Text(answerText[0]),
                         onPress: () {
                           showAnswer(0);
                           setState(() {
@@ -244,11 +249,11 @@ class _AnswerScreenState extends State<AnswerScreen>
                     ),
                     Expanded(
                       child: ReusableCard(
-                        cardChild: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        cardChild: FittedBox(
+                          fit: BoxFit.fitHeight,
                           child: Text('Tap for Answer 2'),
-                          //child: Text(answerText[1]),
                         ),
+                        //child: Text(answerText[1]),
                         onPress: () {
                           showAnswer(1);
                           setState(() {
@@ -266,11 +271,12 @@ class _AnswerScreenState extends State<AnswerScreen>
                     ),
                     Expanded(
                       child: ReusableCard(
-                        cardChild: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        cardChild: FittedBox(
+                          fit: BoxFit.fitHeight,
                           child: Text('Tap for Answer 3'),
-                          //child: Text(answerText[2]),
                         ),
+                        //child: Text(answerText[2]),
+                        //child: Text(answerText[2]),
                         onPress: () {
                           setState(() {
                             showAnswer(2);

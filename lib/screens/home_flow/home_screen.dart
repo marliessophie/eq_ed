@@ -146,9 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 30.0,
                     ),
                   ),
-                  Container(
+                  Expanded(
                     child: AnimatedImage(),
-                    height: 250.0,
                   ),
                 ],
               ),
@@ -174,19 +173,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SizedBox(
                                     height: 20.0,
                                   ),
-                                  Text(
-                                    'Your score: $score ice cubes',
-                                    style: kNormalTextStyle.copyWith(
-                                      fontSize: 20.0,
+                                  Expanded(
+                                    child: Text(
+                                      'Your score: $score ice cubes',
+                                      style: kNormalTextStyle.copyWith(
+                                        fontSize: 20.0,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15.0,
+                                    height: 10.0,
                                   ),
-                                  Text(
-                                    'Your level: $level',
-                                    style: kNormalTextStyle.copyWith(
-                                      fontSize: 20.0,
+                                  Expanded(
+                                    child: Text(
+                                      'Your level: $level',
+                                      style: kNormalTextStyle.copyWith(
+                                        fontSize: 20.0,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -222,7 +225,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         onPress: () {
-                          // todo - exchnage this by the level screen
                           Navigator.pushNamed(context, LevelScreen.id);
                         },
                       ),

@@ -49,9 +49,8 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                         fontSize: 30.0,
                       ),
                     ),
-                    Container(
+                    Expanded(
                       child: AnimatedImage(),
-                      height: 250.0,
                     ),
                   ],
                 ),
@@ -100,26 +99,28 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                               fontStyle: FontStyle.italic),
                         ),
                       ),
-                      TextButton(
-                        child: Text('Forgot password?',
-                            style: kNormalTextStyle.copyWith(
-                              color: kAccentColor,
-                              fontSize: 15.0,
-                            )),
-                        onPressed: () {
-                          var moveToResetScreen = () {
-                            Navigator.pushNamed(
-                                context, PasswordResetScreen.id);
-                          };
-                          UserAlert.showMessageTwoButtons(
-                              context,
-                              'Password Reset',
-                              'Are you sure you would like to reset your password?',
-                              'NO',
-                              'YES',
-                              onPressed,
-                              moveToResetScreen);
-                        },
+                      Expanded(
+                        child: TextButton(
+                          child: Text('Forgot password?',
+                              style: kNormalTextStyle.copyWith(
+                                color: kAccentColor,
+                                fontSize: 15.0,
+                              )),
+                          onPressed: () {
+                            var moveToResetScreen = () {
+                              Navigator.pushNamed(
+                                  context, PasswordResetScreen.id);
+                            };
+                            UserAlert.showMessageTwoButtons(
+                                context,
+                                'Password Reset',
+                                'Are you sure you would like to reset your password?',
+                                'NO',
+                                'YES',
+                                onPressed,
+                                moveToResetScreen);
+                          },
+                        ),
                       ),
                       Expanded(
                         child: ReusableCard(
@@ -153,7 +154,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: 5.0,
                       ),
                     ],
                   ),

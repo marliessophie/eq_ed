@@ -1,4 +1,5 @@
 import 'package:eq_ed/screens/game_flow/answer_screen.dart';
+import 'package:eq_ed/screens/game_flow/certificate_screen.dart';
 import 'package:eq_ed/screens/game_flow/example_answer_screen.dart';
 import 'package:eq_ed/screens/game_flow/feedback_screen.dart';
 import 'package:eq_ed/screens/game_flow/level_screen.dart';
@@ -22,10 +23,8 @@ class Navigate {
     RegisterScreen.id: (context) => RegisterScreen(),
     EmailLoginScreen.id: (context) => EmailLoginScreen(),
     InfoScreen.id: (context) => InfoScreen(),
-    // AnswerScreen.id: (context) => AnswerScreen(),
-    // FeedbackScreen.id: (context) => FeedbackScreen(),
     LevelScreen.id: (context) => LevelScreen(),
-    // ScenarioScreen.id: (context) => ScenarioScreen(),
+    CertificateScreen.id: (context) => CertificateScreen(),
     PlayedScenariosScreen.id: (context) => PlayedScenariosScreen(),
     InfoDetailsScreen.id: (context) => InfoDetailsScreen(),
     VerifyScreen.id: (context) => VerifyScreen(),

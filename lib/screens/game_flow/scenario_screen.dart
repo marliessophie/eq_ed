@@ -76,6 +76,11 @@ class _ScenarioScreenState extends State<ScenarioScreen>
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+    var width = queryData.size.width;
+    var height = queryData.size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kAppBarColor,
@@ -108,7 +113,7 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                     // ),
                   ),
                   SizedBox(
-                    height: 50.0,
+                    height: 30.0,
                   ),
                   Text(
                     'Ready, set, go! \nHere is your scenario!',
@@ -117,7 +122,7 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                     ),
                   ),
                   SizedBox(
-                    height: 200.0,
+                    height: height * 0.2,
                   ),
                   // try the rest here
                   Expanded(
@@ -139,25 +144,27 @@ class _ScenarioScreenState extends State<ScenarioScreen>
                     ),
                   ),
                   SizedBox(
-                    height: 200.0,
+                    height: height * 0.2,
                   ),
-                  ReusableCard(
-                    colour: kSecondaryColor,
-                    onPress: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VideoScreen(
-                            questionId: widget.questionId,
+                  Expanded(
+                    child: ReusableCard(
+                      colour: kSecondaryColor,
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoScreen(
+                              questionId: widget.questionId,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    cardChild: Center(
-                      child: Text(
-                        'Show me the first question!',
-                        style: kLabelTextStyle.copyWith(
-                          color: Colors.white,
+                        );
+                      },
+                      cardChild: Center(
+                        child: Text(
+                          'Show me the first question!',
+                          style: kLabelTextStyle.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

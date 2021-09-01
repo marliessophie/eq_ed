@@ -17,17 +17,18 @@ class IconContent extends StatelessWidget {
             data: IconThemeData(color: kAppBarColor),
             child: Icon(
               icon,
-              size: 70.0,
             ),
           ),
         ),
         SizedBox(
-          height: 15.0,
+          height: 5.0,
         ),
-        Text(
-          label,
-          style: kLabelTextStyle.copyWith(
-            color: kAppBarColor,
+        Expanded(
+          child: Text(
+            label,
+            style: kLabelTextStyle.copyWith(
+              color: kAppBarColor,
+            ),
           ),
         ),
         SizedBox(
